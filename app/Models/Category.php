@@ -29,7 +29,6 @@ class Category extends Model implements HasMedia
     protected $casts = [
         'name' => 'string',
         'parent_id' => 'integer',
-        'image' => 'string'
     ];
 
     /**
@@ -39,22 +38,6 @@ class Category extends Model implements HasMedia
      */
     public static $rules = [
         'name' => 'required'
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $types = [
-        'INT' => 'INT',
-        'DOUBLE' => 'DOUBLE',
-        'STRING' => 'STRING',
-        'TEXT' => 'TEXT',
-        'BOOLEAN' => 'BOOLEAN',
-        'ARRAY' => 'ARRAY',
-        'SELECT' => 'SELECT',
-        'MULTISELECT' => 'MULTISELECT',
     ];
 
     public $fillable = [
@@ -68,7 +51,7 @@ class Category extends Model implements HasMedia
      * @var array
      */
     protected $appends = [
-        'has_media'
+        'image'
     ];
 
     /**
@@ -111,27 +94,19 @@ class Category extends Model implements HasMedia
 
     /**
      * Add Media to api results
-     * @return bool
+     * @return string
      */
-    public function getHasMediaAttribute()
+    public function getImageAttribute()
     {
-        return $this->hasMedia() ? true : false;
+        return $this->getFirstMediaUrl();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function customAttribute()
+    public function books()
     {
-        return $this->hasMany(CustomAttribute::class, 'category_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function advertisements()
-    {
-        return $this->hasMany(Advertisement::class, 'category_id');
+        return $this->hasMany(Book::class);
     }
 
     /**

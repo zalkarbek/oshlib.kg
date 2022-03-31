@@ -16,13 +16,12 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('price', 8, 2)->default(0);
             $table->text('description')->nullable();
-            $table->string('file', 200);
             $table->integer('views')->unsigned()->default(0);
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('author_id')->unsigned();
             $table->bigInteger('publisher_id')->unsigned();
+            $table->bigInteger('file_id')->unsigned();
             $table->dateTime('release_date')->nullable();
             $table->foreign('category_id')
                 ->references('id')
@@ -37,6 +36,11 @@ class CreateBooksTable extends Migration
             $table->foreign('publisher_id')
                 ->references('id')
                 ->on('publishers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('file_id')
+                ->references('id')
+                ->on('files')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->softDeletes();
