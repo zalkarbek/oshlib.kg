@@ -1,0 +1,306 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class PermissionsSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        \DB::table('permissions')->insert(array(
+                array(
+                    'id' => 1,
+                    'name' => 'users.profile',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:02',
+                    'updated_at' => '2020-03-29 08:58:02',
+                ),
+                array(
+                    'id' => 2,
+                    'name' => 'dashboard',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:02',
+                    'updated_at' => '2020-03-29 08:58:02',
+                ),
+                array(
+                    'id' => 3,
+                    'name' => 'medias.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:02',
+                    'updated_at' => '2020-03-29 08:58:02',
+                ),
+                array(
+                    'id' => 4,
+                    'name' => 'medias.delete',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:02',
+                    'updated_at' => '2020-03-29 08:58:02',
+                ),
+                array(
+                    'id' => 5,
+                    'name' => 'medias',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 6,
+                    'name' => 'permissions.index',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 7,
+                    'name' => 'permissions.edit',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 8,
+                    'name' => 'permissions.update',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 9,
+                    'name' => 'permissions.destroy',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 10,
+                    'name' => 'roles.index',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 11,
+                    'name' => 'roles.edit',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 12,
+                    'name' => 'roles.update',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 13,
+                    'name' => 'roles.destroy',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 14,
+                    'name' => 'universities.index',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 15,
+                    'name' => 'universities.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 16,
+                    'name' => 'universities.store',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 17,
+                    'name' => 'universities.show',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 18,
+                    'name' => 'universities.edit',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:03',
+                    'updated_at' => '2020-03-29 08:58:03',
+                ),
+                array(
+                    'id' => 19,
+                    'name' => 'universities.update',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 20,
+                    'name' => 'universities.destroy',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 21,
+                    'name' => 'users.login-as-user',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 22,
+                    'name' => 'users.index',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 23,
+                    'name' => 'users.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 24,
+                    'name' => 'users.store',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 25,
+                    'name' => 'users.show',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 26,
+                    'name' => 'users.edit',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 27,
+                    'name' => 'users.update',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 28,
+                    'name' => 'users.destroy',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 29,
+                    'name' => 'app-settings',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:04',
+                    'updated_at' => '2020-03-29 08:58:04',
+                ),
+                array(
+                    'id' => 30,
+                    'name' => 'galleries.index',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:07',
+                    'updated_at' => '2020-03-29 08:58:07',
+                ),
+                array(
+                    'id' => 31,
+                    'name' => 'galleries.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:07',
+                    'updated_at' => '2020-03-29 08:58:07',
+                ),
+                array(
+                    'id' => 32,
+                    'name' => 'galleries.store',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:08',
+                    'updated_at' => '2020-03-29 08:58:08',
+                ),
+                array(
+                    'id' => 33,
+                    'name' => 'galleries.edit',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:08',
+                    'updated_at' => '2020-03-29 08:58:08',
+                ),
+                array(
+                    'id' => 34,
+                    'name' => 'galleries.update',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:08',
+                    'updated_at' => '2020-03-29 08:58:08',
+                ),
+                array(
+                    'id' => 35,
+                    'name' => 'galleries.destroy',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:58:08',
+                    'updated_at' => '2020-03-29 08:58:08',
+                ),
+                array(
+                    'id' => 36,
+                    'name' => 'permissions.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:15',
+                    'updated_at' => '2020-03-29 08:59:15',
+                ),
+                array(
+                    'id' => 37,
+                    'name' => 'permissions.store',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:15',
+                    'updated_at' => '2020-03-29 08:59:15',
+                ),
+                array(
+                    'id' => 38,
+                    'name' => 'permissions.show',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:15',
+                    'updated_at' => '2020-03-29 08:59:15',
+                ),
+                array(
+                    'id' => 39,
+                    'name' => 'roles.create',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:15',
+                    'updated_at' => '2020-03-29 08:59:15',
+                ),
+                array(
+                    'id' => 40,
+                    'name' => 'roles.store',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:15',
+                    'updated_at' => '2020-03-29 08:59:15',
+                ),
+                array(
+                    'id' => 41,
+                    'name' => 'roles.show',
+                    'guard_name' => 'web',
+                    'created_at' => '2020-03-29 08:59:16',
+                    'updated_at' => '2020-03-29 08:59:16',
+                ),
+            ));
+    }
+}
