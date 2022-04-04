@@ -8,13 +8,13 @@
                 {!! csrf_field() !!}
 
                 <div class="input-group mb-3">
-                    <input value="{{ old('phone') }}" type="tel" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" placeholder="{{ __('auth.phone') }}" aria-label="{{ __('auth.phone') }}">
+                    <input value="{{ old('email') }}" type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Email" aria-label="Email">
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                     </div>
-                    @if ($errors->has('phone'))
+                    @if ($errors->has('email'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('phone') }}
+                            {{ $errors->first('email') }}
                         </div>
                     @endif
                 </div>

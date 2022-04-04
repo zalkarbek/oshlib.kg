@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "921d174df6ba78033ac41d2a998ce0f7",
+    "content-hash": "d9d667656fd4e9a93655098e2081686e",
     "packages": [
         {
             "name": "anlutro/l4-settings",
@@ -8377,16 +8377,16 @@
         },
         {
             "name": "laravel-lang/lang",
-            "version": "10.4.12",
+            "version": "10.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Lang/lang.git",
-                "reference": "aecd86c9e4d7821ea32603125ffa78ad33361aa0"
+                "reference": "a6727ec2bc696c0e02bf4d52d7c203b2c7b716ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/aecd86c9e4d7821ea32603125ffa78ad33361aa0",
-                "reference": "aecd86c9e4d7821ea32603125ffa78ad33361aa0",
+                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/a6727ec2bc696c0e02bf4d52d7c203b2c7b716ee",
+                "reference": "a6727ec2bc696c0e02bf4d52d7c203b2c7b716ee",
                 "shasum": ""
             },
             "require": {
@@ -8449,7 +8449,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-03-30T08:46:42+00:00"
+            "time": "2022-03-31T07:07:56+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -9327,16 +9327,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.19",
+            "version": "9.5.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "35ea4b7f3acabb26f4bb640f8c30866c401da807"
+                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/35ea4b7f3acabb26f4bb640f8c30866c401da807",
-                "reference": "35ea4b7f3acabb26f4bb640f8c30866c401da807",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12bc8879fb65aef2138b26fc633cb1e3620cffba",
+                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba",
                 "shasum": ""
             },
             "require": {
@@ -9414,7 +9414,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.19"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.20"
             },
             "funding": [
                 {
@@ -9426,7 +9426,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-15T09:57:31+00:00"
+            "time": "2022-04-01T12:37:26+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10449,7 +10449,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.1"
+        "php": "^7.3|^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

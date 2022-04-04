@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.1",
+        "php": "^7.3|^8.0",
         "anlutro/l4-settings": "^1.1",
         "barryvdh/laravel-dompdf": "^1.0",
         "benwilkins/laravel-fcm-notification": "^4.0",
