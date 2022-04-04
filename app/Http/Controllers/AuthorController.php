@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AuthorDataTable;
 use App\Models\Author;
+use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Flash;
 
 class AuthorController extends Controller
 {
+    /** @var AuthorRepository */
+    private $authorRepository;
+
+    public function __construct(AuthorRepository $authorRepository)
+    {
+        $this->authorRepository = $authorRepository;
+    }
+
     /**
      * Display a listing of the resource.
-     *
+     * @param AuthorDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AuthorDataTable $dataTable)
     {
-        //
+        return $dataTable->render('authors.index');
     }
 
     /**
@@ -24,7 +36,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('authors.create');
     }
 
     /**
@@ -35,7 +47,20 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        try {
+            $author = $this->authorRepository->create($input);
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $author->addMediaFromRequest('file')
+                    ->toMediaCollection();
+            }
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.saved_successfully', ['operator' => __('lang.author')]));
+
+        return redirect(route('authors.index'));
     }
 
     /**
@@ -46,7 +71,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        return view('categories.show')->with('author', $author);
     }
 
     /**
@@ -57,7 +82,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view('authors.edit')->with('author', $author);
     }
 
     /**
@@ -69,7 +94,22 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $input = $request->all();
+        try {
+            $author = $this->authorRepository->update($input, $author->id);
+
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $author->clearMediaCollection();
+                $author->addMediaFromRequest('file')
+                    ->toMediaCollection();
+            }
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.updated_successfully', ['operator' => __('lang.author')]));
+
+        return redirect(route('authors.index'));
     }
 
     /**
@@ -80,6 +120,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect(route('authors.index'));
     }
 }

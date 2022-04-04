@@ -26,6 +26,15 @@
     </li>
 @endcan
 
+@can('authors.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/authors*') ? 'active' : '' }}" href="{!! url('console/authors') !!}">
+            @if($icons)<i class="nav-icon fa fa-user-circle-o"></i>@endif
+            <p>{{trans('lang.author_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 @can('articles.index')
     <li class="nav-item has-treeview {{ Request::is('articles*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('articles*') ? 'active' : '' }}"> @if($icons)

@@ -776,6 +776,20 @@ return [
     'book_image_placeholder' => 'Вставьте изображение в SVG формате',
     'book_updated_at' => 'Обновлено в',
 
+    'author' => 'Автор',
+    'author_plural' => 'Авторы',
+    'author_desc' => 'Управление Авторами',
+    'author_edit' => 'Редактировать Автор',
+    'author_table' => 'Список Авторов',
+    'author_create' => 'Создать Автор',
+    'author_name' => 'Название',
+    'author_name_help' => 'Введите Название',
+    'author_name_placeholder' => 'Введите Название',
+    'author_image' => 'Изображение',
+    'author_image_help' => 'Вставьте изображение',
+    'author_image_placeholder' => 'Вставьте изображение',
+    'author_updated_at' => 'Обновлено в',
+
     'genre' => 'Жанр',
     'theme' => 'Тема',
 

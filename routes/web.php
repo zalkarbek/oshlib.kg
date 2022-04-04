@@ -75,4 +75,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
         'show'
     ]);
 
+    Route::resource('authors', 'App\Http\Controllers\AuthorController')->except([
+        'show'
+    ]);
+
 });

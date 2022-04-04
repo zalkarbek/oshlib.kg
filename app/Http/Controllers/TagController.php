@@ -78,7 +78,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('tags.show')->with('tag', $tag);
     }
 
     /**
@@ -89,7 +89,9 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        $types = ['genre' => 'genre', 'theme' => 'theme'];
+
+        return view('tags.edit')->with('tag', $tag)->with('types', $types);
     }
 
     /**
@@ -101,7 +103,22 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $input = $request->all();
+        try {
+            $tag = $this->tagRepository->update($input, $tag->id);
+
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $tag->clearMediaCollection();
+                $tag->addMediaFromRequest('file')
+                    ->toMediaCollection();
+            }
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.updated_successfully', ['operator' => __('lang.tag')]));
+
+        return redirect(route('tags.index'));
     }
 
     /**
@@ -112,6 +129,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return redirect(route('tags.index'));
     }
 }
