@@ -16,12 +16,10 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
-use RachidLaasri\LaravelInstaller\Helpers\MigrationsHelper;
 // use Themsaid\Langman\Manager;
 
 class AppSettingController extends Controller
 {
-    use MigrationsHelper;
     /** @var  UserRepository */
     private $userRepository;
 
@@ -180,10 +178,6 @@ class AppSettingController extends Controller
             Flash::error(trans('lang.app_setting_global').'not found');
             return redirect()->back();
         }
-        $executedMigrations = $this->getExecutedMigrations();
-        $newMigrations = $this->getMigrations(config('installer.currentVersion', 'v100'));
-        $containsUpdate = !empty($newMigrations) && count(array_intersect($newMigrations, $executedMigrations->toArray())) != count($newMigrations);
-
         /*$langFiles = [];
         $languages = getAvailableLanguages();
         $mobileLanguages = getLanguages();
@@ -207,7 +201,7 @@ class AppSettingController extends Controller
         }
         $upload = $this->uploadRepository->findByField('uuid', setting('app_logo'))->first();
 
-        return view('settings.' . $type . '.' . $tab . '', compact(['type', 'tab', 'timezones', 'upload', 'containsUpdate']));
+        return view('settings.' . $type . '.' . $tab . '', compact(['type', 'tab', 'timezones', 'upload']));
     }
 
     public function initFirebase()

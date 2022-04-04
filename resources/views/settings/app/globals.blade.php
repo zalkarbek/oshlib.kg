@@ -26,12 +26,6 @@
                             <a class="nav-link pt-1" href="{{url('settings/clear-cache')}}"><i class="fa fa-trash-o"></i> {{trans('lang.app_setting_clear_cache')}}
                             </a>
                         </li>
-                        @if($containsUpdate)
-                            <li class="nav-item">
-                                <a class="nav-link pt-1" href="{{url('update/'.config('installer.currentVersion','v100'))}}"><i class="fa fa-refresh"></i> {{trans('lang.app_setting_check_for')}}
-                                </a>
-                            </li>
-                        @endif
                     </div>
                 @endif
             </ul>
@@ -66,7 +60,7 @@
                     <div class="form-group row ">
                         {!! Form::label('theme_contrast', trans("lang.app_setting_theme_contrast"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
-                            {!! Form::select('theme_contrast', 
+                            {!! Form::select('theme_contrast',
                             [
                             'dark' => trans('lang.app_setting_dark_theme'),
                             'light' => trans('lang.app_setting_light_theme'),
@@ -80,7 +74,7 @@
                     <div class="form-group row ">
                         {!! Form::label('theme_color', trans("lang.app_setting_theme_color"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
-                            {!! Form::select('theme_color', 
+                            {!! Form::select('theme_color',
                             [
                             'primary' => trans('lang.app_setting_blue'),
                             'secondary' => trans('lang.app_setting_gray'),

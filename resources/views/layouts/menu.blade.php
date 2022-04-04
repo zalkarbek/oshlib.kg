@@ -9,18 +9,11 @@
 <li class="nav-header">{{trans('lang.app_management')}}</li>
 
 @can('categories.index')
-    <li class="nav-item has-treeview {{ Request::is('console/categories*') || Request::is('console/customAttributes*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ Request::is('console/categories*') || Request::is('console/customAttributes*') ? 'active' : '' }}"> @if($icons)
-                <i class="nav-icon fa fa-folder"></i>@endif
-            <p>{{trans('lang.category_plural')}} <i class="right fa fa-angle-left"></i></p>
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/categories*') ? 'active' : '' }}" href="{!! url('console/categories') !!}">
+            @if($icons)<i class="nav-icon fa fa-folder"></i>@endif
+                <p>{{trans('lang.category_plural')}}</p>
         </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('console/categories*') ? 'active' : '' }}" href="{!! url('console/categories') !!}">@if($icons)
-                        <i class="nav-icon fa fa-folder"></i>@endif<p>{{trans('lang.category_plural')}}</p>
-                </a>
-            </li>
-        </ul>
     </li>
 @endcan
 
@@ -44,15 +37,6 @@
 
         </ul>
     </li>
-@endcan
-
-@can('medias')
-<li class="nav-item">
-    <a class="nav-link {{ Request::is('console/complaints*') ? 'active' : '' }}" href="{!! url('console/complaints') !!}">
-        @if($icons)<i class="nav-icon fa fa-bullhorn"></i>@endif
-        <p>Жалобы</p>
-    </a>
-</li>
 @endcan
 
 <li class="nav-header">{{trans('lang.app_setting')}}</li>
@@ -94,14 +78,6 @@
                         <p>{{trans('lang.mobile_home')}}<span class="right badge badge-danger">New</span></p>
                     </a>
                 </li>
-
-                @can('slides.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('console/slides*') ? 'active' : '' }}" href="{!! url('console/slides') !!}">
-                            @if($icons)<i class="nav-icon fa fa-magic"></i>@endif
-                        </a>
-                    </li>
-                @endcan
             </ul>
         @endhasrole
 
