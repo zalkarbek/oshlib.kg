@@ -40,7 +40,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>{{$adsThisMonthCount}}</h3>
+                        <h3>{{$booksThisMonthCount}}</h3>
                         <p>{{trans('lang.total_ads_this_month')}}</p>
                     </div>
                 </div>

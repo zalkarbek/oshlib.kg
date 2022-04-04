@@ -53,6 +53,15 @@
     </li>
 @endcan
 
+@can('books.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/books*') ? 'active' : '' }}" href="{!! url('console/books') !!}">
+            @if($icons)<i class="nav-icon fa fa-book"></i>@endif
+            <p>{{trans('lang.book_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 @can('articles.index')
     <li class="nav-item has-treeview {{ Request::is('articles*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('articles*') ? 'active' : '' }}"> @if($icons)

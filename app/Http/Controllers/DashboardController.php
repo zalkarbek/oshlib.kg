@@ -33,19 +33,19 @@ class DashboardController extends AppBaseController
      */
     public function index()
     {
-        $advertisements = $adsCount = $this->bookRepository->limit(5);
-        $adsCount = $advertisements->count();
-        $adsThisMonthCount = $advertisements->where('created_at', '>=', Carbon::now()->month()->toDateTimeString())->count();
-        $adsThisYearCount = $advertisements->where('created_at', '>=', Carbon::now()->year()->toDateTimeString())->count();
+        $books = $this->bookRepository->limit(5);
+        $booksCount = $books->count();
+        $booksThisMonthCount = $books->where('created_at', '>=', Carbon::now()->month()->toDateTimeString())->count();
+        $booksThisYearCount = $books->where('created_at', '>=', Carbon::now()->year()->toDateTimeString())->count();
         $usersCount = $this->userRepository->all()->count();
 
         return view('dashboard.index')
             ->with("ajaxEarningUrl", '')
-            ->with("adsCount", $adsCount)
-            ->with("adsThisMonthCount", $adsThisMonthCount)
-            ->with("adsThisYearCount", $adsThisYearCount)
+            ->with("booksCount", $booksCount)
+            ->with("booksThisMonthCount", $booksThisMonthCount)
+            ->with("booksThisYearCount", $booksThisYearCount)
             ->with("usersCount", $usersCount)
-            ->with("advertisements", $advertisements)
+            ->with("books", $books)
             ->with("earning", 0);
     }
 }

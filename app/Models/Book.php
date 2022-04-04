@@ -56,4 +56,12 @@ class Book extends Model implements HasMedia
         'author_id' => 'integer',
         'file_id' => 'integer',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -771,9 +771,11 @@ return [
     'book_name' => 'Название',
     'book_name_help' => 'Введите Название',
     'book_name_placeholder' => 'Введите Название',
+    'book_description' => 'Описание',
+    'book_release_date' => 'Дата',
     'book_image' => 'Изображение',
-    'book_image_help' => 'Вставьте изображение в SVG формате',
-    'book_image_placeholder' => 'Вставьте изображение в SVG формате',
+    'book_image_help' => 'Вставьте изображение',
+    'book_image_placeholder' => 'Вставьте изображение',
     'book_updated_at' => 'Обновлено в',
 
     'author' => 'Автор',

@@ -10,38 +10,39 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
-          <li class="breadcrumb-itema ctive"><a href="{!! route('books.index') !!}">{{trans('lang.book_plural')}}</a>
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
+          <li class="breadcrumb-item"><a href="{!! route('books.index') !!}">{{trans('lang.book_plural')}}</a>
           </li>
+          <li class="breadcrumb-item active">{{trans('lang.book_table')}}</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
+
 <div class="content">
+  <div class="clearfix"></div>
+  @include('flash::message')
   <div class="card">
     <div class="card-header">
       <ul class="nav nav-tabs align-items-end card-header-tabs w-100">
         <li class="nav-item">
-          <a class="nav-link" href="{!! route('books.index') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.book_table')}}</a>
+          <a class="nav-link active" href="{!! url()->current() !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.book_table')}}</a>
         </li>
+        @can('books.create')
         <li class="nav-item">
-          <a class="nav-link active" href="{!! route('books.create') !!}"><i class="fa fa-plus mr-2"></i>{{trans('lang.book_create')}}</a>
+          <a class="nav-link" href="{!! route('books.create') !!}"><i class="fa fa-plus mr-2"></i>{{trans('lang.book_create')}}</a>
         </li>
+        @endcan
+        {{-- @include('layouts.right_toolbar', compact('dataTable')) --}}
       </ul>
     </div>
     <div class="card-body">
-      <div class="row">
-        @include('books.show_fields')
-
-        <!-- Back Field -->
-        <div class="form-group col-12 text-right">
-          <a href="{!! route('books.index') !!}" class="btn btn-default"><i class="fa fa-undo"></i> {{trans('lang.back')}}</a>
-        </div>
-      </div>
+      @include('books.table')
       <div class="clearfix"></div>
     </div>
   </div>
 </div>
 @endsection
+
