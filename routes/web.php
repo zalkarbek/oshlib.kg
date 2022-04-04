@@ -66,4 +66,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
             ->where('type', '[A-Za-z]*')->where('tab', '[A-Za-z]*')->name('app-settings');
     });
 
+    Route::post('categories/remove-media', 'App\Http\Controllers\CategoryController@removeMedia');
+    Route::resource('categories', 'App\Http\Controllers\CategoryController')->except([
+        'show'
+    ]);
+
 });
