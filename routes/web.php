@@ -79,4 +79,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
         'show'
     ]);
 
+    Route::resource('publishers', 'App\Http\Controllers\PublisherController')->except([
+        'show'
+    ]);
+
 });
