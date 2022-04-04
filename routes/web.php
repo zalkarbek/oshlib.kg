@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 Route::get('storage/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 
+Route::get('firebase/sw-js', 'App\Http\Controllers\AppSettingController@initFirebase');
+
 Route::group(['middleware' => ['permission:permissions.index', 'auth'], 'prefix' => 'permissions'], function () {
     Route::get('role-has-permission', 'App\Http\Controllers\PermissionController@roleHasPermission');
     Route::get('refresh-permissions', 'App\Http\Controllers\PermissionController@refreshPermissions');
