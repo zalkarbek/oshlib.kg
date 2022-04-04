@@ -24,14 +24,14 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{$adsCount}}</h3>
+                        <h3>{{$booksCount}}</h3>
 
-                        <p>{{trans('lang.total_ads')}}</p>
+                        <p>{{trans('lang.total_books')}}</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-shopping-bag"></i>
                     </div>
-                    <a href="{{ route('products.index') }}" class="small-box-footer">{{trans('lang.dashboard_more_info')}}
+                    <a href="{{ route('books.index') }}" class="small-box-footer">{{trans('lang.dashboard_more_info')}}
                         <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -50,8 +50,8 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{$adsThisYearCount}}</h3>
-                        <p>{{trans('lang.total_ads_this_year')}}</p>
+                        <h3>{{$booksThisYearCount}}</h3>
+                        <p>{{trans('lang.total_books_this_year')}}</p>
                     </div>
                 </div>
             </div>
@@ -130,15 +130,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($advertisements as $ad)
+                            @foreach($books as $book)
 
                                 <tr>
                                     <td>
-                                        {!! getMediaColumn($ad, 'default', 'img-circle img-size-32 mr-2') !!}
+                                        {!! getMediaColumn($book, 'default', 'img-circle img-size-32 mr-2') !!}
                                     </td>
-                                    <td>{!! $ad->title !!}</td>
+                                    <td>{!! $book->name !!}</td>
                                     <td>
-                                        {!! $ad->user->name !!}
+                                        {!! $book->user->name !!}
                                     </td>
                                     <td class="text-center">
                                         <a href="" class="text-muted"> <i class="fa fa-edit"></i> </a>

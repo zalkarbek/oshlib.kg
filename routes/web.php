@@ -83,4 +83,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
         'show'
     ]);
 
+    Route::resource('attributes', 'App\Http\Controllers\AttributeController')->except([
+        'show'
+    ]);
+
+    Route::resource('books', 'App\Http\Controllers\BookController')->except([
+        'show'
+    ]);
+
 });

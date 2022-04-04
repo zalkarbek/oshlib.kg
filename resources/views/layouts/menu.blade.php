@@ -44,6 +44,15 @@
     </li>
 @endcan
 
+@can('attributes.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/attributes*') ? 'active' : '' }}" href="{!! url('console/attributes') !!}">
+            @if($icons)<i class="nav-icon fa fa-tag"></i>@endif
+            <p>{{trans('lang.attribute_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 @can('articles.index')
     <li class="nav-item has-treeview {{ Request::is('articles*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('articles*') ? 'active' : '' }}"> @if($icons)

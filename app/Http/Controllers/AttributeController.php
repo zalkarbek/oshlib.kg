@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AttributeDataTable;
 use App\Models\Attribute;
+use App\Repositories\AttributeRepository;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Flash;
 
 class AttributeController extends Controller
 {
+    /** @var AttributeRepository */
+    private $attributeRepository;
+
+    public function __construct(AttributeRepository $attributeRepository)
+    {
+        $this->attributeRepository = $attributeRepository;
+    }
+
     /**
      * Display a listing of the resource.
-     *
+     * @param AttributeDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AttributeDataTable $dataTable)
     {
-        //
+        return $dataTable->render('attributes.index');
     }
 
     /**
@@ -24,7 +36,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        //
+        return view('attributes.create');
     }
 
     /**
@@ -35,7 +47,16 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        try {
+            $attribute = $this->attributeRepository->create($input);
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.saved_successfully', ['operator' => __('lang.attribute')]));
+
+        return redirect(route('attributes.index'));
     }
 
     /**
@@ -46,7 +67,7 @@ class AttributeController extends Controller
      */
     public function show(Attribute $attribute)
     {
-        //
+        return view('attributes.show', compact(['attribute']));
     }
 
     /**
@@ -57,7 +78,7 @@ class AttributeController extends Controller
      */
     public function edit(Attribute $attribute)
     {
-        //
+        return view('attributes.edit', compact(['attribute']));
     }
 
     /**
@@ -69,7 +90,16 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
-        //
+        $input = $request->all();
+        try {
+            $attribute = $this->attributeRepository->update($input, $attribute->id);
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.updated_successfully', ['operator' => __('lang.attribute')]));
+
+        return redirect(route('attributes.index'));
     }
 
     /**
@@ -80,6 +110,8 @@ class AttributeController extends Controller
      */
     public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+
+        return redirect(route('attributes.index'));
     }
 }

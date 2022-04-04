@@ -17,6 +17,7 @@ class CreateAttributesTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('value')->nullable();
+            $table->string('title');
             $table->string('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();

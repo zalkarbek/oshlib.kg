@@ -16,6 +16,7 @@ class Attribute extends Model
      */
     public static $rules = [
         'key' => 'required',
+        'title' => 'required'
     ];
 
     /**
@@ -26,6 +27,7 @@ class Attribute extends Model
     protected $fillable = [
         'key',
         'value',
+        'title',
         'comment',
     ];
 
