@@ -2,19 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TagDataTable;
 use App\Models\Tag;
+use App\Repositories\BookRepository;
+use App\Repositories\TagRepository;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Flash;
 
 class TagController extends Controller
 {
+    private $tagRepository;
+    private $bookRepository;
+
+    public function __construct(
+        TagRepository $tagRepository,
+        BookRepository $bookRepository)
+    {
+        $this->tagRepository = $tagRepository;
+        $this->bookRepository = $bookRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param TagDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TagDataTable $dataTable)
     {
-        //
+        return $dataTable->render('tags.index');
     }
 
     /**
@@ -24,7 +41,9 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $types = ['genre' => 'genre', 'theme' => 'theme'];
+
+        return view('tags.create', compact(['types']));
     }
 
     /**
@@ -35,7 +54,20 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        try {
+            $tag = $this->tagRepository->create($input);
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $tag->addMediaFromRequest('file')
+                    ->toMediaCollection();
+            }
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.saved_successfully', ['operator' => __('lang.tag')]));
+
+        return redirect(route('tags.index'));
     }
 
     /**

@@ -16,8 +16,9 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->enum('type', ['genre', 'theme']);
-            $table->string('comment');
+            $table->enum('type', ['genre', 'theme'])->default('genre');
+            $table->longText('description');
+            $table->string('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

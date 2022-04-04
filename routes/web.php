@@ -71,4 +71,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
         'show'
     ]);
 
+    Route::resource('tags', 'App\Http\Controllers\TagController')->except([
+        'show'
+    ]);
+
 });
