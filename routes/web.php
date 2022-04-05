@@ -67,26 +67,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
     });
 
     Route::post('categories/remove-media', 'App\Http\Controllers\CategoryController@removeMedia');
-    Route::resource('categories', 'App\Http\Controllers\CategoryController')->except([
-        'show'
-    ]);
-
-    Route::resource('tags', 'App\Http\Controllers\TagController')->except([
-        'show'
-    ]);
-
-    Route::resource('authors', 'App\Http\Controllers\AuthorController')->except([
-        'show'
-    ]);
-
-    Route::resource('publishers', 'App\Http\Controllers\PublisherController')->except([
-        'show'
-    ]);
-
-    Route::resource('attributes', 'App\Http\Controllers\AttributeController')->except([
-        'show'
-    ]);
-
+    Route::resource('categories', 'App\Http\Controllers\CategoryController');
+    Route::resource('tags', 'App\Http\Controllers\TagController');
+    Route::resource('authors', 'App\Http\Controllers\AuthorController');
+    Route::resource('publishers', 'App\Http\Controllers\PublisherController');
+    Route::resource('attributes', 'App\Http\Controllers\AttributeController');
     Route::resource('books', 'App\Http\Controllers\BookController');
+    Route::resource('articles', 'App\Http\Controllers\ArticleController');
 
 });

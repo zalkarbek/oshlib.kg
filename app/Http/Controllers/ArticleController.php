@@ -2,19 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ArticleDataTable;
 use App\Models\Article;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Flash;
 
 class ArticleController extends Controller
 {
+    /** @var ArticleRepository */
+    private $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepo)
+    {
+        $this->articleRepository = $articleRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param ArticleDataTable $dataTable
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ArticleDataTable $dataTable)
     {
-        //
+        return $dataTable->render('articles.index');
     }
 
     /**
@@ -24,7 +38,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -35,7 +49,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        try {
+            $input['user_id'] = auth()->id();
+            $article = $this->articleRepository->create($input);
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.saved_successfully', ['operator' => __('lang.article')]));
+
+        return redirect(route('articles.index'));
     }
 
     /**
@@ -46,7 +70,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('articles.show')->with('article', $article);
     }
 
     /**
@@ -57,7 +81,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('articles.edit')
+            ->with('article', $article);
     }
 
     /**
@@ -69,7 +94,16 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $input = $request->all();
+        try {
+            $article = $this->articleRepository->update($input, $article->id);
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        }
+
+        Flash::success(__('lang.updated_successfully', ['operator' => __('lang.article')]));
+
+        return redirect(route('articles.index'));
     }
 
     /**
@@ -80,6 +114,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        Flash::success(__('lang.deleted_successfully', ['operator' => __('lang.article')]));
+
+        return redirect(route('articles.index'));
     }
 }
