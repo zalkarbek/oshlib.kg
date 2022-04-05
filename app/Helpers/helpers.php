@@ -683,3 +683,13 @@ function allParents($child)
 
     return $tree;
 }
+
+function arrayFillKeys(array $keys, array $values): array
+{
+    $array = [];
+    for ($i = 0; $i < count($keys); $i++) {
+        $array[$keys[$i]] = $values[$i];
+    }
+
+    return $array;
+}

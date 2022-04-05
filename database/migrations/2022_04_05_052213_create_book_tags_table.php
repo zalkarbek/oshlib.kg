@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookAttributesTable extends Migration
+class CreateBookTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateBookAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_attributes', function (Blueprint $table) {
+        Schema::create('book_tags', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('book_id')->unsigned();
-            $table->bigInteger('attribute_id')->unsigned();
-            $table->string('value')->nullable();
+            $table->bigInteger('tag_id')->unsigned();
             $table->foreign('book_id')
                 ->references('id')
                 ->on('books')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('attribute_id')
+            $table->foreign('tag_id')
                 ->references('id')
-                ->on('attributes')
+                ->on('tags')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->timestamps();
@@ -39,6 +38,6 @@ class CreateBookAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_attributes');
+        Schema::dropIfExists('book_tags');
     }
 }

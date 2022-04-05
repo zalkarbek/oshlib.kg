@@ -30,7 +30,7 @@ class BookDataTable extends DataTable
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');
             })
-            ->addColumn('action', 'attributes.datatables_actions')
+            ->addColumn('action', 'books.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
 
         return $dataTable;

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute extends Model
+class BookTag extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class Attribute extends Model
      * @var array
      */
     public static $rules = [
-        'key' => 'required',
-        'title' => 'required'
+        'book_id' => 'required',
+        'tag_id' => 'required',
     ];
 
     /**
@@ -25,9 +25,8 @@ class Attribute extends Model
      * @var array
      */
     protected $fillable = [
-        'key',
-        'title',
-        'comment',
+        'book_id',
+        'tag_id'
     ];
 
     /**
@@ -36,5 +35,7 @@ class Attribute extends Model
      * @var array
      */
     protected $casts = [
+        'book_id' => 'integer',
+        'tag_id' => 'integer',
     ];
 }

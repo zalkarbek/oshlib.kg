@@ -38,4 +38,12 @@ class File extends Model
      * @var array
      */
     protected $casts = [];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

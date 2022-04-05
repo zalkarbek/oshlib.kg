@@ -16,7 +16,6 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->string('value')->nullable();
             $table->string('title');
             $table->string('comment')->nullable();
             $table->softDeletes();

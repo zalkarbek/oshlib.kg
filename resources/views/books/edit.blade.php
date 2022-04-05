@@ -57,11 +57,10 @@
     </div>
     <div class="card-body">
       {!! Form::model($book, ['route' => ['books.update', $book->id], 'enctype' => 'multipart/form-data']) !!}
-        <livewire:books.fields :book="$book" />
-      {{--<div class="row">
+      <div class="row">
         @method('PATCH')
         @include('books.fields')
-      </div>--}}
+      </div>
       {!! Form::close() !!}
       <div class="clearfix"></div>
     </div>

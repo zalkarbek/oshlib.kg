@@ -48,10 +48,6 @@ class AttributeDataTable extends DataTable
                 'title' => trans('lang.attribute_key'),
             ],
             [
-                'data' => 'value',
-                'title' => trans('lang.attribute_value'),
-            ],
-            [
                 'data' => 'updated_at',
                 'title' => trans('lang.category_updated_at'),
                 'searchable' => false,

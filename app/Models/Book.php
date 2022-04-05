@@ -72,4 +72,20 @@ class Book extends Model implements HasMedia
     {
         return $this->belongsTo(Author::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function file()
+    {
+        return $this->belongsTo(File::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function attributes()
+    {
+        return $this->hasMany(BookAttribute::class);
+    }
 }

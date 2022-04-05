@@ -27,6 +27,7 @@ class BookAttribute extends Model
     protected $fillable = [
         'book_id',
         'attribute_id',
+        'value',
     ];
 
     /**
@@ -38,4 +39,12 @@ class BookAttribute extends Model
         'book_id' => 'integer',
         'attribute_id' => 'integer',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
 }

@@ -52,9 +52,9 @@
 
     <!-- Category Id Field -->
     <div class="form-group row ">
-        {!! Form::label('attributes[]', trans('lang.attribute_plural'),['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('tags[]', trans('lang.tag_plural'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::select('attributes[]', $attributes, [], ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
+            {!! Form::select('tags[]', $tags, $bookTags, ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
         </div>
     </div>
 
@@ -101,6 +101,12 @@
         </div>
     </div>
 </div>
+
+@if(isset($book))
+    <livewire:books.attributes :book="$book" />
+@else
+    <livewire:books.attributes />
+@endif
 
 <!-- Submit Field -->
 <div class="form-group col-12 text-right">

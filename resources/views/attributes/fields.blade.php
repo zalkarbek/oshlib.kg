@@ -22,16 +22,6 @@
     </div>
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
-    <!-- Description Field -->
-    <div class="form-group row ">
-        {!! Form::label('value', trans("lang.category_description"), ['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::textarea('value', null, ['class' => 'form-control','placeholder'=>
-             trans("lang.attribute_value_placeholder")  ]) !!}
-            <div class="form-text text-muted">{{ trans("lang.attribute_value_help") }}</div>
-        </div>
-    </div>
-
     <!-- Key Field -->
     <div class="form-group row ">
         {!! Form::label('comment', trans("lang.comment"), ['class' => 'col-3 control-label text-right']) !!}
