@@ -21,16 +21,16 @@ class BookDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $columns = array_column($this->getColumns(), 'data');
         $dataTable = $dataTable
-            /*->editColumn('image', function ($model) {
+            ->editColumn('image', function ($model) {
                 return getMediaColumn($model, 'default');
-            })*/
-            ->editColumn('category_name', function ($model) {
-                return 'name';// $model->category->name;
+            })
+            ->editColumn('author_name', function ($model) {
+                return $model->author->name;
             })
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');
             })
-            ->addColumn('action', 'books.datatables_actions')
+            ->addColumn('action', 'attributes.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
 
         return $dataTable;
@@ -44,18 +44,18 @@ class BookDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            /*[
+            [
                 'data' => 'image',
                 'title' => trans('lang.book_image'),
                 'searchable' => false, 'orderable' => false, 'exportable' => false, 'printable' => false,
-            ],*/
+            ],
             [
                 'data' => 'name',
                 'title' => trans('lang.book_name'),
             ],
             [
-                'data' => 'category_name',
-                'title' => trans('lang.category'),
+                'data' => 'author_name',
+                'title' => trans('lang.author'),
             ],
             [
                 'data' => 'updated_at',
@@ -114,6 +114,6 @@ class BookDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'booksdatatable_' . time();
+        return 'attributesdatatable_' . time();
     }
 }

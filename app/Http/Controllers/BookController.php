@@ -52,6 +52,7 @@ class BookController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @param BookDataTable $dataTable
      * @return \Illuminate\Http\Response
      */

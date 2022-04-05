@@ -81,4 +81,12 @@ class Author extends Model implements HasMedia
             return asset('images/avatar_default.png');
         }
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }
