@@ -22,6 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', 'UserAPIController@user');
 });
 
+Route::resource('books', 'BookAPIController')->except([
+    'store', 'update'
+]);
+Route::get('books/reviews', 'BookAPIController@reviews');
+
 Route::get('categories/tree', 'CategoryAPIController@tree');
 Route::resource('categories', 'CategoryAPIController')->except([
     'store', 'update'
