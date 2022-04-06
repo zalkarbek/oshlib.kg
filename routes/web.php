@@ -74,5 +74,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
     Route::resource('attributes', 'App\Http\Controllers\AttributeController');
     Route::resource('books', 'App\Http\Controllers\BookController');
     Route::resource('articles', 'App\Http\Controllers\ArticleController');
+    Route::resource('reviews', 'App\Http\Controllers\ReviewController');
 
 });

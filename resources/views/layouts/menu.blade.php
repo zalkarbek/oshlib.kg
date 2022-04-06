@@ -84,6 +84,15 @@
     </li>
 @endcan
 
+@can('reviews.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/reviews*') ? 'active' : '' }}" href="{!! url('console/reviews') !!}">
+            @if($icons)<i class="nav-icon fa fa-comment"></i>@endif
+            <p>{{trans('lang.review_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 <li class="nav-header">{{trans('lang.app_setting')}}</li>
 @can('medias')
     <li class="nav-item">

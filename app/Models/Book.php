@@ -37,7 +37,6 @@ class Book extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
-        'views',
         'release_date',
         'category_id',
         'publisher_id',
@@ -158,5 +157,13 @@ class Book extends Model implements HasMedia
     public function attributes()
     {
         return $this->hasMany(BookAttribute::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

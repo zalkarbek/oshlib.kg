@@ -823,6 +823,18 @@ return [
     'attribute_value_placeholder' => 'Введите Значение',
     'attribute_updated_at' => 'Обновлено в',
 
+    'review' => 'Обзор',
+    'review_plural' => 'Обзоры',
+    'review_desc' => 'Управление Обзорами',
+    'review_edit' => 'Редактировать Обзор',
+    'review_table' => 'Список Обзоров',
+    'review_create' => 'Создать Обзор',
+    'review_text' => 'Текст',
+    'review_name_help' => 'Введите текст',
+    'review_name_placeholder' => 'Введите текст',
+    'review_rating' => 'Оценка',
+    'review_updated_at' => 'Обновлено в',
+
     'genre' => 'Жанр',
     'theme' => 'Тема',
 

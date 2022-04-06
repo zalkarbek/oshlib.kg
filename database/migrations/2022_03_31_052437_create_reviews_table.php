@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration
             $table->longText('text')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('book_id')->unsigned();
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
