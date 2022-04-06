@@ -93,6 +93,15 @@
     </li>
 @endcan
 
+@can('selections.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/selections*') ? 'active' : '' }}" href="{!! url('console/selections') !!}">
+            @if($icons)<i class="nav-icon fa fa-archive"></i>@endif
+            <p>{{trans('lang.selection_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 <li class="nav-header">{{trans('lang.app_setting')}}</li>
 @can('medias')
     <li class="nav-item">

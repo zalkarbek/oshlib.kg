@@ -84,8 +84,8 @@ class Selection extends Model implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function books()
+    public function bookSelections()
     {
-        return $this->hasMany(Book::class);
+        return $this->hasMany(BookSelection::class, 'selection_id', 'id');
     }
 }

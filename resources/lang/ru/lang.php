@@ -835,6 +835,19 @@ return [
     'review_rating' => 'Оценка',
     'review_updated_at' => 'Обновлено в',
 
+    'selection' => 'Подборка',
+    'selection_plural' => 'Подборки',
+    'selection_desc' => 'Управление Подборками',
+    'selection_edit' => 'Редактировать Подборку',
+    'selection_table' => 'Список Подборок',
+    'selection_create' => 'Создать Подборку',
+    'selection_name' => 'Название',
+    'selection_books_count' => 'Количество книг',
+    'selection_name_help' => 'Введите текст',
+    'selection_name_placeholder' => 'Введите текст',
+    'selection_rating' => 'Оценка',
+    'selection_updated_at' => 'Обновлено в',
+
     'genre' => 'Жанр',
     'theme' => 'Тема',
 
