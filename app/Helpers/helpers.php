@@ -684,12 +684,18 @@ function allParents($child)
     return $tree;
 }
 
-function arrayFillKeys(array $keys, array $values): array
+/**
+ * Get the login username to be used by the controller.
+ *
+ * @return string
+ */
+function findUsername()
 {
-    $array = [];
-    for ($i = 0; $i < count($keys); $i++) {
-        $array[$keys[$i]] = $values[$i];
-    }
+    $login = request()->input('login');
 
-    return $array;
+    $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'login';
+
+    request()->merge([$fieldType => $login]);
+
+    return $fieldType;
 }

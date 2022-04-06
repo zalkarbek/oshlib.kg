@@ -95,7 +95,7 @@
                                 <span>{{trans('lang.dashboard_earning_over_time')}}</span>
                             </p>
                             <p class="ml-auto d-flex flex-column text-right">
-                                <span class="text-success"> {{$adsCount}}</span></span>
+                                <span class="text-success"> books count</span></span>
                                 <span class="text-muted">{{trans('lang.total_ads')}}</span>
                             </p>
                         </div>
@@ -138,7 +138,7 @@
                                     </td>
                                     <td>{!! $book->name !!}</td>
                                     <td>
-                                        {!! $book->user->name !!}
+                                        {!! $book->author->name !!}
                                     </td>
                                     <td class="text-center">
                                         <a href="" class="text-muted"> <i class="fa fa-edit"></i> </a>

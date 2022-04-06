@@ -41,7 +41,15 @@ class Author extends Model implements HasMedia
      *
      * @var array
      */
-    protected $casts = [
+    protected $casts = [];
+
+    /**
+     * New Attributes
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image'
     ];
 
     /**
@@ -80,6 +88,15 @@ class Author extends Model implements HasMedia
         } else {
             return asset('images/avatar_default.png');
         }
+    }
+
+    /**
+     * Add Media to api results
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return $this->getFirstMediaUrl();
     }
 
     /**
