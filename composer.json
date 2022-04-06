@@ -24,6 +24,7 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
         "livewire/livewire": "^2.10",
+        "orangehill/iseed": "^3.0",
         "prettus/l5-repository": "^2.8",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.3",
