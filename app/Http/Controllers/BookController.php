@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\BookDataTable;
+use App\Http\Requests\CreateBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Repositories\AttributeRepository;
 use App\Repositories\AuthorRepository;
@@ -92,10 +94,10 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
         $input = $request->all();
         try {
@@ -161,11 +163,11 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateBookRequest  $request
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
         $input = $request->all();
         try {

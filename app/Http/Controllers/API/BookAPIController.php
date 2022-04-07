@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\PDFMerger\PDFMerger;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
-use App\Models\Category;
 use App\Repositories\BookRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ReviewRepository;
@@ -181,5 +181,13 @@ class BookAPIController extends AppBaseController
         $reviews = $this->reviewRepository->findByField('book_id', $id);
 
         return $this->sendResponse($reviews->toArray(), 'Reviews retrieved successfully');
+    }
+
+    public function byPage($bookId, $page, Request $request)
+    {
+        $pdf = new PDFMerger();
+        $pdf->addPDF(storage_path('app/books/pixel_logic.pdf'), "$page");
+
+        return $pdf->merge();
     }
 }

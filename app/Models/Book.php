@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use setasign\Fpdi\Fpdi;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -42,6 +44,7 @@ class Book extends Model implements HasMedia
         'publisher_id',
         'author_id',
         'file_id',
+        'page_count',
     ];
 
     /**
@@ -56,6 +59,7 @@ class Book extends Model implements HasMedia
         'publisher_id' => 'integer',
         'author_id' => 'integer',
         'file_id' => 'integer',
+        'page_count' => 'integer',
     ];
 
     /**
@@ -65,6 +69,7 @@ class Book extends Model implements HasMedia
      */
     protected $appends = [
         'is_favorite',
+        'image',
     ];
 
     /**
@@ -117,6 +122,14 @@ class Book extends Model implements HasMedia
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     **/
+    public function getImageAttribute()
+    {
+        return $this->getFirstMediaUrl();
     }
 
     /**

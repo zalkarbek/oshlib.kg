@@ -26,6 +26,7 @@ Route::resource('books', 'BookAPIController')->except([
     'store', 'update'
 ]);
 Route::get('books/reviews', 'BookAPIController@reviews');
+Route::get('books/{id}/page/{page}', 'BookAPIController@byPage');
 
 Route::get('categories/tree', 'CategoryAPIController@tree');
 Route::resource('categories', 'CategoryAPIController')->except([

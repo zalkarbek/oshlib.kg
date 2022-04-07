@@ -12,6 +12,8 @@ use InfyOm\Generator\Utils\HTMLCuisineGenerator;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use App\Models\Category;
 
+require_once(__DIR__ . '/PDFMerger/PDFMerger.php');
+
 /**
  * @param $bytes
  * @param int $precision

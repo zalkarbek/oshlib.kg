@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->text('description')->nullable();
             $table->integer('views')->unsigned()->default(0);
             $table->integer('downloads')->unsigned()->default(0);
+            $table->smallInteger('page_count')->unsigned()->default(0);
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('author_id')->unsigned();
             $table->bigInteger('publisher_id')->unsigned();

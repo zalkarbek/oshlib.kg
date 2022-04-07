@@ -3,7 +3,7 @@
     <div class="form-group row ">
         {!! Form::label('name', trans("lang.book_name"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('name', null,  ['wire:model' => 'name', 'class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder")]) !!}
+            {!! Form::text('name', null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder")]) !!}
             <div class="form-text text-muted">
                 {{ trans("lang.category_name_help") }}
             </div>
@@ -46,7 +46,15 @@
     <div class="form-group row ">
         {!! Form::label('file', trans('lang.book'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::file('file', ['class' => 'select2 form-control']) !!}
+            {!! Form::file('file', ['class' => 'select2 form-control', 'accept' => 'application/pdf']) !!}
+        </div>
+    </div>
+
+    <!-- Category Id Field -->
+    <div class="form-group row ">
+        {!! Form::label('page_count', trans('lang.book_page_count'),['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::number('page_count', null, ['class' => 'select2 form-control', 'placeholder'=>  trans("lang.book_page_count_placeholder")]) !!}
         </div>
     </div>
 

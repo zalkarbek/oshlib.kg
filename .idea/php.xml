@@ -151,8 +151,7 @@
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-fractal" />
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-buttons" />
       <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdf" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdi" />
+      <path value="$PROJECT_DIR$/vendor/orangehill/iseed" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

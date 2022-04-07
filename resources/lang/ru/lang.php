@@ -776,6 +776,8 @@ return [
     'book_image' => 'Изображение',
     'book_image_help' => 'Вставьте изображение',
     'book_image_placeholder' => 'Вставьте изображение',
+    'book_page_count' => 'Количество страниц',
+    'book_page_count_placeholder' => 'Введите количество страниц',
     'book_updated_at' => 'Обновлено в',
 
     'author' => 'Автор',
