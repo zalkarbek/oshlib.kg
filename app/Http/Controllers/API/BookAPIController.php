@@ -185,9 +185,7 @@ class BookAPIController extends AppBaseController
 
     public function byPage($bookId, $page, Request $request)
     {
-        $pdf = new PDFMerger();
-        $pdf->addPDF(storage_path('app/books/pixel_logic.pdf'), "$page");
-
-        return $pdf->merge();
+        $output = exec('/usr/local/bin/node -v 2>&1');
+        return "<pre>$output</pre>";
     }
 }

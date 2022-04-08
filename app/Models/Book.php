@@ -69,7 +69,7 @@ class Book extends Model implements HasMedia
      */
     protected $appends = [
         'is_favorite',
-        'image',
+        'cover',
     ];
 
     /**
@@ -127,7 +127,7 @@ class Book extends Model implements HasMedia
     /**
      * @return string
      **/
-    public function getImageAttribute()
+    public function getCoverAttribute()
     {
         return $this->getFirstMediaUrl();
     }
