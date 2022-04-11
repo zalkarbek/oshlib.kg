@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class NewPermissionsTableSeeder extends Seeder
+class PermissionsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class NewPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('permissions')->delete();
-        
+
         \DB::table('permissions')->insert(array (
-            0 => 
+            0 =>
             array (
                 'created_at' => '2020-03-29 08:58:02',
                 'guard_name' => 'web',
@@ -27,7 +27,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.profile',
                 'updated_at' => '2020-03-29 08:58:02',
             ),
-            1 => 
+            1 =>
             array (
                 'created_at' => '2020-03-29 08:58:02',
                 'guard_name' => 'web',
@@ -35,7 +35,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'dashboard',
                 'updated_at' => '2020-03-29 08:58:02',
             ),
-            2 => 
+            2 =>
             array (
                 'created_at' => '2020-03-29 08:58:02',
                 'guard_name' => 'web',
@@ -43,7 +43,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'medias.create',
                 'updated_at' => '2020-03-29 08:58:02',
             ),
-            3 => 
+            3 =>
             array (
                 'created_at' => '2020-03-29 08:58:02',
                 'guard_name' => 'web',
@@ -51,7 +51,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'medias.delete',
                 'updated_at' => '2020-03-29 08:58:02',
             ),
-            4 => 
+            4 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -59,7 +59,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'medias',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            5 => 
+            5 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -67,7 +67,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.index',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            6 => 
+            6 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -75,7 +75,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.edit',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            7 => 
+            7 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -83,7 +83,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.update',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            8 => 
+            8 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -91,7 +91,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.destroy',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            9 => 
+            9 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -99,7 +99,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.index',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            10 => 
+            10 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -107,7 +107,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.edit',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            11 => 
+            11 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -115,7 +115,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.update',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            12 => 
+            12 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -123,7 +123,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.destroy',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            13 => 
+            13 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -131,7 +131,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.index',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            14 => 
+            14 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -139,7 +139,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.create',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            15 => 
+            15 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -147,7 +147,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.store',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            16 => 
+            16 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -155,7 +155,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.show',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            17 => 
+            17 =>
             array (
                 'created_at' => '2020-03-29 08:58:03',
                 'guard_name' => 'web',
@@ -163,7 +163,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.edit',
                 'updated_at' => '2020-03-29 08:58:03',
             ),
-            18 => 
+            18 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -171,7 +171,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.update',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            19 => 
+            19 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -179,7 +179,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'universities.destroy',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            20 => 
+            20 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -187,7 +187,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.login-as-user',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            21 => 
+            21 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -195,7 +195,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.index',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            22 => 
+            22 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -203,7 +203,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.create',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            23 => 
+            23 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -211,7 +211,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.store',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            24 => 
+            24 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -219,7 +219,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.show',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            25 => 
+            25 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -227,7 +227,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.edit',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            26 => 
+            26 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -235,7 +235,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.update',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            27 => 
+            27 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -243,7 +243,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'users.destroy',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            28 => 
+            28 =>
             array (
                 'created_at' => '2020-03-29 08:58:04',
                 'guard_name' => 'web',
@@ -251,7 +251,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'app-settings',
                 'updated_at' => '2020-03-29 08:58:04',
             ),
-            29 => 
+            29 =>
             array (
                 'created_at' => '2020-03-29 08:58:07',
                 'guard_name' => 'web',
@@ -259,7 +259,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.index',
                 'updated_at' => '2020-03-29 08:58:07',
             ),
-            30 => 
+            30 =>
             array (
                 'created_at' => '2020-03-29 08:58:07',
                 'guard_name' => 'web',
@@ -267,7 +267,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.create',
                 'updated_at' => '2020-03-29 08:58:07',
             ),
-            31 => 
+            31 =>
             array (
                 'created_at' => '2020-03-29 08:58:08',
                 'guard_name' => 'web',
@@ -275,7 +275,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.store',
                 'updated_at' => '2020-03-29 08:58:08',
             ),
-            32 => 
+            32 =>
             array (
                 'created_at' => '2020-03-29 08:58:08',
                 'guard_name' => 'web',
@@ -283,7 +283,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.edit',
                 'updated_at' => '2020-03-29 08:58:08',
             ),
-            33 => 
+            33 =>
             array (
                 'created_at' => '2020-03-29 08:58:08',
                 'guard_name' => 'web',
@@ -291,7 +291,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.update',
                 'updated_at' => '2020-03-29 08:58:08',
             ),
-            34 => 
+            34 =>
             array (
                 'created_at' => '2020-03-29 08:58:08',
                 'guard_name' => 'web',
@@ -299,7 +299,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'galleries.destroy',
                 'updated_at' => '2020-03-29 08:58:08',
             ),
-            35 => 
+            35 =>
             array (
                 'created_at' => '2020-03-29 08:59:15',
                 'guard_name' => 'web',
@@ -307,7 +307,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.create',
                 'updated_at' => '2020-03-29 08:59:15',
             ),
-            36 => 
+            36 =>
             array (
                 'created_at' => '2020-03-29 08:59:15',
                 'guard_name' => 'web',
@@ -315,7 +315,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.store',
                 'updated_at' => '2020-03-29 08:59:15',
             ),
-            37 => 
+            37 =>
             array (
                 'created_at' => '2020-03-29 08:59:15',
                 'guard_name' => 'web',
@@ -323,7 +323,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'permissions.show',
                 'updated_at' => '2020-03-29 08:59:15',
             ),
-            38 => 
+            38 =>
             array (
                 'created_at' => '2020-03-29 08:59:15',
                 'guard_name' => 'web',
@@ -331,7 +331,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.create',
                 'updated_at' => '2020-03-29 08:59:15',
             ),
-            39 => 
+            39 =>
             array (
                 'created_at' => '2020-03-29 08:59:15',
                 'guard_name' => 'web',
@@ -339,7 +339,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.store',
                 'updated_at' => '2020-03-29 08:59:15',
             ),
-            40 => 
+            40 =>
             array (
                 'created_at' => '2020-03-29 08:59:16',
                 'guard_name' => 'web',
@@ -347,7 +347,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'roles.show',
                 'updated_at' => '2020-03-29 08:59:16',
             ),
-            41 => 
+            41 =>
             array (
                 'created_at' => '2022-04-04 04:16:44',
                 'guard_name' => 'web',
@@ -355,7 +355,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.index',
                 'updated_at' => '2022-04-04 04:16:44',
             ),
-            42 => 
+            42 =>
             array (
                 'created_at' => '2022-04-04 04:17:10',
                 'guard_name' => 'web',
@@ -363,7 +363,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.edit',
                 'updated_at' => '2022-04-04 04:17:10',
             ),
-            43 => 
+            43 =>
             array (
                 'created_at' => '2022-04-04 04:17:18',
                 'guard_name' => 'web',
@@ -371,7 +371,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.update',
                 'updated_at' => '2022-04-04 04:17:18',
             ),
-            44 => 
+            44 =>
             array (
                 'created_at' => '2022-04-04 04:17:29',
                 'guard_name' => 'web',
@@ -379,7 +379,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.destroy',
                 'updated_at' => '2022-04-04 04:17:29',
             ),
-            45 => 
+            45 =>
             array (
                 'created_at' => '2022-04-04 04:30:00',
                 'guard_name' => 'web',
@@ -387,7 +387,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.create',
                 'updated_at' => '2022-04-04 04:30:00',
             ),
-            46 => 
+            46 =>
             array (
                 'created_at' => '2022-04-04 04:30:09',
                 'guard_name' => 'web',
@@ -395,7 +395,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'categories.store',
                 'updated_at' => '2022-04-04 04:30:09',
             ),
-            47 => 
+            47 =>
             array (
                 'created_at' => '2022-04-04 04:43:09',
                 'guard_name' => 'web',
@@ -403,7 +403,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.index',
                 'updated_at' => '2022-04-04 04:43:09',
             ),
-            48 => 
+            48 =>
             array (
                 'created_at' => '2022-04-04 04:43:19',
                 'guard_name' => 'web',
@@ -411,7 +411,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.create',
                 'updated_at' => '2022-04-04 04:43:19',
             ),
-            49 => 
+            49 =>
             array (
                 'created_at' => '2022-04-04 04:43:34',
                 'guard_name' => 'web',
@@ -419,7 +419,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.store',
                 'updated_at' => '2022-04-04 04:43:34',
             ),
-            50 => 
+            50 =>
             array (
                 'created_at' => '2022-04-04 04:43:49',
                 'guard_name' => 'web',
@@ -427,7 +427,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.edit',
                 'updated_at' => '2022-04-04 04:43:49',
             ),
-            51 => 
+            51 =>
             array (
                 'created_at' => '2022-04-04 04:43:56',
                 'guard_name' => 'web',
@@ -435,7 +435,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.update',
                 'updated_at' => '2022-04-04 04:43:56',
             ),
-            52 => 
+            52 =>
             array (
                 'created_at' => '2022-04-04 04:44:09',
                 'guard_name' => 'web',
@@ -443,7 +443,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'tags.destroy',
                 'updated_at' => '2022-04-04 04:44:09',
             ),
-            53 => 
+            53 =>
             array (
                 'created_at' => '2022-04-04 07:24:48',
                 'guard_name' => 'web',
@@ -451,7 +451,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.index',
                 'updated_at' => '2022-04-04 07:24:48',
             ),
-            54 => 
+            54 =>
             array (
                 'created_at' => '2022-04-04 07:24:58',
                 'guard_name' => 'web',
@@ -459,7 +459,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.create',
                 'updated_at' => '2022-04-04 07:24:58',
             ),
-            55 => 
+            55 =>
             array (
                 'created_at' => '2022-04-04 07:25:07',
                 'guard_name' => 'web',
@@ -467,7 +467,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.store',
                 'updated_at' => '2022-04-04 07:25:07',
             ),
-            56 => 
+            56 =>
             array (
                 'created_at' => '2022-04-04 07:25:15',
                 'guard_name' => 'web',
@@ -475,7 +475,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.edit',
                 'updated_at' => '2022-04-04 07:25:15',
             ),
-            57 => 
+            57 =>
             array (
                 'created_at' => '2022-04-04 07:25:25',
                 'guard_name' => 'web',
@@ -483,7 +483,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.update',
                 'updated_at' => '2022-04-04 07:25:25',
             ),
-            58 => 
+            58 =>
             array (
                 'created_at' => '2022-04-04 07:25:39',
                 'guard_name' => 'web',
@@ -491,7 +491,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'authors.destroy',
                 'updated_at' => '2022-04-04 07:25:39',
             ),
-            59 => 
+            59 =>
             array (
                 'created_at' => '2022-04-04 07:54:34',
                 'guard_name' => 'web',
@@ -499,7 +499,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.index',
                 'updated_at' => '2022-04-04 07:54:34',
             ),
-            60 => 
+            60 =>
             array (
                 'created_at' => '2022-04-04 07:54:41',
                 'guard_name' => 'web',
@@ -507,7 +507,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.create',
                 'updated_at' => '2022-04-04 07:54:41',
             ),
-            61 => 
+            61 =>
             array (
                 'created_at' => '2022-04-04 07:54:48',
                 'guard_name' => 'web',
@@ -515,7 +515,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.store',
                 'updated_at' => '2022-04-04 07:54:48',
             ),
-            62 => 
+            62 =>
             array (
                 'created_at' => '2022-04-04 07:54:57',
                 'guard_name' => 'web',
@@ -523,7 +523,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.edit',
                 'updated_at' => '2022-04-04 07:54:57',
             ),
-            63 => 
+            63 =>
             array (
                 'created_at' => '2022-04-04 07:55:07',
                 'guard_name' => 'web',
@@ -531,7 +531,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.update',
                 'updated_at' => '2022-04-04 07:55:07',
             ),
-            64 => 
+            64 =>
             array (
                 'created_at' => '2022-04-04 07:55:17',
                 'guard_name' => 'web',
@@ -539,7 +539,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'publishers.destroy',
                 'updated_at' => '2022-04-04 07:55:17',
             ),
-            65 => 
+            65 =>
             array (
                 'created_at' => '2022-04-04 09:28:03',
                 'guard_name' => 'web',
@@ -547,7 +547,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.index',
                 'updated_at' => '2022-04-04 09:28:03',
             ),
-            66 => 
+            66 =>
             array (
                 'created_at' => '2022-04-04 09:28:11',
                 'guard_name' => 'web',
@@ -555,7 +555,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.create',
                 'updated_at' => '2022-04-04 09:28:11',
             ),
-            67 => 
+            67 =>
             array (
                 'created_at' => '2022-04-04 09:28:22',
                 'guard_name' => 'web',
@@ -563,7 +563,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.store',
                 'updated_at' => '2022-04-04 09:28:22',
             ),
-            68 => 
+            68 =>
             array (
                 'created_at' => '2022-04-04 09:28:30',
                 'guard_name' => 'web',
@@ -571,7 +571,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.edit',
                 'updated_at' => '2022-04-04 09:28:30',
             ),
-            69 => 
+            69 =>
             array (
                 'created_at' => '2022-04-04 09:28:51',
                 'guard_name' => 'web',
@@ -579,7 +579,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.update',
                 'updated_at' => '2022-04-04 09:28:51',
             ),
-            70 => 
+            70 =>
             array (
                 'created_at' => '2022-04-04 09:29:00',
                 'guard_name' => 'web',
@@ -587,7 +587,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'attributes.destroy',
                 'updated_at' => '2022-04-04 09:29:00',
             ),
-            71 => 
+            71 =>
             array (
                 'created_at' => '2022-04-04 09:45:52',
                 'guard_name' => 'web',
@@ -595,7 +595,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.index',
                 'updated_at' => '2022-04-04 09:45:52',
             ),
-            72 => 
+            72 =>
             array (
                 'created_at' => '2022-04-04 09:46:03',
                 'guard_name' => 'web',
@@ -603,7 +603,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.create',
                 'updated_at' => '2022-04-04 09:46:03',
             ),
-            73 => 
+            73 =>
             array (
                 'created_at' => '2022-04-04 09:46:27',
                 'guard_name' => 'web',
@@ -611,7 +611,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.store',
                 'updated_at' => '2022-04-04 09:46:27',
             ),
-            74 => 
+            74 =>
             array (
                 'created_at' => '2022-04-04 09:46:37',
                 'guard_name' => 'web',
@@ -619,7 +619,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.edit',
                 'updated_at' => '2022-04-04 09:46:37',
             ),
-            75 => 
+            75 =>
             array (
                 'created_at' => '2022-04-04 09:46:45',
                 'guard_name' => 'web',
@@ -627,7 +627,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.update',
                 'updated_at' => '2022-04-04 09:46:45',
             ),
-            76 => 
+            76 =>
             array (
                 'created_at' => '2022-04-04 09:47:07',
                 'guard_name' => 'web',
@@ -635,7 +635,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.destroy',
                 'updated_at' => '2022-04-04 09:47:07',
             ),
-            77 => 
+            77 =>
             array (
                 'created_at' => '2022-04-04 09:47:26',
                 'guard_name' => 'web',
@@ -643,7 +643,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'books.show',
                 'updated_at' => '2022-04-04 09:47:26',
             ),
-            78 => 
+            78 =>
             array (
                 'created_at' => '2022-04-05 07:08:58',
                 'guard_name' => 'web',
@@ -651,7 +651,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.index',
                 'updated_at' => '2022-04-05 07:08:58',
             ),
-            79 => 
+            79 =>
             array (
                 'created_at' => '2022-04-05 07:09:07',
                 'guard_name' => 'web',
@@ -659,7 +659,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.create',
                 'updated_at' => '2022-04-05 07:09:07',
             ),
-            80 => 
+            80 =>
             array (
                 'created_at' => '2022-04-05 07:09:15',
                 'guard_name' => 'web',
@@ -667,7 +667,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.store',
                 'updated_at' => '2022-04-05 07:09:15',
             ),
-            81 => 
+            81 =>
             array (
                 'created_at' => '2022-04-05 07:09:27',
                 'guard_name' => 'web',
@@ -675,7 +675,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.edit',
                 'updated_at' => '2022-04-05 07:09:27',
             ),
-            82 => 
+            82 =>
             array (
                 'created_at' => '2022-04-05 07:09:36',
                 'guard_name' => 'web',
@@ -683,7 +683,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.update',
                 'updated_at' => '2022-04-05 07:09:36',
             ),
-            83 => 
+            83 =>
             array (
                 'created_at' => '2022-04-05 07:09:45',
                 'guard_name' => 'web',
@@ -691,7 +691,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'articles.destroy',
                 'updated_at' => '2022-04-05 07:09:45',
             ),
-            84 => 
+            84 =>
             array (
                 'created_at' => '2022-04-06 08:28:58',
                 'guard_name' => 'web',
@@ -699,7 +699,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.index',
                 'updated_at' => '2022-04-06 08:28:58',
             ),
-            85 => 
+            85 =>
             array (
                 'created_at' => '2022-04-06 08:29:30',
                 'guard_name' => 'web',
@@ -707,7 +707,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.create',
                 'updated_at' => '2022-04-06 08:29:30',
             ),
-            86 => 
+            86 =>
             array (
                 'created_at' => '2022-04-06 08:29:55',
                 'guard_name' => 'web',
@@ -715,7 +715,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.store',
                 'updated_at' => '2022-04-06 08:29:55',
             ),
-            87 => 
+            87 =>
             array (
                 'created_at' => '2022-04-06 08:30:06',
                 'guard_name' => 'web',
@@ -723,7 +723,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.edit',
                 'updated_at' => '2022-04-06 08:30:06',
             ),
-            88 => 
+            88 =>
             array (
                 'created_at' => '2022-04-06 08:30:17',
                 'guard_name' => 'web',
@@ -731,7 +731,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.update',
                 'updated_at' => '2022-04-06 08:30:17',
             ),
-            89 => 
+            89 =>
             array (
                 'created_at' => '2022-04-06 08:30:30',
                 'guard_name' => 'web',
@@ -739,7 +739,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.destroy',
                 'updated_at' => '2022-04-06 08:30:30',
             ),
-            90 => 
+            90 =>
             array (
                 'created_at' => '2022-04-06 08:31:13',
                 'guard_name' => 'web',
@@ -747,7 +747,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'reviews.show',
                 'updated_at' => '2022-04-06 08:31:13',
             ),
-            91 => 
+            91 =>
             array (
                 'created_at' => '2022-04-06 10:15:25',
                 'guard_name' => 'web',
@@ -755,7 +755,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.index',
                 'updated_at' => '2022-04-06 10:15:25',
             ),
-            92 => 
+            92 =>
             array (
                 'created_at' => '2022-04-06 10:15:38',
                 'guard_name' => 'web',
@@ -763,7 +763,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.create',
                 'updated_at' => '2022-04-06 10:15:38',
             ),
-            93 => 
+            93 =>
             array (
                 'created_at' => '2022-04-06 10:15:49',
                 'guard_name' => 'web',
@@ -771,7 +771,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.store',
                 'updated_at' => '2022-04-06 10:15:49',
             ),
-            94 => 
+            94 =>
             array (
                 'created_at' => '2022-04-06 10:16:00',
                 'guard_name' => 'web',
@@ -779,7 +779,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.edit',
                 'updated_at' => '2022-04-06 10:16:00',
             ),
-            95 => 
+            95 =>
             array (
                 'created_at' => '2022-04-06 10:16:16',
                 'guard_name' => 'web',
@@ -787,7 +787,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.update',
                 'updated_at' => '2022-04-06 10:16:16',
             ),
-            96 => 
+            96 =>
             array (
                 'created_at' => '2022-04-06 10:16:38',
                 'guard_name' => 'web',
@@ -795,7 +795,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'name' => 'selections.destroy',
                 'updated_at' => '2022-04-06 11:22:20',
             ),
-            97 => 
+            97 =>
             array (
                 'created_at' => '2022-04-06 10:16:48',
                 'guard_name' => 'web',
@@ -804,7 +804,7 @@ class NewPermissionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-06 10:16:48',
             ),
         ));
-        
-        
+
+
     }
 }

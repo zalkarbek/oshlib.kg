@@ -1,4 +1,5 @@
 /node_modules
+/pdfsplitter-js/node_modules
 /public/hot
 /public/storage
 /storage/*.key

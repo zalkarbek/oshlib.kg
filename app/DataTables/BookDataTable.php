@@ -114,6 +114,6 @@ class BookDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'attributesdatatable_' . time();
+        return 'booksdatatable_' . time();
     }
 }

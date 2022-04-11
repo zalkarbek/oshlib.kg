@@ -39,4 +39,12 @@ class Article extends Model
     protected $casts = [
         'user_id' => 'integer',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

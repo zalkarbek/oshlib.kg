@@ -38,7 +38,7 @@ Route::group(['middleware' => ['permission:permissions.index', 'auth'], 'prefix'
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
-    Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
+    Route::get('/', 'App\Http\Controllers\DashboardController@index');
 
     Route::post('uploads/store', 'App\Http\Controllers\UploadController@store')->name('medias.create');
     Route::get('users/profile', 'App\Http\Controllers\UserController@profile')->name('users.profile');

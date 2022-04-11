@@ -27,7 +27,7 @@ class CreateUserReadingsTable extends Migration
                 ->references('id')
                 ->on('books')
                 ->cascadeOnUpdate()
-                ->cascadeOnUpdate();
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

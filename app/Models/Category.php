@@ -77,7 +77,6 @@ class Category extends Model implements HasMedia
      */
     public function getFirstMediaUrl($collectionName = 'default', $conversion = '')
     {
-
         $url = $this->getFirstMediaUrlTrait($collectionName);
         if ($url) {
             $array = explode('.', $url);

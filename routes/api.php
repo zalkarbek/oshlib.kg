@@ -16,17 +16,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'UserAPIController@login');
 Route::post('register', 'UserAPIController@register');
+Route::get('user/check', 'UserAPIController@userCheck');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', 'UserAPIController@logout');
     Route::get('user', 'UserAPIController@user');
+    Route::post('user', 'UserAPIController@update');
+
+    Route::get('books/my/favorites', 'BookAPIController@favorites');
+    Route::group(['prefix' => 'books/{id}'], function () {
+        Route::post('wantToRead', 'BookAPIController@wantToRead');
+        Route::post('reading', 'BookAPIController@reading');
+        Route::post('read', 'BookAPIController@read');
+        Route::post('favorites', 'BookAPIController@addToFavorites');
+        Route::delete('favorites', 'BookAPIController@removeFromFavorites');
+        Route::get('pages/{page}', 'BookAPIController@byPage');
+    });
 });
 
 Route::resource('books', 'BookAPIController')->except([
     'store', 'update'
 ]);
 Route::get('books/reviews', 'BookAPIController@reviews');
-Route::get('books/{id}/page/{page}', 'BookAPIController@byPage');
 
 Route::get('categories/tree', 'CategoryAPIController@tree');
 Route::resource('categories', 'CategoryAPIController')->except([
@@ -39,6 +50,7 @@ Route::resource('tags', 'TagAPIController')->except([
 ]);
 Route::get('genres', 'TagAPIController@genres');
 Route::get('themes', 'TagAPIController@themes');
+Route::get('tags/{id}/books', 'TagAPIController@books');
 
 Route::resource('authors', 'AuthorAPIController')->except([
     'store', 'update'

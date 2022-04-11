@@ -27,7 +27,7 @@ class CreateBookSelectionsTable extends Migration
                 ->references('id')
                 ->on('books')
                 ->cascadeOnUpdate()
-                ->cascadeOnUpdate();
+                ->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

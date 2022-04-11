@@ -112,7 +112,6 @@ class UserAPIController extends AppBaseController
         $settings = setting()->all();
         $settings = array_intersect_key($settings,
             [
-                'default_currency' => '',
                 'app_name' => '',
                 'currency_right' => '',
                 'main_color' => '',
@@ -152,7 +151,7 @@ class UserAPIController extends AppBaseController
                 'code' => 404,
             ], 'User not found');
         }
-        $input = $request->except(['password', 'api_token', 'balance', 'uuid']);
+        $input = $request->except(['password']);
         try {
             if ($request->has('device_token')) {
                 $user = $this->userRepository->update($request->only('device_token'), $id);
@@ -174,11 +173,11 @@ class UserAPIController extends AppBaseController
     public function userUpdate(Request $request)
     {
         $id = auth()->user()->id;
-        $input = $request->except(['password', 'api_token', 'balance', 'uuid', 'phone']);
+        $input = $request->except(['password']);
 
         try {
-            if ($request->has('device_token')) {
-                $user = $this->userRepository->update($request->only('device_token'), $id);
+            if ($request->has('fcm_token')) {
+                $user = $this->userRepository->update($request->only('fcm_token'), $id);
             } else {
                 $user = $this->userRepository->update($input, $id);
                 if ($request->hasFile('avatar')) {
@@ -194,18 +193,14 @@ class UserAPIController extends AppBaseController
         return $this->sendResponse($user, __('lang.updated_successfully', ['operator' => __('lang.user')]));
     }
 
-    public function balanceInfo()
-    {
-        return $this->sendResponse(['balance' => auth()->user()->balance], 'Balance retrieved successfully');
-    }
-
     public function userCheck(Request $request)
     {
-        if ($request->has('phone')) {
-            $user = $this->userRepository->findByField('phone', $request->input('phone'))->first();
+        if ($request->has('login')) {
+            $field = findUsername();
+            $user = $this->userRepository->findByField($field, $request->input('login'))->first();
 
             if ($user) {
-                return $this->sendResponse($user->makeHidden(['api_token', 'device_token', 'balance', 'uuid']), 'User retrieved successfully');
+                return $this->sendResponse($field, 'User found');
             }
         }
 
@@ -245,12 +240,12 @@ class UserAPIController extends AppBaseController
         return $this->sendError('User not found', 404);
     }
 
-    public function registerDeviceToken(Request $request)
+    public function registerFcmToken(Request $request)
     {
-        if ($request->has('device_token')) {
-            $user = $this->userRepository->update(['device_token' => $request->input('device_token')], auth()->id());
+        if ($request->has('fcm_token')) {
+            $user = $this->userRepository->update(['fcm_token' => $request->input('device_token')], auth()->id());
 
-            return $this->sendResponse($user->makeHidden(['api_token', 'device_token', 'balance', 'uuid']), 'Saved successfully');
+            return $this->sendResponse($user->makeHidden(['fcm_token']), 'Saved successfully');
         }
 
         return $this->sendError('Device token not found', 405);

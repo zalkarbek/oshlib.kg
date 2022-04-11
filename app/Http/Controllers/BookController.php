@@ -100,8 +100,11 @@ class BookController extends Controller
     public function store(CreateBookRequest $request)
     {
         $input = $request->all();
+
         try {
-            $input['file_id'] = $this->saveFile($request);
+            $file = $this->saveBook($request);
+
+            $input['file_id'] = $file->id;
 
             $book = $this->bookRepository->create($input);
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -121,6 +124,8 @@ class BookController extends Controller
                     $this->bookTagRepository->create(["book_id" => $book->id, "tag_id" => $tag]);
                 }
             }
+
+            splitPdf(storage_path('app/' . $file->path));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -172,7 +177,12 @@ class BookController extends Controller
         $input = $request->all();
         try {
             if ($request->hasFile('file') && $request->file('file')->isValid()) {
-                $input['file_id'] = $this->saveFile($request);
+                // unlink(storage_path($book->fileDetails->path));
+                deleteDirWithFiles($book->fileDetails->id);
+                $file = $this->saveBook($request);
+                splitPdf(storage_path('app/' . $file->path));
+
+                $input['file_id'] = $file->id;
             }
 
             $book = $this->bookRepository->update($input, $book->id);
@@ -205,15 +215,20 @@ class BookController extends Controller
         return redirect(route('books.index'));
     }
 
-    private function saveFile(Request $request)
+    private function saveBook(Request $request)
     {
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $name = $request->file('file')->getClientOriginalName();
             $mimeType = $request->file('file')->getClientMimeType();
-            $path = $request->file('file')->store('books');
 
-            $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'path' => $path]);
-            return $file->id;
+            $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'path' => '']);
+
+            $path = $request->file('file')->store('books/' . $file->id);
+
+            $file->path = $path;
+            $file->save();
+
+            return $file;
         }
 
         return null;
@@ -227,7 +242,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->delete();
+        $book->deleteWithFiles();
 
         return redirect(route('books.index'));
     }

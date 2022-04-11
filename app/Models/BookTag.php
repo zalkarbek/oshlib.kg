@@ -38,4 +38,20 @@ class BookTag extends Model
         'book_id' => 'integer',
         'tag_id' => 'integer',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
 }

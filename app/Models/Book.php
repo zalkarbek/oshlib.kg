@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use setasign\Fpdi\Fpdi;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -70,6 +68,7 @@ class Book extends Model implements HasMedia
     protected $appends = [
         'is_favorite',
         'cover',
+        'read_status'
     ];
 
     /**
@@ -133,6 +132,23 @@ class Book extends Model implements HasMedia
     }
 
     /**
+     * @return string
+     **/
+    public function getReadStatusAttribute()
+    {
+        $guards = array_keys(config('auth.guards'));
+        foreach ($guards as $guard) {
+            if(Auth::guard($guard)->check()) {
+                $readingStatus = UserReading::where('user_id', Auth::guard($guard)->id())->where('book_id', $this->id)->first();
+                if ($readingStatus) return $readingStatus->status;
+                else return "none";
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
     public function category()
@@ -149,19 +165,19 @@ class Book extends Model implements HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
     public function publisher()
     {
-        return $this->hasMany(Publisher::class);
+        return $this->belongsTo(Publisher::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function file()
+    public function fileDetails()
     {
-        return $this->belongsTo(File::class);
+        return $this->belongsTo(File::class,'file_id', 'id');
     }
 
     /**
@@ -175,8 +191,34 @@ class Book extends Model implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
+    public function bookTags()
+    {
+        return $this->hasMany(BookTag::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function bookSelection()
+    {
+        return $this->hasMany(BookSelection::class);
+    }
+
+    public function deleteWithFiles()
+    {
+        if ($this->fileDetails) {
+            // unlink(storage_path('app/' . $this->file->path));
+            deleteDirWithFiles(storage_path('app/books/' . $this->fileDetails->id));
+        }
+
+        $this->delete();
     }
 }

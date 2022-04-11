@@ -44,6 +44,15 @@ class Publisher extends Model implements HasMedia
     protected $casts = [];
 
     /**
+     * New Attributes
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image'
+    ];
+
+    /**
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
@@ -79,5 +88,22 @@ class Publisher extends Model implements HasMedia
         } else {
             return asset('images/avatar_default.png');
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+
+    /**
+     * Add Media to api results
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return $this->getFirstMediaUrl();
     }
 }

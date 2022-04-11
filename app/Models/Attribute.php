@@ -35,6 +35,13 @@ class Attribute extends Model
      *
      * @var array
      */
-    protected $casts = [
-    ];
+    protected $casts = [];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function bookAttributes()
+    {
+        return $this->hasMany(BookAttribute::class);
+    }
 }

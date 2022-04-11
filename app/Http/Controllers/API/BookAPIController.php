@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Book\FavoriteBooksCriteria;
 use App\Helpers\PDFMerger\PDFMerger;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
 use App\Repositories\BookRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\FavoriteRepository;
+use App\Repositories\FileRepository;
 use App\Repositories\ReviewRepository;
+use App\Repositories\UserReadingRepository;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use Nette\Schema\ValidationException;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Response;
 
 /**
  * Class CategoryController
@@ -26,15 +32,27 @@ class BookAPIController extends AppBaseController
     private $categoryRepository;
     /** @var ReviewRepository */
     private $reviewRepository;
+    /** @var UserReadingRepository */
+    private $userReadingRepository;
+    /** @var FavoriteRepository */
+    private $favoriteRepository;
+    /** @var FileRepository */
+    private $fileRepository;
 
     public function __construct(
         CategoryRepository $categoryRepo,
         BookRepository $bookRepo,
-        ReviewRepository $reviewRepo)
+        ReviewRepository $reviewRepo,
+        UserReadingRepository $userReadingRepo,
+        FavoriteRepository $favoriteRepo,
+        FileRepository $fileRepo)
     {
         $this->categoryRepository = $categoryRepo;
         $this->bookRepository = $bookRepo;
         $this->reviewRepository = $reviewRepo;
+        $this->userReadingRepository = $userReadingRepo;
+        $this->favoriteRepository = $favoriteRepo;
+        $this->fileRepository = $fileRepo;
     }
 
     /**
@@ -183,9 +201,126 @@ class BookAPIController extends AppBaseController
         return $this->sendResponse($reviews->toArray(), 'Reviews retrieved successfully');
     }
 
+    /**
+     * Display a listing of User Favorite Books.
+     * GET|HEAD /books/my/favorites
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function favorites(Request $request)
+    {
+        try {
+            $this->bookRepository->pushCriteria(new RequestCriteria($request));
+            $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->bookRepository->pushCriteria(new FavoriteBooksCriteria($request));
+        } catch (RepositoryException $e) {
+            return $this->sendError($e->getMessage());
+        }
+
+        $books = $this->bookRepository->all();
+
+        return $this->sendResponse($books->toArray(), 'Favorites retrieved successfully');
+    }
+
+    /**
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     */
+    public function addToFavorites($id, Request $request)
+    {
+        $favorite = $this->favoriteRepository->findByField('book_id', $id)->first();
+
+        if ($favorite) {
+            return $this->sendError(400);
+        }
+
+        $favorite = $this->favoriteRepository->create(['book_id' => $id, 'user_id' => auth()->id()]);
+
+        return $this->sendResponse($favorite->book, 'Added to favorites successfully');
+    }
+
+    /**
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     */
+    public function removeFromFavorites($id, Request $request)
+    {
+        $favorite = $this->favoriteRepository->findByField('book_id', $id)->first();
+
+        if (empty($favorite)) {
+            return $this->sendError(404);
+        }
+
+        $favorite->delete();
+
+        return $this->sendResponse([], 'Successfully removed from favorites');
+    }
+
+    /**
+     * Display a listing of Book Review.
+     * GET|HEAD /books/{id}/pages/{page}
+     *
+     * @param int $bookId
+     * @param int $page
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function byPage($bookId, $page, Request $request)
     {
-        $output = exec('/usr/local/bin/node -v 2>&1');
-        return "<pre>$output</pre>";
+        $book = $this->bookRepository->findWithoutFail($bookId);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$path.'"'
+        ]);
     }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function wantToRead($id, Request $request)
+    {
+        return $this->changeReadingStatus($id, 'want_to_read');
+    }
+
+    public function reading($id, Request $request)
+    {
+        $this->changeReadingStatus($id, 'reading');
+    }
+
+    public function read($id, Request $request)
+    {
+        $this->changeReadingStatus($id, 'read');
+    }
+
+    private function changeReadingStatus($bookId, $newStatus)
+    {
+        $userId = auth()->id();
+        try {
+            $readingStatus = $this->userReadingRepository->findByField('book_id', $bookId)->where('user_id', '=', auth()->id())->first();
+            if ($readingStatus) {
+                $this->userReadingRepository->update(['user_id' => $userId, 'book_id' => $bookId, 'status' => $newStatus], $readingStatus->id);
+            } else {
+                $this->userReadingRepository->create(['user_id' => $userId, 'book_id' => $bookId, 'status' => $newStatus]);
+            }
+        } catch (ValidatorException $e) {
+            return $this->sendError('validator error', 405);
+        }
+
+        return $this->sendSuccess('successfully changed');
+    }
+
 }

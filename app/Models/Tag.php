@@ -15,7 +15,6 @@ class Tag extends Model implements HasMedia
         getFirstMediaUrl as protected getFirstMediaUrlTrait;
     }
 
-
     /**
      * Validation rules
      *
@@ -44,6 +43,15 @@ class Tag extends Model implements HasMedia
      * @var array
      */
     protected $casts = [];
+
+    /**
+     * New Attributes
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image'
+    ];
 
     /**
      * @param Media|null $media
@@ -81,5 +89,22 @@ class Tag extends Model implements HasMedia
         } else {
             return asset('images/avatar_default.png');
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function bookTags()
+    {
+        return $this->hasMany(BookTag::class);
+    }
+
+    /**
+     * Add Media to api results
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return $this->getFirstMediaUrl();
     }
 }

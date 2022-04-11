@@ -47,4 +47,12 @@ class BookAttribute extends Model
     {
         return $this->belongsTo(Attribute::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }
