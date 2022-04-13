@@ -73,10 +73,6 @@ class UserAPIController extends AppBaseController
             $user->password = Hash::make($request->input('password'));
             $user->save();
 
-            $token = $user->createToken(str_random(20));
-
-            $user->token = $token;
-
             $defaultRoles = $this->roleRepository->find(3);
             $defaultRoles = $defaultRoles->pluck('name')->toArray();
             $user->assignRole($defaultRoles);
@@ -85,8 +81,9 @@ class UserAPIController extends AppBaseController
             return $this->sendError($e->getMessage(), 405);
         }
 
-
-        return $this->sendResponse($user, 'User retrieved successfully');
+        $data = $user->toArray();
+        $data['token'] = $user->createToken(str_random(20))->plainTextToken;
+        return $this->sendResponse($data, 'User retrieved successfully');
     }
 
     function logout(Request $request)
