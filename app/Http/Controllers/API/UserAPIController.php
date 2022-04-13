@@ -71,9 +71,9 @@ class UserAPIController extends AppBaseController
             $user->email = $request->input('email');
             $user->fcm_token = $request->input('fcm_token', '');
             $user->password = Hash::make($request->input('password'));
-            $token = $user->createToken(str_random(20));
-
             $user->save();
+
+            $token = $user->createToken(str_random(20));
 
             $user->token = $token;
 
