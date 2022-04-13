@@ -68,7 +68,8 @@ class Book extends Model implements HasMedia
     protected $appends = [
         'is_favorite',
         'cover',
-        'read_status'
+        'read_status',
+        'rating',
     ];
 
     /**
@@ -146,6 +147,14 @@ class Book extends Model implements HasMedia
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     **/
+    public function getRatingAttribute()
+    {
+        return $this->reviews()->average('rating');
     }
 
     /**
