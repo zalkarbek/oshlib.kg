@@ -50,7 +50,7 @@ class UserAPIController extends AppBaseController
                 return $this->sendResponse($user, 'User retrieved successfully');
             }
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 401);
+            return $this->sendError($e->getMessage(), 405);
         }
 
         return $this->sendError([], 401);
@@ -82,7 +82,7 @@ class UserAPIController extends AppBaseController
             $user->assignRole($defaultRoles);
 
         } catch (\Exception $e) {
-            return $this->sendError($request->all(), 401);
+            return $this->sendError($e->getMessage(), 405);
         }
 
 
