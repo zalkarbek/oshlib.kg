@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Book\FavoriteBooksCriteria;
+use App\Criteria\Book\PopularBooksCriteria;
+use App\Criteria\Book\RandomBooksCriteria;
 use App\Helpers\PDFMerger\PDFMerger;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
@@ -67,6 +69,8 @@ class BookAPIController extends AppBaseController
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->bookRepository->pushCriteria(new PopularBooksCriteria($request));
+            $this->bookRepository->pushCriteria(new RandomBooksCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }

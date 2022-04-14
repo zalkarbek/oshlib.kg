@@ -154,7 +154,7 @@ class Book extends Model implements HasMedia
      **/
     public function getRatingAttribute()
     {
-        return $this->reviews()->average('rating');
+        return $this->reviews()->average('rating') ?? 0.0;
     }
 
     /**
