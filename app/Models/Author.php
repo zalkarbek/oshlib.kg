@@ -49,7 +49,8 @@ class Author extends Model implements HasMedia
      * @var array
      */
     protected $appends = [
-        'image'
+        'image',
+        'books_count'
     ];
 
     /**
@@ -97,6 +98,15 @@ class Author extends Model implements HasMedia
     public function getImageAttribute()
     {
         return $this->getFirstMediaUrl();
+    }
+
+    /**
+     * Add books count to api results
+     * @return int
+     */
+    public function getBooksCountAttribute()
+    {
+        return $this->books()->count();
     }
 
     /**
