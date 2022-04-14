@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('abooks', 'BookAPIController')->except([
+    'store', 'update'
+]);
+Route::get('books/reviews', 'BookAPIController@reviews');
+
 Route::post('login', 'UserAPIController@login');
 Route::post('register', 'UserAPIController@register');
 Route::get('user/check', 'UserAPIController@userCheck');
@@ -33,11 +38,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('pages/{page}', 'BookAPIController@byPage');
     });
 });
-
-Route::resource('books', 'BookAPIController')->except([
-    'store', 'update'
-]);
-Route::get('books/reviews', 'BookAPIController@reviews');
 
 Route::get('categories/tree', 'CategoryAPIController@tree');
 Route::resource('categories', 'CategoryAPIController')->except([

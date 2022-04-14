@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Book\FavoriteBooksCriteria;
 use App\Criteria\Book\PopularBooksCriteria;
 use App\Criteria\Book\RandomBooksCriteria;
-use App\Helpers\PDFMerger\PDFMerger;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
 use App\Repositories\BookRepository;
@@ -16,7 +15,6 @@ use App\Repositories\ReviewRepository;
 use App\Repositories\UserReadingRepository;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Nette\Schema\ValidationException;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -74,6 +72,7 @@ class BookAPIController extends AppBaseController
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
+
         $books = $this->bookRepository->all();
 
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
