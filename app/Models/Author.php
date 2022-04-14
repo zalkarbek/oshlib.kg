@@ -50,7 +50,7 @@ class Author extends Model implements HasMedia
      */
     protected $appends = [
         'image',
-        'books_count'
+        'books_count',
     ];
 
     /**
