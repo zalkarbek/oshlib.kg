@@ -101,7 +101,7 @@ class Author extends Model implements HasMedia
     }
 
     /**
-     * Add Media to api results
+     * Add books count to api results
      * @return int
      */
     public function getBooksCountAttribute()
