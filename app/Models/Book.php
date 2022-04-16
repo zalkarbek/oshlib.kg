@@ -65,7 +65,7 @@ class Book extends Model implements HasMedia
      *
      * @var array
      */
-    /*protected $appends = [
+    protected $appends = [
         'is_favorite',
         'cover',
         'read_status',

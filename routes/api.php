@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('abooks', 'BookAPIController')->except([
+Route::resource('books', 'BookAPIController')->except([
     'store', 'update'
 ]);
 Route::get('books/reviews', 'BookAPIController@reviews');
