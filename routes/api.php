@@ -23,7 +23,7 @@ Route::resource('books', 'BookAPIController')->except([
 ]);
 Route::get('books/reviews', 'BookAPIController@reviews');
 
-Route::get('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
+Route::post('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
 
 Route::post('login', 'UserAPIController@login');
 Route::post('register', 'UserAPIController@register');
