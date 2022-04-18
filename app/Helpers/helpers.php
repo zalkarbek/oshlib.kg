@@ -694,11 +694,8 @@ function allParents($child)
 function findUsername()
 {
     $login = request()->input('login');
-
     $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'login';
-
     request()->merge([$fieldType => $login]);
-
     return $fieldType;
 }
 
