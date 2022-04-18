@@ -12,6 +12,7 @@ use App\DataTables\UserDataTable;
 use App\Events\UserRoleChangedEvent;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Flash;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
+use Laravel\Socialite\Facades\Socialite;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserController extends AppBaseController
@@ -38,7 +40,7 @@ class UserController extends AppBaseController
         $this->userRepository = $userRepo;
         $this->roleRepository = $roleRepo;
     }
-    
+
     /**
      * Display a listing of the User.
      *
@@ -310,5 +312,60 @@ class UserController extends AppBaseController
             }
         }
     }
-    
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), 505);
+        }
+
+        // only allow people with @company.com to login
+        /*if(explode("@", $user->email)[1] !== 'company.com'){
+            return redirect()->to('/');
+        }*/
+
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if($existingUser){
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $newUser                  = new User;
+            $newUser->name            = $user->name;
+            $newUser->email           = $user->email;
+            $newUser->password = Hash::make(str_random(20));
+            $newUser->save();
+
+            if ($user->getAvatar()) {
+                $newUser->addMediaFromUrl($user->avatar)->toMediaCollection();
+            }
+
+            $existingUser = $newUser;
+
+            auth()->login($newUser, true);
+        }
+
+        $data = $existingUser->toArray();
+        $data['token'] = $existingUser->createToken(str_random(20))->plainTextToken;
+
+        return $this->sendResponse($data, 'Success');
+    }
+
 }

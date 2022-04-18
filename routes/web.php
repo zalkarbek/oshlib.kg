@@ -22,6 +22,9 @@ Route::get('/clear-cache', function() {
     return "Your all Cache is cleared";
 });
 
+Route::get('/googleAuthRedirect', 'App\Http\Controllers\UserController@redirectToProvider');
+Route::get('/googlecallback', 'App\Http\Controllers\UserController@handleProviderCallback');
+
 Auth::routes();
 
 Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
