@@ -19,6 +19,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Laravel\Socialite\Facades\Socialite;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Auth;
 
@@ -253,4 +254,16 @@ class UserAPIController extends AppBaseController
 
         return $this->sendError('Device token not found', 405);
     }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+
 }

@@ -9,7 +9,6 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
-use App\Events\UserRoleChangedEvent;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -314,16 +313,6 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Redirect the user to the Google authentication page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToProvider()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    /**
      * Obtain the user information from Google.
      *
      * @return \Illuminate\Http\Response
@@ -331,7 +320,7 @@ class UserController extends AppBaseController
     public function handleProviderCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 505);
         }
@@ -350,7 +339,9 @@ class UserController extends AppBaseController
             $newUser                  = new User;
             $newUser->name            = $user->name;
             $newUser->email           = $user->email;
+            $newUser->login           = explode("@", $user->email)[0];
             $newUser->password = Hash::make(str_random(20));
+            $newUser->comment = '';
             $newUser->save();
 
             if ($user->getAvatar()) {
