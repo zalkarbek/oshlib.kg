@@ -22,7 +22,7 @@ Route::get('/clear-cache', function() {
     return "Your all Cache is cleared";
 });
 
-Route::get('/redirect', 'App\Http\Controllers\UserController@redirectToProvider');
+Route::get('/googleAuthRedirect', 'App\Http\Controllers\UserController@redirectToProvider');
 Route::get('/googlecallback', 'App\Http\Controllers\UserController@handleProviderCallback');
 
 Auth::routes();
