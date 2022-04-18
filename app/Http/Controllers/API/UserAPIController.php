@@ -18,6 +18,7 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Auth;
 
@@ -129,6 +130,11 @@ class UserAPIController extends AppBaseController
         }
 
         return $this->sendResponse($settings, 'Settings retrieved successfully');
+    }
+
+    function sendResetPassword(Request $request)
+    {
+        Password::sendResetLink();
     }
 
     /**

@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
-class ResetPasswordAPIController extends Controller
+class ResetPasswordAPIController extends AppBaseController
 {
     public function sendResetCode(Request $request)
     {
@@ -53,7 +57,7 @@ class ResetPasswordAPIController extends Controller
     {
         $request->validate([
             'code' => 'required|string|exists:reset_code_passwords',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
 
         // find the code

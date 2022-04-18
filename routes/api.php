@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('user/sendResetCode',  'ResetPasswordAPIController@sendResetCode');
+Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
+Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
+
 Route::resource('books', 'BookAPIController')->except([
     'store', 'update'
 ]);
