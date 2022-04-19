@@ -10,7 +10,7 @@ class Favorite extends Model
     use HasFactory;
 
     public $fillable = [
-        'advertisement_id',
+        'book_id',
         'user_id',
     ];
 

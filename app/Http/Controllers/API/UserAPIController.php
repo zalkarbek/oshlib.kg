@@ -16,6 +16,7 @@ use App\Repositories\AdvertisementRepository;
 use App\Repositories\BookRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -73,6 +74,12 @@ class UserAPIController extends AppBaseController
             $user->email = $request->input('email');
             $user->fcm_token = $request->input('fcm_token', '');
             $user->password = Hash::make($request->input('password'));
+
+            if ($request->has('google_account')) {
+                $user->google_account = true;
+                $user->email_verified_at = Carbon::now();
+            }
+
             $user->save();
 
             $defaultRoles = $this->roleRepository->find(3);

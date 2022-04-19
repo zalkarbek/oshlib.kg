@@ -220,8 +220,9 @@ class BookController extends Controller
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $name = $request->file('file')->getClientOriginalName();
             $mimeType = $request->file('file')->getClientMimeType();
+            $fileSize = $request->file('file')->getSize();
 
-            $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'path' => '']);
+            $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'file_size' => $fileSize, 'path' => '']);
 
             $path = $request->file('file')->store('books/' . $file->id);
 

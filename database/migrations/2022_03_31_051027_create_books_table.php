@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->bigInteger('publisher_id')->unsigned();
             $table->bigInteger('file_id')->unsigned();
             $table->dateTime('release_date')->nullable();
+            $table->dateTime('writing_date')->nullable();
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')

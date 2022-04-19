@@ -206,6 +206,14 @@ class Book extends Model implements HasMedia
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'book_tags', 'book_id', 'tag_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function reviews()

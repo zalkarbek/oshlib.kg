@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->string('name');
             $table->string('mime_type', 20);
             $table->string('path');
+            $table->integer('file_size')->nullable();
             $table->string('comment')->nullable();
             $table->timestamps();
         });

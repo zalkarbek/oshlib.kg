@@ -42,6 +42,7 @@ class User extends Authenticatable implements HasMedia
         'login',
         'email',
         'password',
+        'google_account'
     ];
 
     /**
@@ -60,6 +61,7 @@ class User extends Authenticatable implements HasMedia
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'google_account' => 'boolean',
     ];
 
     /**

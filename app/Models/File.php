@@ -30,6 +30,7 @@ class File extends Model
         'mime_type',
         'path',
         'comment',
+        'file_size',
     ];
 
     /**
