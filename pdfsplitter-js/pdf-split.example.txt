@@ -2,6 +2,11 @@
 перед запуском нужно установить все необходимые пакеты
 npm install
 
-node split.js --filename=D:\books\books2020.pdf
+filename - полный путь к файлу
+excerpt-page-count - кол-во страниц для отрывка
+
+node pdf-split.js --filename=D:\books2020.pdf --excerpt-page-count=10
+
+
 в директории создает pages папку и туда сохраняет все страницы в 1-n.pdf
 потом создает файл meta.json для сохранения кол-во страниц и полный путь к книге

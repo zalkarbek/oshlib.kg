@@ -13,8 +13,16 @@ async function pathExistsOrCreate(path) {
         return 'create'
     }
 }
+function range(start, end) {
+    let foos = [];
+    for (let i = start; i <= end; i++) {
+        foos.push(i);
+    }
+    return foos;
+}
 
-async function pdfDocumentSplitter(filePath) {
+// разделяет pdf постранично на 1
+async function pdfDocumentSplitter(filePath, excerptPageCount = 20) {
     const pagesPath = '/pages'
     // читаем документ из папки
     const bookPdfFile = await fs.readFile(filePath)
@@ -46,8 +54,36 @@ async function pdfDocumentSplitter(filePath) {
         await fs.writeFile(`${pdfPagesPath}/${filename}`, pageBytes)
         index++
     }
+
+    await pdfDocumentExcerpt({
+        filename: path.basename(filePath),
+        bookPdf,
+        totalPages,
+        pdfPagePath: dirname,
+        excerptPageCount
+    })
     //====================================================//
     return index
+}
+
+// сохраняет отрывок книги
+async function pdfDocumentExcerpt({ filename, bookPdf, totalPages, pdfPagePath, excerptPageCount = 20 }) {
+
+    let excerptPages = range(0, excerptPageCount)
+
+    if(excerptPages.length > totalPages) {
+        excerptPages = range(0, totalPages)
+    }
+    //====================================================//
+    const newPdfPage = await PDFDocument.create()
+    const copiedPages = await newPdfPage.copyPages(bookPdf, excerptPages)
+    excerptPages.forEach((index) => {
+        newPdfPage.addPage(copiedPages[index])
+    })
+    const pageBytes = await newPdfPage.save()
+    const newFileName = `${filename}-excerpt.pdf`
+    await fs.writeFile(`${pdfPagePath}/${newFileName}`, pageBytes)
+    //====================================================//
 }
 
 async function createJSONMetaFIle(totalPages, filename) {
@@ -61,7 +97,7 @@ async function createJSONMetaFIle(totalPages, filename) {
 
 async function splitter(argv) {
     if (argv.filename) {
-        const totalPages = await pdfDocumentSplitter(argv.filename)
+        const totalPages = await pdfDocumentSplitter(argv.filename, argv['excerpt-page-count'])
         await createJSONMetaFIle(totalPages, argv.filename)
         return totalPages + ' pages created'
     }
@@ -71,4 +107,6 @@ async function splitter(argv) {
 const argv = yargs(hideBin(process.argv)).argv
 splitter(argv).then((response) => {
     console.log(response)
+}).catch((err) => {
+    console.log(err)
 })
