@@ -22,7 +22,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 use Flash;
 use Response;
 
-class BookController extends Controller
+class BookController extends AppBaseController
 {
     /** @var BookRepository */
     private $bookRepository;
@@ -289,20 +289,20 @@ class BookController extends Controller
      * Preview of a Book.
      * GET|HEAD /books/{id}/preview
      *
-     * @param int $bookId
+     * @param int $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bookPreview($bookId, Request $request)
+    public function bookPreview($id, Request $request)
     {
-        $book = $this->bookRepository->findWithoutFail($bookId);
+        $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {
             return $this->sendError(404);
         }
 
         [$name, $ext] = explode('.', $book->fileDetails->path, 2);
-        $path = storage_path("app/" . $name . "-excerpt." . $ext);
+        $path = storage_path("app/" . $book->fileDetails->path . "-excerpt." . $ext);
 
         return Response::make(file_get_contents($path), 200, [
             'Content-Type' => 'application/pdf',

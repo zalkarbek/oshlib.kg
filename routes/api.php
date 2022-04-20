@@ -42,7 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('read', 'BookAPIController@read');
         Route::post('favorites', 'BookAPIController@addToFavorites');
         Route::delete('favorites', 'BookAPIController@removeFromFavorites');
-
     });
 });
 
