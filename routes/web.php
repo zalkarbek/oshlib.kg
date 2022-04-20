@@ -32,6 +32,8 @@ Route::get('storage/{id}/{conversion}/{filename?}', 'App\Http\Controllers\Upload
 Route::get('firebase/sw-js', 'App\Http\Controllers\AppSettingController@initFirebase');
 
 Route::get('books/{id}/pages/{page}', 'App\Http\Controllers\BookController@byPage');
+Route::get('books/{id}/preview', 'App\Http\Controllers\BookController@bookPreview');
+
 
 Route::group(['middleware' => ['permission:permissions.index', 'auth'], 'prefix' => 'permissions'], function () {
     Route::get('role-has-permission', 'App\Http\Controllers\PermissionController@roleHasPermission');
