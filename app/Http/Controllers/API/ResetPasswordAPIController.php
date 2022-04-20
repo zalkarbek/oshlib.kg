@@ -73,7 +73,7 @@ class ResetPasswordAPIController extends AppBaseController
         $user = User::firstWhere('email', $passwordReset->email);
 
         // update user password
-        $user->update($request->only('password'));
+        $user->password = $request->input('password');
 
         // delete current code
         $passwordReset->delete();

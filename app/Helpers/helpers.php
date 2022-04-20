@@ -702,7 +702,7 @@ function findUsername()
 function splitPdf($bookPath)
 {
     $basePath = base_path();
-    exec("/usr/local/bin/node $basePath/pdfsplitter-js/pdf-split.js --filename=$bookPath > /dev/null");
+    exec("/usr/local/bin/node $basePath/pdfsplitter-js/pdf-split.js --filename=$bookPath --excerpt-page-count=20 > /dev/null");
 }
 
 function deleteDirWithFiles($dir)

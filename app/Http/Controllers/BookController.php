@@ -6,6 +6,7 @@ use App\DataTables\BookDataTable;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\User;
 use App\Repositories\AttributeRepository;
 use App\Repositories\AuthorRepository;
 use App\Repositories\BookAttributeRepository;
@@ -16,8 +17,10 @@ use App\Repositories\FileRepository;
 use App\Repositories\PublisherRepository;
 use App\Repositories\TagRepository;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Flash;
+use Response;
 
 class BookController extends Controller
 {
@@ -247,4 +250,64 @@ class BookController extends Controller
 
         return redirect(route('books.index'));
     }
+
+    /**
+     * View a Book page.
+     * GET|HEAD /books/{id}/pages/{page}
+     *
+     * @param int $bookId
+     * @param int $page
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byPage($bookId, $page, Request $request)
+    {
+        $input = $request->all();
+        if (isset($input['api_token'])) {
+            $token = PersonalAccessToken::findToken($input['api_token']);
+
+            if (!$token) return Response::make('token not found', 401);
+        } else {
+            return Response::make('', 401);
+        }
+
+        $book = $this->bookRepository->findWithoutFail($bookId);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$path.'"'
+        ]);
+    }
+
+    /**
+     * Preview of a Book.
+     * GET|HEAD /books/{id}/preview
+     *
+     * @param int $bookId
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function bookPreview($bookId, Request $request)
+    {
+        $book = $this->bookRepository->findWithoutFail($bookId);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        [$name, $ext] = explode('.', $book->fileDetails->path, 2);
+        $path = storage_path("app/" . $name . "-excerpt." . $ext);
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$path.'"'
+        ]);
+    }
+
 }

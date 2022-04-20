@@ -265,31 +265,6 @@ class BookAPIController extends AppBaseController
     }
 
     /**
-     * Display a listing of Book Review.
-     * GET|HEAD /books/{id}/pages/{page}
-     *
-     * @param int $bookId
-     * @param int $page
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function byPage($bookId, $page, Request $request)
-    {
-        $book = $this->bookRepository->findWithoutFail($bookId);
-
-        if (empty($book)) {
-            return $this->sendError(404);
-        }
-
-        $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
-
-        return Response::make(file_get_contents($path), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$path.'"'
-        ]);
-    }
-
-    /**
      * @param $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
