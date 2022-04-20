@@ -34,7 +34,6 @@ Route::get('firebase/sw-js', 'App\Http\Controllers\AppSettingController@initFire
 Route::get('books/{id}/pages/{page}', 'App\Http\Controllers\BookController@byPage');
 Route::get('books/{id}/preview', 'App\Http\Controllers\BookController@bookPreview');
 
-
 Route::group(['middleware' => ['permission:permissions.index', 'auth'], 'prefix' => 'permissions'], function () {
     Route::get('role-has-permission', 'App\Http\Controllers\PermissionController@roleHasPermission');
     Route::get('refresh-permissions', 'App\Http\Controllers\PermissionController@refreshPermissions');

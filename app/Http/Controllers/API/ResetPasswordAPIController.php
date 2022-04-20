@@ -7,6 +7,7 @@ use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class ResetPasswordAPIController extends AppBaseController
@@ -73,7 +74,7 @@ class ResetPasswordAPIController extends AppBaseController
         $user = User::firstWhere('email', $passwordReset->email);
 
         // update user password
-        $user->password = $request->input('password');
+        $user->password = Hash::make($request->input('password'));
 
         // delete current code
         $passwordReset->delete();
