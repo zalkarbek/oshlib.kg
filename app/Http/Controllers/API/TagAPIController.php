@@ -54,12 +54,12 @@ class TagAPIController extends AppBaseController
      * Display the specified Tag.
      * GET|HEAD /tags/{id}
      *
-     * @param Tag $tag
+     * @param int $id
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($tag, Request $request)
+    public function show($id, Request $request)
     {
         try {
             $this->tagRepository->pushCriteria(new RequestCriteria($request));
@@ -67,7 +67,7 @@ class TagAPIController extends AppBaseController
             return $this->sendError($e->getMessage());
         }
 
-        $tag = $this->tagRepository->findWithoutFail($tag->id);
+        $tag = $this->tagRepository->findWithoutFail($id);
 
         if (empty($tag)) {
             return $this->sendError('Tag not found');
