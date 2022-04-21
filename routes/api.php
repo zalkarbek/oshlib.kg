@@ -22,6 +22,8 @@ Route::resource('books', 'BookAPIController')->except([
     'store', 'update'
 ]);
 Route::get('books/reviews', 'BookAPIController@reviews');
+Route::get('books/{id}/pages/{page}', 'BookAPIController@byPage');
+Route::get('books/{id}/preview', 'BookAPIController@bookPreview');
 
 Route::get('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
 Route::get('/googleAuth', 'UserAPIController@googleAuth');

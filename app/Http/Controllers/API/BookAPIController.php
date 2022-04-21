@@ -15,6 +15,7 @@ use App\Repositories\ReviewRepository;
 use App\Repositories\UserReadingRepository;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use Laravel\Sanctum\PersonalAccessToken;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -299,6 +300,65 @@ class BookAPIController extends AppBaseController
         }
 
         return $this->sendSuccess('successfully changed');
+    }
+
+    /**
+     * View a Book page.
+     * GET|HEAD /books/{id}/pages/{page}
+     *
+     * @param int $bookId
+     * @param int $page
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byPage($bookId, $page, Request $request)
+    {
+        $input = $request->all();
+        if (isset($input['api_token'])) {
+            $token = PersonalAccessToken::findToken($input['api_token']);
+
+            if (!$token) return $this->sendError('token not found', 401);
+        } else {
+            return $this->sendError('', 401);
+        }
+
+        $book = $this->bookRepository->findWithoutFail($bookId);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$path.'"'
+        ]);
+    }
+
+    /**
+     * Preview of a Book.
+     * GET|HEAD /books/{id}/preview
+     *
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function bookPreview($id, Request $request)
+    {
+        $book = $this->bookRepository->findWithoutFail($id);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        [$name, $ext] = explode('.', $book->fileDetails->path, 2);
+        $path = storage_path("app/" . $book->fileDetails->path . "-excerpt." . $ext);
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$path.'"'
+        ]);
     }
 
 }
