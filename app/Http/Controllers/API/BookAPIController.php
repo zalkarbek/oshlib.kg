@@ -7,6 +7,8 @@ use App\Criteria\Book\PopularBooksCriteria;
 use App\Criteria\Book\RandomBooksCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
+use App\Models\Favorite;
+use App\Models\Review;
 use App\Repositories\BookRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\FavoriteRepository;
@@ -235,7 +237,7 @@ class BookAPIController extends AppBaseController
      */
     public function addToFavorites($id, Request $request)
     {
-        $favorite = $this->favoriteRepository->findByField('book_id', $id)->first();
+        $favorite = Favorite::where('book_id', '=', $id)->where('user_id', '=', auth()->id())->first();
 
         if ($favorite) {
             return $this->sendError(400);
@@ -254,7 +256,7 @@ class BookAPIController extends AppBaseController
      */
     public function removeFromFavorites($id, Request $request)
     {
-        $favorite = $this->favoriteRepository->findByField('book_id', $id)->first();
+        $favorite = Favorite::where('book_id', '=', $id)->where('user_id', '=', auth()->id())->first();
 
         if (!$favorite) {
             return $this->sendError(404);
@@ -332,7 +334,7 @@ class BookAPIController extends AppBaseController
 
         return Response::make(file_get_contents($path), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$path.'"'
+            'Content-Disposition' => 'inline; filename="' . $path . '"'
         ]);
     }
 
@@ -357,8 +359,66 @@ class BookAPIController extends AppBaseController
 
         return Response::make(file_get_contents($path), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$path.'"'
+            'Content-Disposition' => 'inline; filename="' . $path . '"'
         ]);
+    }
+
+    /**
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     */
+    public function rate($id, Request $request)
+    {
+        $input = $request->all();
+        $review = Review::where('book_id', '=', $id)->where('user_id', '=', auth()->id())->first();
+
+        if ($review) {
+            $review = $this->reviewRepository->update($input, $review->id);
+        } else {
+            $input['user_id'] = auth()->id();
+            $input['book_id'] = $id;
+            $review = $this->reviewRepository->create($input);
+        }
+
+        return $this->sendResponse($review, 'Review added successfully');
+    }
+
+    /**
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     */
+    public function deleteRate($id, Request $request)
+    {
+        $review = Review::where('book_id', '=', $id)->where('user_id', '=', auth()->id())->first();
+
+        if (!$review) {
+            return $this->sendError(404);
+        }
+
+        $review->delete();
+
+        return $this->sendResponse([], 'Successfully removed from reviews');
+    }
+
+    /**
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     */
+    public function myReview($id, Request $request)
+    {
+        $review = Review::where('book_id', '=', $id)->where('user_id', '=', auth()->id())->first();
+
+        if (!$review) {
+            return $this->sendError(404);
+        }
+
+        return $this->sendResponse($review, 'Successfully');
     }
 
 }
