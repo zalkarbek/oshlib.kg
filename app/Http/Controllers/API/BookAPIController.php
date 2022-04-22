@@ -256,7 +256,7 @@ class BookAPIController extends AppBaseController
     {
         $favorite = $this->favoriteRepository->findByField('book_id', $id)->first();
 
-        if (empty($favorite)) {
+        if (!$favorite) {
             return $this->sendError(404);
         }
 

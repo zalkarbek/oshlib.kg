@@ -60,7 +60,7 @@ async function pdfDocumentSplitter(filePath, excerptPageCount = 20) {
         bookPdf,
         totalPages,
         pdfPagePath: dirname,
-        excerptPageCount
+        excerptPageCount: Number(excerptPageCount)
     })
     //====================================================//
     return index
@@ -69,11 +69,12 @@ async function pdfDocumentSplitter(filePath, excerptPageCount = 20) {
 // сохраняет отрывок книги
 async function pdfDocumentExcerpt({ filename, bookPdf, totalPages, pdfPagePath, excerptPageCount = 20 }) {
 
-    let excerptPages = range(0, excerptPageCount)
+    let excerptPages = range(0, Number(excerptPageCount))
 
-    if(excerptPages.length > totalPages) {
-        excerptPages = range(0, totalPages)
+    if(Number(excerptPageCount) > Number(totalPages)) {
+        excerptPages = range(0, Number(totalPages)-1)
     }
+
     //====================================================//
     const newPdfPage = await PDFDocument.create()
     const copiedPages = await newPdfPage.copyPages(bookPdf, excerptPages)

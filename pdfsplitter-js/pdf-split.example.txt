@@ -2,8 +2,10 @@
 перед запуском нужно установить все необходимые пакеты
 npm install
 
+
 filename - полный путь к файлу
 excerpt-page-count - кол-во страниц для отрывка
+
 
 node pdf-split.js --filename=D:\books2020.pdf --excerpt-page-count=10
 
