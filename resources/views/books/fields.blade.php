@@ -36,9 +36,17 @@
 
     <!-- Category Id Field -->
     <div class="form-group row ">
-        {!! Form::label('release_date', trans('lang.book_release_date'),['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('release_date', 'Дата публикации', ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::date('release_date', null, ['class' => 'select2 form-control']) !!}
+            {!! Form::date('release_date', $releaseDate, ['class' => 'select2 form-control']) !!}
+        </div>
+    </div>
+
+    <!-- Category Id Field -->
+    <div class="form-group row ">
+        {!! Form::label('writing_date', 'Дата написания', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::date('writing_date', $writingDate, ['class' => 'select2 form-control']) !!}
         </div>
     </div>
 
@@ -110,10 +118,12 @@
     </div>
 </div>
 
-@if(isset($book))
-    <livewire:books.attributes :book="$book" />
-@else
-    <livewire:books.attributes />
+@if(!empty($attributes))
+    @if(isset($book))
+        <livewire:books.attributes :book="$book" />
+    @else
+        <livewire:books.attributes />
+    @endif
 @endif
 
 <!-- Submit Field -->

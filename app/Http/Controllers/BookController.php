@@ -16,6 +16,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\FileRepository;
 use App\Repositories\PublisherRepository;
 use App\Repositories\TagRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\PersonalAccessToken;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -91,7 +92,11 @@ class BookController extends AppBaseController
 
         $bookTags = [];
 
-        return view('books.create', compact(['categories', 'authors', 'publishers', 'attributes', 'tags', 'bookTags']));
+        $releaseDate = null;
+        $writingDate = null;
+
+        return view('books.create', compact(['categories', 'authors',
+            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate']));
     }
 
     /**
@@ -165,7 +170,11 @@ class BookController extends AppBaseController
 
         $bookTags = $this->bookTagRepository->findByField('book_id', $book->id)->pluck('id');
 
-        return view('books.edit', compact(['book', 'categories', 'authors', 'publishers', 'attributes', 'tags', 'bookTags']));
+        $releaseDate = Carbon::parse($book->release_date);
+        $writingDate = Carbon::parse($book->writing_date);
+
+        return view('books.edit', compact(['book', 'categories', 'authors',
+            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate']));
     }
 
     /**
