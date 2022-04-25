@@ -229,6 +229,14 @@ class Book extends Model implements HasMedia
         return $this->hasMany(BookSelection::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function userReadings()
+    {
+        return $this->hasMany(UserReading::class);
+    }
+
     public function deleteWithFiles()
     {
         if ($this->fileDetails) {
