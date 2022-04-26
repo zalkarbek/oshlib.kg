@@ -26,6 +26,7 @@ Route::middleware('throttle:60')->group(function () {
     ]);
     Route::get('books/reviews', 'BookAPIController@reviews');
     Route::get('books/{id}/preview', 'BookAPIController@bookPreview');
+    Route::get('books/{id}/file', 'BookAPIController@downloadFile');
 
     Route::get('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
     Route::get('/googleAuth', 'UserAPIController@googleAuth');

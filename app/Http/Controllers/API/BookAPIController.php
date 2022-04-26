@@ -362,6 +362,30 @@ class BookAPIController extends AppBaseController
     }
 
     /**
+     * Preview of a Book.
+     * GET|HEAD /books/{id}/preview
+     *
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function downloadFile($id, Request $request)
+    {
+        $book = $this->bookRepository->findWithoutFail($id);
+
+        if (empty($book)) {
+            return $this->sendError(404);
+        }
+
+        $path = storage_path("app/" . $book->fileDetails->path);
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $path . '"'
+        ]);
+    }
+
+    /**
      *
      * @param int $id
      * @param Request $request
