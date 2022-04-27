@@ -368,9 +368,9 @@ class BookAPIController extends AppBaseController
      *
      * @param int $id
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function downloadFile($id, Request $request)
+    public function bookFile($id, Request $request)
     {
         $input = $request->all();
         if (isset($input['api_token'])) {
@@ -389,10 +389,16 @@ class BookAPIController extends AppBaseController
 
         $path = storage_path("app/" . $book->fileDetails->path);
 
-        return Response::make(file_get_contents($path), 200, [
+        $headers = [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $path . '"'
-        ]);
+        ];
+
+        if ($request->has('action') && $request->input('action') === 'download') {
+            return response()->download($path, basename($path), $headers);
+        }
+
+        return response()->make(file_get_contents($path), 200, $headers);
     }
 
     /**
