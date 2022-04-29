@@ -424,7 +424,6 @@ class BookAPIController extends AppBaseController
             $input['book_id'] = $id;
             $review = $this->reviewRepository->create($input);
         }
-
         return $this->sendResponse($review, 'Review added successfully');
     }
 
