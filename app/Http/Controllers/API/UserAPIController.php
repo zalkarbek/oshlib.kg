@@ -293,27 +293,31 @@ class UserAPIController extends AppBaseController
     function googleAuth(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email',
             'name' => 'required|string',
-            'uid' => 'required|string',
+            'uid' => 'required',
         ]);
 
         $input = $request->all();
         // check if they're an existing user
-        $user = User::where('email', $input['email'])->where('uid', $input['uid'])->first();
+        $user = User::where('email', $input['email'])->first();
         if($user) {
-            auth()->login($user, true);
+            if ($user->uid === $input['uid']) {
+                auth()->login($user, true);
+            } else {
+                return $this->sendError('uid invalid', 405);
+            }
         } else {
             // create a new user
             $user                  = new User;
             $user->name            = $input['name'];
             $user->email           = $input['email'];
-            $user->fcm_token = $request->input('fcm_token', '');
-            $user->uid = $input['uid'];
-            $user->password = Hash::make(str_random(20));
-            $user->google_account = true;
+            $user->fcm_token       = $request->input('fcm_token', '');
+            $user->uid             = $input['uid'];
+            $user->password        = Hash::make(str_random(20));
+            $user->google_account  = true;
             $user->email_verified_at = Carbon::now();
-            $user->comment = '';
+            $user->comment         = '';
             $user->save();
 
             $defaultRoles = $this->roleRepository->find(3);
