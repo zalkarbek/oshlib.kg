@@ -295,11 +295,12 @@ class UserAPIController extends AppBaseController
         $data = $request->validate([
             'email' => 'required|email|exists:users',
             'name' => 'required|string',
+            'uid' => 'required|string',
         ]);
 
         $input = $request->all();
         // check if they're an existing user
-        $user = User::where('email', $input['email'])->first();
+        $user = User::where('email', $input['email'])->where('uid', $input['uid'])->first();
         if($user) {
             auth()->login($user, true);
         } else {
@@ -308,6 +309,7 @@ class UserAPIController extends AppBaseController
             $user->name            = $input['name'];
             $user->email           = $input['email'];
             $user->fcm_token = $request->input('fcm_token', '');
+            $user->uid = $input['uid'];
             $user->password = Hash::make(str_random(20));
             $user->google_account = true;
             $user->email_verified_at = Carbon::now();

@@ -39,7 +39,7 @@ class BookShelfAPIController extends AppBaseController
             $this->addBooksToShelf($books, $bookShelf->id);
         }
 
-        return $this->sendSuccess('created successfully');
+        return $this->sendResponse($bookShelf,'created successfully');
     }
 
     /**
@@ -59,7 +59,7 @@ class BookShelfAPIController extends AppBaseController
             $this->addBooksToShelf($books, $bookShelf->id);
         }
 
-        return $this->sendSuccess('updated successfully');
+        return $this->sendResponse($bookShelf,'updated successfully');
     }
 
     public function addBooksToShelf($books, $shelfId)
@@ -78,6 +78,26 @@ class BookShelfAPIController extends AppBaseController
                 $userBookShelf->save();
             }
         }
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     */
+    public function deleteBooksFromShelf($id, Request $request)
+    {
+        $books = $request->input('books');
+        if ($books) {
+            foreach ($books as $book) {
+                UserBookShelf::where([
+                    ['user_id', '=', auth()->id()],
+                    ['book_id', '=', $book],
+                    ['book_shelf_id', '=', $id]
+                ])->delete();
+            }
+        }
+
+        return $this->sendResponse(BookShelf::find($id), 'success');
     }
 
     /**
