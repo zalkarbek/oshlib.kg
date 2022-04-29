@@ -21,9 +21,6 @@ Route::middleware('throttle:60')->group(function () {
     Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
     Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
 
-    Route::resource('books', 'BookAPIController')->except([
-        'store', 'update'
-    ]);
     Route::get('books/reviews', 'BookAPIController@reviews');
     Route::get('books/{id}/preview', 'BookAPIController@bookPreview');
     Route::get('books/{id}/file', 'BookAPIController@bookFile');
@@ -56,6 +53,9 @@ Route::middleware('throttle:60')->group(function () {
         });
     });
 
+    Route::resource('books', 'BookAPIController')->except([
+        'store', 'update'
+    ]);
     Route::get('categories/tree', 'CategoryAPIController@tree');
     Route::resource('categories', 'CategoryAPIController')->except([
         'store', 'update'
