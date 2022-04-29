@@ -13,6 +13,8 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\RoleRepository;
+use App\Repositories\UploadRepository;
+use App\Repositories\UserBookShelfRepository;
 use App\Repositories\UserRepository;
 use Flash;
 use Illuminate\Http\Request;
@@ -26,15 +28,16 @@ class UserController extends AppBaseController
 {
     /** @var  UserRepository */
     private $userRepository;
-    /**
-     * @var RoleRepository
-     */
+    /** @var RoleRepository */
     private $roleRepository;
-
+    /** @var UploadRepository */
     private $uploadRepository;
 
 
-    public function __construct(UserRepository $userRepo, RoleRepository $roleRepo)
+
+    public function __construct(
+        UserRepository $userRepo,
+        RoleRepository $roleRepo)
     {
         $this->userRepository = $userRepo;
         $this->roleRepository = $roleRepo;

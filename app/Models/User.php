@@ -101,4 +101,12 @@ class User extends Authenticatable implements HasMedia
             return asset('images/avatar_default.png');
         }
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function bookShelves()
+    {
+        return $this->belongsToMany(BookShelf::class, 'user_book_shelves', 'user_id', 'book_shelf_id');
+    }
 }

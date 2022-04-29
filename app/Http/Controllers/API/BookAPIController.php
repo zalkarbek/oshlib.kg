@@ -260,9 +260,10 @@ class BookAPIController extends AppBaseController
             return $this->sendError(404);
         }
 
+        $book = $favorite->book;
         $favorite->delete();
 
-        return $this->sendResponse([], 'Successfully removed from favorites');
+        return $this->sendResponse($book, 'Successfully removed from favorites');
     }
 
     /**
@@ -371,6 +372,15 @@ class BookAPIController extends AppBaseController
      */
     public function bookFile($id, Request $request)
     {
+        $input = $request->all();
+        if (isset($input['api_token'])) {
+            $token = PersonalAccessToken::findToken($input['api_token']);
+
+            if (!$token) return $this->sendError('token not found', 401);
+        } else {
+            return $this->sendError('', 401);
+        }
+
         $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {

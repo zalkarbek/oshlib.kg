@@ -11,10 +11,14 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\BookShelf;
 use App\Models\User;
+use App\Models\UserBookShelf;
 use App\Repositories\AdvertisementRepository;
 use App\Repositories\BookRepository;
+use App\Repositories\BookShelfRepository;
 use App\Repositories\RoleRepository;
+use App\Repositories\UserBookShelfRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,15 +33,23 @@ class UserAPIController extends AppBaseController
     private $userRepository;
     private $roleRepository;
     private $bookRepository;
+    /** @var UserBookShelfRepository */
+    private $userBookShelfRepository;
+    /** @var BookShelfRepository */
+    private $bookShelfRepository;
 
     public function __construct(
         UserRepository $userRepository,
         RoleRepository $roleRepository,
-        BookRepository $bookRepository)
+        BookRepository $bookRepository,
+        UserBookShelfRepository $userBookShelfRepository,
+        BookShelfRepository $bookShelfRepository)
     {
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->bookRepository = $bookRepository;
+        $this->userBookShelfRepository = $userBookShelfRepository;
+        $this->bookShelfRepository = $bookShelfRepository;
     }
 
     function login(LoginRequest $request)
@@ -315,5 +327,8 @@ class UserAPIController extends AppBaseController
         return $this->sendResponse($data, 'Success');
     }
 
-
+    public function bookShelves(Request $request)
+    {
+        return $request->user()->bookShelves();
+    }
 }
