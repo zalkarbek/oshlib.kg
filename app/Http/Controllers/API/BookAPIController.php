@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Book\FavoriteBooksCriteria;
 use App\Criteria\Book\OrderBooksCriteria;
+use App\Criteria\Book\ReadStatusFilterCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
 use App\Models\Favorite;
@@ -70,6 +71,7 @@ class BookAPIController extends AppBaseController
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
             $this->bookRepository->pushCriteria(new OrderBooksCriteria($request));
+            $this->bookRepository->pushCriteria(new ReadStatusFilterCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
@@ -424,6 +426,8 @@ class BookAPIController extends AppBaseController
             $input['book_id'] = $id;
             $review = $this->reviewRepository->create($input);
         }
+
+        $review->user;
 
         return $this->sendResponse($review, 'Review added successfully');
     }
