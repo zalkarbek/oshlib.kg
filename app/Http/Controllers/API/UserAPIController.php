@@ -293,16 +293,20 @@ class UserAPIController extends AppBaseController
     function googleAuth(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email',
             'name' => 'required|string',
-            'uid' => 'required|string',
+            'uid' => 'required',
         ]);
 
         $input = $request->all();
         // check if they're an existing user
-        $user = User::where('email', $input['email'])->where('uid', $input['uid'])->first();
+        $user = User::where('email', $input['email'])->first();
         if($user) {
-            auth()->login($user, true);
+            if ($user->uid === $input['uid']) {
+                auth()->login($user, true);
+            } else {
+                return $this->sendError('uid invalid'. 405);
+            }
         } else {
             // create a new user
             $user                  = new User;

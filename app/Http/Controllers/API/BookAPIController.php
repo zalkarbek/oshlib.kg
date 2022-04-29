@@ -286,6 +286,11 @@ class BookAPIController extends AppBaseController
         $this->changeReadingStatus($id, 'read');
     }
 
+    public function deleteReadStatus($id)
+    {
+        $this->changeReadingStatus($id, 'none');
+    }
+
     private function changeReadingStatus($bookId, $newStatus)
     {
         $userId = auth()->id();

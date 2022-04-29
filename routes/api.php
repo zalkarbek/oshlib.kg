@@ -29,7 +29,7 @@ Route::middleware('throttle:60')->group(function () {
     Route::get('books/{id}/file', 'BookAPIController@bookFile');
 
     Route::get('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
-    Route::get('/googleAuth', 'UserAPIController@googleAuth');
+    Route::post('/googleAuth', 'UserAPIController@googleAuth');
 
     Route::post('login', 'UserAPIController@login');
     Route::post('register', 'UserAPIController@register');
@@ -44,6 +44,7 @@ Route::middleware('throttle:60')->group(function () {
 
         Route::get('books/my/favorites', 'BookAPIController@favorites');
         Route::group(['prefix' => 'books/{id}'], function () {
+            Route::delete('readStatus', 'BookAPIController@deleteReadStatus');
             Route::post('wantToRead', 'BookAPIController@wantToRead');
             Route::post('reading', 'BookAPIController@reading');
             Route::post('read', 'BookAPIController@read');
