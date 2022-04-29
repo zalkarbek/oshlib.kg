@@ -305,19 +305,19 @@ class UserAPIController extends AppBaseController
             if ($user->uid === $input['uid']) {
                 auth()->login($user, true);
             } else {
-                return $this->sendError('uid invalid'. 405);
+                return $this->sendError('uid invalid', 405);
             }
         } else {
             // create a new user
             $user                  = new User;
             $user->name            = $input['name'];
             $user->email           = $input['email'];
-            $user->fcm_token = $request->input('fcm_token', '');
-            $user->uid = $input['uid'];
-            $user->password = Hash::make(str_random(20));
-            $user->google_account = true;
+            $user->fcm_token       = $request->input('fcm_token', '');
+            $user->uid             = $input['uid'];
+            $user->password        = Hash::make(str_random(20));
+            $user->google_account  = true;
             $user->email_verified_at = Carbon::now();
-            $user->comment = '';
+            $user->comment         = '';
             $user->save();
 
             $defaultRoles = $this->roleRepository->find(3);
