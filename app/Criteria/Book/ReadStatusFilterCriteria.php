@@ -34,7 +34,7 @@ class ReadStatusFilterCriteria implements CriteriaInterface
                     return $model
                         ->join('user_readings', 'user_readings.book_id', '=', 'books.id')
                         ->where('user_readings.user_id', '=', auth('sanctum')->id())
-                        ->where('user_readings.status', 'not', 'none')
+                        ->where('user_readings.status', '<>', 'none')
                         ->select('books.*')
                         ->groupBy(['books.id', 'user_readings.id']);
                 case 'want_to_read':
