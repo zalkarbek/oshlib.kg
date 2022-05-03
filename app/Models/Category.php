@@ -88,7 +88,7 @@ class Category extends Model implements HasMedia
                 return asset(config('medialibrary.icons_folder') . '/' . $extension . '.png');
             }
         } else {
-            return asset('images/avatar_default.png');
+            return asset('images/image_default.png');
         }
     }
 

@@ -87,11 +87,6 @@ class UserAPIController extends AppBaseController
             $user->fcm_token = $request->input('fcm_token', '');
             $user->password = Hash::make($request->input('password'));
 
-            if ($request->has('google_account')) {
-                $user->google_account = true;
-                $user->email_verified_at = Carbon::now();
-            }
-
             $user->save();
 
             $defaultRoles = $this->roleRepository->find(3);

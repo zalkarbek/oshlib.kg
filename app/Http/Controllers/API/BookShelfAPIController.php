@@ -9,6 +9,8 @@ use App\Models\BookShelf;
 use App\Models\UserBookShelf;
 use App\Repositories\BookShelfRepository;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class BookShelfAPIController extends AppBaseController
 {
@@ -32,7 +34,17 @@ class BookShelfAPIController extends AppBaseController
 
         $bookShelf = new BookShelf;
         $bookShelf->name = $name;
+        $bookShelf->is_public = $request->input('is_public', 1);
         $bookShelf->save();
+
+        if ($request->hasFile('image')) {
+            try {
+                $bookShelf->addMediaFromRequest('image')
+                    ->toMediaCollection();
+            } catch (\Exception $e) {
+                return $this->sendError('Couldn`t save image', 405);
+            }
+        }
 
         $books = $request->input('books');
         if ($books) {
@@ -51,7 +63,23 @@ class BookShelfAPIController extends AppBaseController
     {
         if ($request->has('name')) {
             $bookShelf->name = $request->input('name');
+        }
+        if ($request->has('is_public')) {
+            $bookShelf->is_public = $request->input('is_public');
+        }
+
+        if ($bookShelf->isDirty()) {
             $bookShelf->save();
+        }
+
+        if ($request->hasFile('image')) {
+            try {
+                $bookShelf->clearMediaCollection();
+                $bookShelf->addMediaFromRequest('image')
+                    ->toMediaCollection();
+            } catch (\Exception $e) {
+                return $this->sendError('Couldn`t save image', 405);
+            }
         }
 
         $books = $request->input('books');
