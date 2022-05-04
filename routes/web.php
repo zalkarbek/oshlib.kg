@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
     Route::resource('publishers', 'App\Http\Controllers\PublisherController');
     Route::resource('attributes', 'App\Http\Controllers\AttributeController');
     Route::resource('books', 'App\Http\Controllers\BookController');
+    Route::resource('articles/categories', 'App\Http\Controllers\ArticleCategoryController')->names('articles.categories');
     Route::resource('articles', 'App\Http\Controllers\ArticleController');
     Route::resource('reviews', 'App\Http\Controllers\ReviewController');
     Route::resource('selections', 'App\Http\Controllers\SelectionController');

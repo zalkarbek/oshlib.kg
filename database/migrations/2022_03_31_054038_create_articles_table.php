@@ -23,6 +23,11 @@ class CreateArticlesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('article_categories')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->softDeletes();
             $table->timestamps();
         });

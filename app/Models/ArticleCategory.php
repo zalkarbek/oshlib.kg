@@ -8,7 +8,7 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Article extends Model implements HasMedia
+class ArticleCategory extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia {
@@ -16,37 +16,27 @@ class Article extends Model implements HasMedia
     }
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name' => 'string',
+        'parent_id' => 'integer',
+    ];
+
+    /**
      * Validation rules
      *
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'content' => 'required',
-        'user_id' => 'required',
-        'category_id' => 'required',
+        'name' => 'required'
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'title',
-        'content',
-        'user_id',
-        'category_id'
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'user_id' => 'integer',
-        'category_id' => 'integer'
+    public $fillable = [
+        'name',
+        'parent_id'
     ];
 
     /**
@@ -56,6 +46,7 @@ class Article extends Model implements HasMedia
      */
     protected $appends = [
         'image',
+        'articles_count'
     ];
 
     /**
@@ -90,9 +81,9 @@ class Article extends Model implements HasMedia
             } catch (\Exception $e) {
                 return asset(config('medialibrary.icons_folder') . '/' . $extension . '.png');
             }
+        } else {
+            return asset('images/image_default.png');
         }
-
-        return null;
     }
 
     /**
@@ -105,18 +96,19 @@ class Article extends Model implements HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function books()
+     * Add books count to api results
+     * @return int
+     */
+    public function getArticlesCountAttribute()
     {
-        return $this->hasMany(Book::class);
+        return $this->articles()->count();
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function category()
+    public function articles()
     {
-        return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
+        return $this->hasMany(Article::class, 'category_id', 'id');
     }
 }

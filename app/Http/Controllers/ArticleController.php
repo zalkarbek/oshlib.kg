@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ArticleDataTable;
 use App\Models\Article;
+use App\Repositories\ArticleCategoryRepository;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -13,10 +14,15 @@ class ArticleController extends Controller
 {
     /** @var ArticleRepository */
     private $articleRepository;
+    /** @var ArticleCategoryRepository */
+    private $articleCategoryRepository;
 
-    public function __construct(ArticleRepository $articleRepo)
+    public function __construct(
+        ArticleRepository $articleRepo,
+        ArticleCategoryRepository $articleCategoryRepo)
     {
         $this->articleRepository = $articleRepo;
+        $this->articleCategoryRepository = $articleCategoryRepo;
     }
 
     /**
@@ -38,7 +44,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $categories = $this->articleCategoryRepository->pluck('name', 'id');
+
+        return view('articles.create')->with('categories', $categories);
     }
 
     /**
@@ -53,6 +61,10 @@ class ArticleController extends Controller
         try {
             $input['user_id'] = auth()->id();
             $article = $this->articleRepository->create($input);
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $article->addMediaFromRequest('image')
+                    ->toMediaCollection();
+            }
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -81,8 +93,11 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $categories = $this->articleCategoryRepository->pluck('name', 'id');
+
         return view('articles.edit')
-            ->with('article', $article);
+            ->with('article', $article)
+            ->with('categories', $categories);
     }
 
     /**
@@ -97,6 +112,11 @@ class ArticleController extends Controller
         $input = $request->all();
         try {
             $article = $this->articleRepository->update($input, $article->id);
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $article->clearMediaCollection();
+                $article->addMediaFromRequest('image')
+                    ->toMediaCollection();
+            }
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }

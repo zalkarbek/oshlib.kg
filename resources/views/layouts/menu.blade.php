@@ -80,6 +80,15 @@
                 </li>
             @endcan
 
+            @can('articles.categories.index')
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('articles/categories*') ? 'active' : '' }}" href="{{ url('console/articles/categories') }}">
+                        @if($icons)<i class="nav-icon fa fa-folder"></i>@endif
+                        <p>{{trans('lang.article_category_plural')}}</p>
+                    </a>
+                </li>
+            @endcan
+
         </ul>
     </li>
 @endcan

@@ -1,12 +1,13 @@
 <?php
 namespace App\DataTables;
 
-use App\Models\Article;
+use App\Models\ArticleCategory;
+use App\Models\Category;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Barryvdh\DomPDF\Facade as PDF;
 
-class ArticleDataTable extends DataTable
+class ArticleCategoryDataTable extends DataTable
 {
 
     /**
@@ -26,7 +27,7 @@ class ArticleDataTable extends DataTable
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');
             })
-            ->addColumn('action', 'articles.datatables_actions')
+            ->addColumn('action', 'articles.categories.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
 
         return $dataTable;
@@ -41,7 +42,7 @@ class ArticleDataTable extends DataTable
     {
         $columns = [
             [
-                'data' => 'title',
+                'data' => 'name',
                 'title' => trans('lang.category_name'),
             ],
             [
@@ -62,10 +63,10 @@ class ArticleDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param Article $model
+     * @param ArticleCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Article $model)
+    public function query(ArticleCategory $model)
     {
         return $model->newQuery();
     }
@@ -108,6 +109,6 @@ class ArticleDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'articlesdatatable_' . time();
+        return 'categoriesdatatable_' . time();
     }
 }

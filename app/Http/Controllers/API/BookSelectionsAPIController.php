@@ -37,7 +37,7 @@ class BookSelectionsAPIController extends AppBaseController
 
     /**
      * Display the specified Book.
-     * GET|HEAD /books/{id}
+     * GET|HEAD /selections/{id}
      *
      * @param int $id
      * @param Request $request

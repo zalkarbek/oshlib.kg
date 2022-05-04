@@ -1,4 +1,31 @@
 <div style="max-width: 100%;padding: 0 4px;" class="column">
+    <!-- Image Field -->
+    <div class="form-group row">
+        {!! Form::label('imgInp', trans("lang.category_image"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            <div onclick="uploadFile()" id="imgCont" style="width: 100%; display: flex; align-items: center; text-align: center; background-size: contain; background-position: center; background-repeat: no-repeat;" class="dropzone image">
+                <p style="width: 100%;" id="uploadText"><i class="fa fa-cloud-upload"></i> Загрузить</p>
+            </div>
+            <input type="file" id="imgInp" class="d-none" name="image">
+        </div>
+    </div>
+    @prepend('scripts')
+        <script type="text/javascript">
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files
+                if (file) {
+                    const url = URL.createObjectURL(file)
+                    console.log(url)
+                    imgCont.style.backgroundImage = 'url("' + url + '")'
+                    uploadText.style.display = 'none'
+                }
+            }
+
+            function uploadFile() {
+                imgInp.click();
+            }
+        </script>
+    @endprepend
     <!-- Name Field -->
     <div class="form-group row ">
       {!! Form::label('title', 'Загаловок', ['class' => 'col-3 control-label text-right']) !!}
@@ -7,13 +34,21 @@
       </div>
     </div>
 
-  <!-- Text Field -->
-  <div class="form-group row ">
-    {!! Form::label('content', 'Контент', ['class' => 'col-3 control-label text-right']) !!}
-    <div class="col-9">
-      {!! Form::textarea('content', null, ['class' => 'form-control','placeholder'=> '']) !!}
+    <!-- Region Id Field -->
+    <div class="form-group row ">
+        {!! Form::label('category_id', trans("lang.category"),['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::select('category_id', $categories, null, ['class' => 'select2 form-control']) !!}
+        </div>
     </div>
-  </div>
+
+    <!-- Text Field -->
+    <div class="form-group row ">
+        {!! Form::label('content', 'Контент', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+          {!! Form::textarea('content', null, ['class' => 'form-control','placeholder'=> '']) !!}
+        </div>
+    </div>
 </div>
 
 <!-- Submit Field -->
