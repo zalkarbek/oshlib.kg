@@ -103,7 +103,6 @@ class BookShelfAPIController extends AppBaseController
             ])->exists();
             if (!$userBookShelf) {
                 $userBookShelf = new UserBookShelf;
-                $userBookShelf->user_id = auth()->id();
                 $userBookShelf->book_id = $book;
                 $userBookShelf->book_shelf_id = $shelfId;
                 $userBookShelf->save();
