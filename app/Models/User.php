@@ -65,6 +65,15 @@ class User extends Authenticatable implements HasMedia
     ];
 
     /**
+     * New Attributes
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image',
+    ];
+
+    /**
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
@@ -100,6 +109,15 @@ class User extends Authenticatable implements HasMedia
         } else {
             return asset('images/avatar_default.png');
         }
+    }
+
+    /**
+     * Add Media to api results
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return $this->getFirstMediaUrl();
     }
 
     /**
