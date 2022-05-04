@@ -9,6 +9,8 @@ use App\Models\BookShelf;
 use App\Models\UserBookShelf;
 use App\Repositories\BookShelfRepository;
 use Illuminate\Http\Request;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
@@ -17,11 +19,41 @@ class BookShelfAPIController extends AppBaseController
     /** @var BookShelfRepository */
     private $bookShelfRepository;
 
+    public function __construct(BookShelfRepository $bookShelfRepository)
+    {
+        $this->bookShelfRepository = $bookShelfRepository;
+    }
+
     public function index(Request $request)
     {
         $bookShelves = $request->user()->bookShelves()->with('books')->groupBy(['id', 'user_id'])->get();
 
         return $this->sendResponse($bookShelves, 'Bookshelves retrieved successfully');
+    }
+
+    /**
+     * Display the specified Book.
+     * GET|HEAD /selections/{id}
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id, Request $request)
+    {
+        try {
+            $this->bookShelfRepository->pushCriteria(new RequestCriteria($request));
+        } catch (RepositoryException $e) {
+            return $this->sendError($e->getMessage());
+        }
+
+        $bookShelf = $this->bookShelfRepository->findWithoutFail($id);
+        if (empty($bookShelf)) {
+            return $this->sendError('BookShelf not found');
+        }
+
+        return $this->sendResponse($bookShelf, 'BookShelf retrieved successfully');
     }
 
     public function store(Request $request)
