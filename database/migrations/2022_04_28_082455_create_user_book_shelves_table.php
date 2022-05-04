@@ -15,10 +15,6 @@ class CreateUserBookShelvesTable extends Migration
     {
         Schema::create('user_book_shelves', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
             $table->foreignId('book_id')
                 ->constrained()
                 ->cascadeOnUpdate()

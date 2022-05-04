@@ -27,13 +27,17 @@ class BookShelfAPIController extends AppBaseController
     public function store(Request $request)
     {
         $name = $request->input('name');
-        $bookShelf = $request->user()->bookShelves()->where('name', $name)->first();
+
+        $bookShelf = BookShelf::where('name', $name)
+            ->where('user_id', '=', auth()->id())
+            ->first();
         if ($bookShelf) {
             return $this->sendError('Book shelf with this name already exists', 405);
         }
 
         $bookShelf = new BookShelf;
         $bookShelf->name = $name;
+        $bookShelf->user_id = auth()->id();
         $bookShelf->is_public = $request->input('is_public', 1);
         $bookShelf->save();
 
@@ -94,7 +98,6 @@ class BookShelfAPIController extends AppBaseController
     {
         foreach ($books as $book) {
             $userBookShelf = UserBookShelf::where([
-                ['user_id', '=', auth()->id()],
                 ['book_id', '=', $book],
                 ['book_shelf_id', '=', $shelfId]
             ])->exists();
@@ -118,7 +121,6 @@ class BookShelfAPIController extends AppBaseController
         if ($books) {
             foreach ($books as $book) {
                 UserBookShelf::where([
-                    ['user_id', '=', auth()->id()],
                     ['book_id', '=', $book],
                     ['book_shelf_id', '=', $id]
                 ])->delete();

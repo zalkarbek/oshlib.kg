@@ -21,6 +21,8 @@ Route::middleware('throttle:60')->group(function () {
     Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
     Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
 
+    Route::resource('books/selections', 'BookSelectionsAPIController');
+
     Route::get('books/reviews', 'BookAPIController@reviews');
     Route::get('books/{id}/preview', 'BookAPIController@bookPreview');
     Route::get('books/{id}/file', 'BookAPIController@bookFile');
