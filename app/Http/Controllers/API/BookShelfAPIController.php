@@ -130,6 +130,23 @@ class BookShelfAPIController extends AppBaseController
     }
 
     /**
+     * @param int $id
+     * @param int $bookId
+     * @param Request $request
+     */
+    public function deleteBookFromShelf($id, $bookId, Request $request)
+    {
+        UserBookShelf::where([
+            ['book_id', '=', $bookId],
+            ['book_shelf_id', '=', $id]
+        ])->delete();
+
+        return $this->sendResponse(BookShelf::find($id), 'success');
+    }
+
+
+
+    /**
      * @param BookShelf $bookShelf
      * @throws \Throwable
      */
