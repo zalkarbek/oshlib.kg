@@ -7,8 +7,10 @@ use App\Criteria\Book\OrderBooksCriteria;
 use App\Criteria\Book\ReadStatusFilterCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Book;
+use App\Models\BookShelf;
 use App\Models\Favorite;
 use App\Models\Review;
+use App\Models\UserBookShelf;
 use App\Repositories\BookRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\FavoriteRepository;
@@ -308,6 +310,22 @@ class BookAPIController extends AppBaseController
         }
 
         return $this->sendSuccess('successfully changed');
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     */
+    public function deleteFromMyBooks($id, Request $request)
+    {
+        UserBookShelf::join('book_shelves', 'user_book_shelves.book_shelf_id', '=', 'book_shelves.id')
+            ->where('book_id', '=', $id)
+            ->where('book_shelves.user_id', '=', auth()->id())
+            ->delete();
+
+        $this->changeReadingStatus($id, 'none');
+
+        return $this->sendResponse(BookShelf::find($id), 'success');
     }
 
     /**

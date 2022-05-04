@@ -40,8 +40,10 @@ Route::middleware('throttle:60')->group(function () {
         Route::post('user', 'UserAPIController@update');
         Route::resource('user/bookShelves', 'BookShelfAPIController');
         Route::delete('user/bookShelves/{id}/books', 'BookShelfAPIController@deleteBooksFromShelf');
+        Route::delete('user/bookShelves/{id}/books/{bookId}', 'BookShelfAPIController@deleteBookFromShelf');
 
         Route::get('books/my/favorites', 'BookAPIController@favorites');
+        Route::delete('books/{id}/mybooks', 'BookAPIController@deleteFromMyBooks');
         Route::group(['prefix' => 'books/{id}'], function () {
             Route::delete('readStatus', 'BookAPIController@deleteReadStatus');
             Route::post('wantToRead', 'BookAPIController@wantToRead');
