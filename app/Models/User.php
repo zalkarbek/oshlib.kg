@@ -103,10 +103,10 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function bookShelves()
     {
-        return $this->belongsToMany(BookShelf::class, 'user_book_shelves', 'user_id', 'book_shelf_id');
+        return $this->hasMany(BookShelf::class, );
     }
 }

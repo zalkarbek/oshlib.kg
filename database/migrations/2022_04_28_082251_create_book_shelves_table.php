@@ -16,7 +16,8 @@ class CreateBookShelvesTable extends Migration
         Schema::create('book_shelves', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_public');
+            $table->string('description')->nullable();
+            $table->boolean('is_public')->default(false);
             $table->timestamps();
         });
     }

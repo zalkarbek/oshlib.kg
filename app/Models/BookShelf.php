@@ -22,6 +22,7 @@ class BookShelf extends Model implements HasMedia
      */
     protected $fillable = [
         'name',
+        'user_id',
         'is_public'
     ];
 
@@ -33,6 +34,7 @@ class BookShelf extends Model implements HasMedia
     protected $casts = [
         'name' => 'string',
         'is_public' => 'boolean',
+        'description'
     ];
 
     /**
@@ -98,6 +100,14 @@ class BookShelf extends Model implements HasMedia
     public function getBooksCountAttribute()
     {
         return $this->books()->count();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
