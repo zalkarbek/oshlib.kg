@@ -227,35 +227,19 @@ class UserAPIController extends AppBaseController
 
     public function changePassword(Request $request)
     {
-        if (auth()->check()) {
-            if (!$request->has('new_password')) {
-                $this->sendError('New password empty', 401);
-            }
-
-            $user = $this->userRepository->find(auth()->id());
-
-            if ($user) {
-                $user->password = Hash::make($request->input('new_password'));
-                // $user->api_token = str_random(60);
-                $user->save();
-                return $this->sendResponse($user->makeHidden(['api_token', 'device_token', 'balance', 'uuid']), 'User retrieved successfully');
-            }
-        } else if ($request->has('phone') && $request->has('uuid')) {
-            if (!$request->has('new_password')) {
-                $this->sendError('New password empty', 401);
-            }
-
-            $user = $this->userRepository->findByField('phone', $request->input('phone'))->first();
-
-            if ($user && $user->uuid === $request->input('uuid')) {
-                $user->password = Hash::make($request->input('new_password'));
-                // $user->api_token = str_random(60);
-                $user->save();
-                return $this->sendResponse($user->makeHidden(['api_token', 'device_token', 'balance', 'uuid']), 'User retrieved successfully');
-            }
+        if (!$request->has('new_password')) {
+            $this->sendError('New password empty', 401);
         }
 
-        return $this->sendError('User not found', 404);
+        $user = $this->userRepository->find(auth()->id());
+
+        if ($user) {
+            $user->password = Hash::make($request->input('new_password'));
+            $user->save();
+            return $this->sendResponse($user->makeHidden(['device_token', 'balance', 'uuid']), 'User retrieved successfully');
+        }
+
+        return $this->sendError('Error updating password');
     }
 
     public function registerFcmToken(Request $request)

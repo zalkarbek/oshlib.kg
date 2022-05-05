@@ -38,6 +38,7 @@ Route::middleware('throttle:60')->group(function () {
         Route::get('logout', 'UserAPIController@logout');
         Route::get('user', 'UserAPIController@user');
         Route::post('user', 'UserAPIController@update');
+        Route::patch('user/password', 'UserAPIController@changePassword');
         Route::resource('user/bookShelves', 'BookShelfAPIController');
         Route::delete('user/bookShelves/{id}/books', 'BookShelfAPIController@deleteBooksFromShelf');
         Route::delete('user/bookShelves/{id}/books/{bookId}', 'BookShelfAPIController@deleteBookFromShelf');

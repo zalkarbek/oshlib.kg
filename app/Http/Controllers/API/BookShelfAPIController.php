@@ -72,6 +72,7 @@ class BookShelfAPIController extends AppBaseController
         $bookShelf->user_id = auth()->id();
         $bookShelf->is_public = $request->input('is_public', 1);
         $bookShelf->description = $request->input('description', null);
+
         $bookShelf->save();
 
         if ($request->hasFile('image')) {
