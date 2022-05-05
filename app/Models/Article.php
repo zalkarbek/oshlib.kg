@@ -34,6 +34,7 @@ class Article extends Model implements HasMedia
      */
     protected $fillable = [
         'title',
+        'short_description',
         'content',
         'user_id',
         'category_id'

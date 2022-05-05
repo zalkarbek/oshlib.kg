@@ -42,6 +42,14 @@
         </div>
     </div>
 
+    <!-- Name Field -->
+    <div class="form-group row ">
+        {!! Form::label('short_description', 'Краткое описание', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('short_description', null,  ['class' => 'form-control','placeholder'=> '']) !!}
+        </div>
+    </div>
+
     <!-- Text Field -->
     <div class="form-group row ">
         {!! Form::label('content', 'Контент', ['class' => 'col-3 control-label text-right']) !!}
