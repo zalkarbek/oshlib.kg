@@ -159,9 +159,9 @@ class UserAPIController extends AppBaseController
      * @param Request $request
      *
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
-        $user = $this->userRepository->findWithoutFail($id);
+        $user = $this->userRepository->findWithoutFail(auth()->id());
 
         if (empty($user)) {
             return $this->sendResponse([
@@ -172,9 +172,9 @@ class UserAPIController extends AppBaseController
         $input = $request->except(['password']);
         try {
             if ($request->has('device_token')) {
-                $user = $this->userRepository->update($request->only('device_token'), $id);
+                $user = $this->userRepository->update($request->only('device_token'), $user->id);
             } else {
-                $user = $this->userRepository->update($input, $id);
+                $user = $this->userRepository->update($input, $user->id);
                 if ($request->hasFile('avatar')) {
                     $user->clearMediaCollection();
                     $user->addMediaFromRequest('avatar')
