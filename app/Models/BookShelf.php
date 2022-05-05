@@ -23,6 +23,7 @@ class BookShelf extends Model implements HasMedia
     protected $fillable = [
         'name',
         'user_id',
+        'description',
         'is_public'
     ];
 
