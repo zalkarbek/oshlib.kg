@@ -22,7 +22,11 @@ class BookShelf extends Model implements HasMedia
      */
     protected $fillable = [
         'name',
+<<<<<<< Updated upstream
         'user_id',
+=======
+        'description',
+>>>>>>> Stashed changes
         'is_public'
     ];
 
