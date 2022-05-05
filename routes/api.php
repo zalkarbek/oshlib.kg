@@ -83,6 +83,6 @@ Route::middleware('throttle:60')->group(function () {
     ]);
     Route::get('publishers/{id}/books', 'PublisherAPIController@books');
 
-    Route::resource('articles', 'ArticleAPIController')->except(['store', 'update']);
     Route::resource('articles/categories', 'ArticleCategoryAPIController')->except(['store', 'update']);
+    Route::resource('articles', 'ArticleAPIController')->except(['store', 'update']);
 });
