@@ -33,10 +33,11 @@ class OrderBooksCriteria implements CriteriaInterface
                 case 'popular':
                     return $model
                         ->join('reviews', 'reviews.book_id', '=', 'books.id', 'left outer')
+                        ->distinct('books.id')
                         ->orderBy('reviews.rating', 'desc')
                         ->orderBy('views', 'desc')
                         ->orderBy('downloads', 'desc')
-                        ->select('books.*')
+                        ->select('books.*', 'reviews.rating')
                         ->groupBy(['books.id', 'reviews.id']);
                 case 'random': return $model->inRandomOrder();
                 case 'read': return $model
