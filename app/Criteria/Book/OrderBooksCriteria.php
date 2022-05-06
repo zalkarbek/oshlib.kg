@@ -32,13 +32,11 @@ class OrderBooksCriteria implements CriteriaInterface
             switch ($order) {
                 case 'popular':
                     return $model
-                        ->join('reviews', 'reviews.book_id', '=', 'books.id', 'left outer')
-                        ->distinct('books.id')
-                        ->orderBy('reviews.rating', 'desc')
+                        ->select('*', \DB::raw("(SELECT sum(reviews.rating) FROM reviews WHERE book_id = books.id) as rating_sum"))
+                        ->orderBy('rating_sum', 'desc')
                         ->orderBy('views', 'desc')
                         ->orderBy('downloads', 'desc')
-                        ->select('books.*', 'reviews.rating')
-                        ->groupBy(['books.id', 'reviews.id']);
+                        ->groupBy(['books.id']);
                 case 'random': return $model->inRandomOrder();
                 case 'read': return $model
                     ->select('*', \DB::raw("(SELECT count(*) FROM user_readings WHERE book_id = books.id AND status = 'read') as count_read"))
