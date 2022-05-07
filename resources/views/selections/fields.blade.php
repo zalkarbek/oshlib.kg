@@ -10,14 +10,6 @@
       </div>
     </div>
 
-    <!-- Parent Id Field -->
-    <div class="form-group row ">
-        {!! Form::label('books[]', trans('lang.book_plural'),['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::select('books[]', $books, $selectedBooks, ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
-        </div>
-    </div>
-
     <!-- Name Field -->
     <div class="form-group row ">
         {!! Form::label('comment', trans("lang.comment"), ['class' => 'col-3 control-label text-right']) !!}
@@ -41,6 +33,7 @@
             </div>
         </div>
     </div>
+
     @prepend('scripts')
         <script type="text/javascript">
             imgInp.onchange = evt => {
@@ -57,7 +50,7 @@
                 imgInp.click();
             }
         </script>
-@endprepend
+    @endprepend
 
     <!-- Description Field -->
     <div class="form-group row ">
@@ -67,6 +60,10 @@
              trans("lang.book_description_placeholder")  ]) !!}
         </div>
     </div>
+
+</div>
+
+<div class="col-12">
 
 </div>
 

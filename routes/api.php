@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('books/{id}/pages/{page}', 'BookAPIController@byPage');
 
-Route::middleware('throttle:60')->group(function () {
+Route::middleware('throttle:1')->group(function() {
     Route::post('user/sendResetCode',  'ResetPasswordAPIController@sendResetCode');
+});
+
+Route::middleware('throttle:60')->group(function () {
     Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
     Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
+    Route::post('user/reset-password', 'ResetPasswordAPIController@resetPassword');
 
     Route::resource('books/selections', 'BookSelectionsAPIController');
 

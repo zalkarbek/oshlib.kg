@@ -28,6 +28,11 @@
 {{--<link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">--}}
 
 @stack('css_lib')
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-sweetalert/sweetalert.css')}}">

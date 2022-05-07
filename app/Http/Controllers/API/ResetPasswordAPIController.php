@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Mail\SendCodeResetPassword;
+use App\Mail\SendResetPassword;
 use App\Models\ResetCodePassword;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,5 +81,21 @@ class ResetPasswordAPIController extends AppBaseController
         $passwordReset->delete();
 
         return response(['message' =>'password has been successfully reset'], 200);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email|exists:users',
+        ]);
+
+        $user = User::firstWhere('email', $request->email);
+        $generatedString = str_random(10);
+        $user->password = Hash::make($generatedString);
+
+        // Send email to user
+        Mail::to($request->email)->send(new SendResetPassword($generatedString));
+
+        return response(['message' => trans('passwords.sent')], 200);
     }
 }

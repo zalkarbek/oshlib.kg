@@ -108,6 +108,6 @@ class ArticleDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'articlesdatatable_' . time();
+        return 'categoriesdatatable_' . time();
     }
 }

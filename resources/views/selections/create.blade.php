@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
 {{--dropzone--}}
 <link rel="stylesheet" href="{{asset('plugins/dropzone/bootstrap.min.css')}}">
+
+@livewireStyles
+
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 @endpush
 @section('content')
 <!-- Content Header (Page header) -->
@@ -72,4 +77,7 @@
     Dropzone.autoDiscover = false;
     var dropzoneFields = [];
 </script>
+
+@livewireScripts
+
 @endpush
