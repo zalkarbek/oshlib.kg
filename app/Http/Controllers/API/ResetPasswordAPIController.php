@@ -89,9 +89,13 @@ class ResetPasswordAPIController extends AppBaseController
             'email' => 'required|email|exists:users',
         ]);
 
-        $user = User::firstWhere('email', $request->email);
         $generatedString = str_random(10);
+        $user = User::firstWhere('email', $request->email);
         $user->password = Hash::make($generatedString);
+        // dd($user->password);
+
+        $user->save();
+        $user->tokens()->delete();
 
         $user->save();
         $user->tokens()->delete();
