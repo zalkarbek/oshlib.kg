@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/flutter', function () {
+    return view('flutter.index');
+});
+
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Your all Cache is cleared";
@@ -79,5 +83,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
     Route::resource('articles', 'App\Http\Controllers\ArticleController');
     Route::resource('reviews', 'App\Http\Controllers\ReviewController');
     Route::resource('selections', 'App\Http\Controllers\SelectionController');
+    Route::get('select-books', 'App\Http\Controllers\BookController@selectBooksTable');
 
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\BookDataTable;
+use App\DataTables\SelectBookDataTable;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
@@ -75,6 +76,17 @@ class BookController extends AppBaseController
     public function index(BookDataTable $dataTable)
     {
         return $dataTable->render('books.index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param SelectBookDataTable $dataTable
+     * @return \Illuminate\Http\Response
+     */
+    public function selectBooksTable(SelectBookDataTable $dataTable)
+    {
+        return $dataTable->render('books.selectTable');
     }
 
     /**
