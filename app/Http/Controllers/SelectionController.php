@@ -48,10 +48,7 @@ class SelectionController extends Controller
      */
     public function create()
     {
-        $books = $this->bookRepository->all()->pluck('name', 'id');
-        $selectedBooks = [];
-
-        return view('selections.create', compact(['books', 'selectedBooks']));
+        return view('selections.create');
     }
 
     /**
@@ -102,10 +99,7 @@ class SelectionController extends Controller
      */
     public function edit(Selection $selection)
     {
-        $books = $this->bookRepository->all()->pluck('name', 'id');
-        $selectedBooks = $selection->bookSelections()->pluck('id');
-
-        return view('selections.edit', compact(['selection', 'books', 'selectedBooks']));
+        return view('selections.edit', compact(['selection']));
     }
 
     /**

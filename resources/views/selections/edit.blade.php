@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
 {{--dropzone--}}
 <link rel="stylesheet" href="{{asset('plugins/dropzone/bootstrap.min.css')}}">
+
+@livewireStyles
+
 @endpush
 @section('content')
 <!-- Content Header (Page header) -->
@@ -53,13 +56,8 @@
       </ul>
     </div>
     <div class="card-body">
-      {!! Form::model($selection, ['route' => ['selections.update', $selection->id], 'enctype' => 'multipart/form-data']) !!}
-      <div class="row">
-        @method('PATCH')
-        @include('selections.fields')
-      </div>
-      {!! Form::close() !!}
-      <div class="clearfix"></div>
+        <livewire:book-selection-fields :bookSelection="$selection" />
+        <div class="clearfix"></div>
     </div>
   </div>
 </div>
@@ -78,4 +76,7 @@
     Dropzone.autoDiscover = false;
     var dropzoneFields = [];
 </script>
+
+@livewireScripts
+
 @endpush

@@ -92,13 +92,14 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Выбор книг</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body column">
                             <div class="column" style="flex: 100%;max-width: 100%;padding: 0 4px;">
+                                <input type="text" class="form-control mb-5" placeholder="Поиск" wire:model.debounce.500ms="search" >
                                 <table width="100%">
                                     <tr>
                                         <th>ID</th>
@@ -122,7 +123,9 @@
                                         </tr>
                                     @endforeach
                                 </table>
-                                {{ $books->links() }}
+                                <div class="mt-5 d-flex justify-content-center">
+                                    {{ $books->render() }}
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -132,10 +135,12 @@
                 </div>
             </div>
         </div>
-
         <!-- Submit Field -->
         <div class="form-group col-12 text-right">
-            <button type="submit" class="btn btn-{{setting('theme_color')}}" ><i class="fa fa-save"></i> {{trans('lang.save')}} {{trans('lang.selection')}}</button>
+            <div class="" wire:loading wire:target="save" role="status">Загрузка</div>
+            <button type="submit" class="btn btn-{{setting('theme_color')}}" wire:loading.attr="disabled">
+                <i class="fa fa-save"></i> {{trans('lang.save')}} {{trans('lang.selection')}}
+            </button>
             <a href="{!! route('selections.index') !!}" class="btn btn-default"><i class="fa fa-undo"></i> {{trans('lang.cancel')}}</a>
         </div>
 

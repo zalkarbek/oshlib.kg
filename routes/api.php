@@ -56,8 +56,8 @@ Route::middleware('throttle:60')->group(function () {
             Route::post('read', 'BookAPIController@read');
             Route::post('favorites', 'BookAPIController@addToFavorites');
             Route::delete('favorites', 'BookAPIController@removeFromFavorites');
-            Route::post('rate', 'BookAPIController@rate');
             Route::delete('rate', 'BookAPIController@deleteRate');
+            Route::post('rate', 'BookAPIController@rate');
             Route::get('myreview', 'BookAPIController@myReview');
         });
     });
