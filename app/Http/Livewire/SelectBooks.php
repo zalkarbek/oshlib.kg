@@ -26,9 +26,11 @@ class SelectBooks extends DataTableComponent
         return [
             Column::make('ID', 'id')
                 ->sortable(),
-            Column::make('name'),
-            Column::make('image')->label(
-                function($row, Column $column) { return getMediaColumn(); }
+            Column::make('Name', 'name'),
+            Column::make('Image', 'image')->label(
+                function($row, Column $column) {
+                    return getMediaColumn($row);
+                }
             ),
         ];
     }

@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/flutter', function () {
-    return view('flutter.index');
-});
-
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Your all Cache is cleared";

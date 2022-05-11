@@ -53,11 +53,7 @@
       </ul>
     </div>
     <div class="card-body">
-      {!! Form::open(['route' => 'selections.store', 'enctype' => 'multipart/form-data']) !!}
-      <div class="row">
-        @include('selections.fields')
-      </div>
-      {!! Form::close() !!}
+      <livewire:book-selection-fields />
       <div class="clearfix"></div>
     </div>
   </div>
