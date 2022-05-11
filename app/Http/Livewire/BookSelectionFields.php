@@ -21,7 +21,6 @@ class BookSelectionFields extends Component
     public $image;
 
     public $offset = 0;
-    public $maxCount = 1;
 
     public $selectedBooks = [];
 
@@ -29,7 +28,6 @@ class BookSelectionFields extends Component
 
     public function mount()
     {
-        $this->maxCount = Book::count();
         if ($this->bookSelection) {
 
         }
