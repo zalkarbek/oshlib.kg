@@ -61,10 +61,40 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <div class="col-9">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+        </div>
+    </div>
+
 </div>
 
-<div class="col-12">
-
+<div style="flex: 100%;max-width: 100%;padding: 0 4px;" class="column">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1000" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body column">
+                <div class="column" style="flex: 100%;max-width: 100%;padding: 0 4px;">
+                    <iframe id="booksFrame" width="100%" height="500px" src="/console/select-books" frameborder="0" border="0" cellspacing="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- Submit Field -->

@@ -93,9 +93,12 @@ class ResetPasswordAPIController extends AppBaseController
         $generatedString = str_random(10);
         $user->password = Hash::make($generatedString);
 
+        $user->save();
+        $user->tokens()->delete();
+
         // Send email to user
         Mail::to($request->email)->send(new SendResetPassword($generatedString));
 
-        return response(['message' => trans('passwords.sent')], 200);
+        return response(['message' => 'Новый пароль отправлен'], 200);
     }
 }
