@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Your all Cache is cleared";
@@ -26,6 +28,7 @@ Route::get('/googlecallback', 'App\Http\Controllers\UserController@handleProvide
 
 Auth::routes();
 
+Route::get('storage/cover/{id}', 'App\Http\Controllers\UploadController@bookCover');
 Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 Route::get('storage/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 

@@ -105,7 +105,7 @@ class Book extends Model implements HasMedia
                 return asset(config('medialibrary.icons_folder') . '/' . $extension . '.png');
             }
         } else {
-            return asset(storage_path('app/books/' . $this->fileDetails->id) . '/cover.1.jpg');
+            return asset('storage/cover/' . $this->fileDetails->id);
         }
     }
 

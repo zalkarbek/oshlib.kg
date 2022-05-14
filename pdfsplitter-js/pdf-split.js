@@ -132,6 +132,7 @@ async function createJSONMetaFIle(totalPages, filename) {
 
 // сохранить скриншот документа
 async function saveDocumentCover(pdfDocOptions) {
+    console.log(pdfDocOptions.dirname)
     const options = {
         saveFilename: "cover",
         savePath: pdfDocOptions.dirname,
