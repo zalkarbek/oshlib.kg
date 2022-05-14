@@ -485,5 +485,4 @@ class BookAPIController extends AppBaseController
 
         return $this->sendResponse($review, 'Successfully');
     }
-
 }

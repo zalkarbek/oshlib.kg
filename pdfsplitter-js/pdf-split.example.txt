@@ -9,6 +9,10 @@ excerpt-page-count - кол-во страниц для отрывка
 
 node pdf-split.js --filename=D:\books2020.pdf --excerpt-page-count=10
 
+cover.1.jpg
+
+gm convert "D:\pages\1.pdf" -quality 100 -compress PNG "D:\books2020.png"
+
 
 в директории создает pages папку и туда сохраняет все страницы в 1-n.pdf
 потом создает файл meta.json для сохранения кол-во страниц и полный путь к книге

@@ -18,7 +18,9 @@
         "resolve-url-loader": "^3.1.0"
     },
     "dependencies": {
+        "gm": "^1.23.1",
         "pdf-lib": "^1.17.1",
+        "pdf2pic": "^2.1.4",
         "yargs": "^17.4.0"
     }
 }
