@@ -24,7 +24,7 @@ class CreateBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|mimes:png,jpg,svg,bmp',
+            // 'image' => 'required|mimes:png,jpg,svg,bmp',
             'file' => 'required|mimes:pdf',
             'name' => 'required|max:100',
             'description' => 'required',
