@@ -707,8 +707,8 @@ function splitPdf($bookPath)
         pclose(popen("start /B node ". $command, "r"));
     } else {
         shell_exec("/usr/local/bin/node " . $command . " > /dev/null");
-        dd($command);
     }
+    // dd($command);
 }
 
 function deleteDirWithFiles($dir)
