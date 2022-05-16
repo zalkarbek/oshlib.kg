@@ -17,7 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/privacy-policy', function () {
+    return view('settings.privacy_policy.index');
+});
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
