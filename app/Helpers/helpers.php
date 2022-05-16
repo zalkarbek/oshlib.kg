@@ -706,13 +706,12 @@ function splitPdf($bookPath)
     $coverDirname = dirname($bookPath);
     $gm_command = "convert \"$bookPath\" -size 1024x1325 -quality 70 -density 330 -compress JPEG \"$coverDirname/cover.jpg\"";
 
-
     if (substr(php_uname(), 0, 7) == "Windows") {
-        $node = shell_exec("node $command");
-        $result = exec("gm $gm_command");
-        dd($gm_command, $result, $node);
+        exec("gm $gm_command > nul");
+        shell_exec("node $command > nul");
     } else {
-        shell_exec("/usr/local/bin/node $command > /dev/null");
+        shell_exec("/usr/local/bin/gm $gm_command");
+        shell_exec("/usr/local/bin/node $command");
     }
 }
 

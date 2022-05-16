@@ -53,7 +53,7 @@ class UploadController extends Controller
 
     public function bookCover($id)
     {
-        return response()->file(storage_path('app/books/' . $id . '/cover.1.jpg'));
+        return response()->file(storage_path('app/books/' . $id . '/cover.jpg'));
     }
 
     public function all(UploadRequest $request, $collection = null)
