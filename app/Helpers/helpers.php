@@ -703,12 +703,17 @@ function splitPdf($bookPath)
 {
     $basePath = base_path();
     $command = "$basePath/pdfsplitter-js/pdf-split.js --filename=$bookPath --excerpt-page-count=20";
-    if (substr(php_uname(), 0, 7) == "Windows"){
-        pclose(popen("start /B node ". $command, "r"));
+    $coverDirname = dirname($bookPath);
+    $gm_command = "convert \"$bookPath\" -size 1024x1325 -quality 70 -density 330 -compress JPEG \"$coverDirname/cover.jpg\"";
+
+
+    if (substr(php_uname(), 0, 7) == "Windows") {
+        $node = shell_exec("node $command");
+        $result = exec("gm $gm_command");
+        dd($gm_command, $result, $node);
     } else {
-        shell_exec("/usr/local/bin/node " . $command . " > /dev/null");
+        shell_exec("/usr/local/bin/node $command > /dev/null");
     }
-    // dd($command);
 }
 
 function deleteDirWithFiles($dir)

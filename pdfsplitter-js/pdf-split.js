@@ -132,7 +132,6 @@ async function createJSONMetaFIle(totalPages, filename) {
 
 // сохранить скриншот документа
 async function saveDocumentCover(pdfDocOptions) {
-    console.log(pdfDocOptions.dirname)
     const options = {
         saveFilename: "cover",
         savePath: pdfDocOptions.dirname,
@@ -154,7 +153,6 @@ async function saveDocumentCover(pdfDocOptions) {
         );
         return resolve;
     }).catch(async (e) => {
-        console.log(e)
         await fs.writeFile(
             path.join(pdfDocOptions.dirname, 'cover_log.json'),
             JSON.stringify(e)
@@ -189,8 +187,16 @@ async function splitter(argv) {
 
 
 const argv = yargs(hideBin(process.argv)).argv
-splitter(argv).then((response) => {
+splitter(argv).then(async (response) => {
     console.log(response)
-}).catch((err) => {
+    await fs.writeFile(
+        path.join(path.dirname(argv.filename), 'log.json'),
+        JSON.stringify(response)
+    );
+}).catch(async (err) => {
     console.log(err)
+    await fs.writeFile(
+        path.join(path.dirname(argv.filename), 'log.json'),
+        JSON.stringify(err)
+    );
 })
