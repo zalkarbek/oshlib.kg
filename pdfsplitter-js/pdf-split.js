@@ -144,11 +144,21 @@ async function saveDocumentCover(pdfDocOptions) {
     const convert = pdfpic.fromBuffer(pdfDocOptions.pdfFileBuffer, options);
     const pageToConvertAsImage = 1;
 
-    convert(pageToConvertAsImage).then((resolve) => {
-        console.log("Page 1 is now converted as image");
+    convert(pageToConvertAsImage).then(async (resolve) => {
+        await fs.writeFile(
+            path.join(pdfDocOptions.dirname, 'cover_log.json'),
+            JSON.stringify({
+                success: true,
+                message: "cover image generated"
+            })
+        );
         return resolve;
-    }).catch((e) => {
-        console.log('ERROR', e)
+    }).catch(async (e) => {
+        console.log(e)
+        await fs.writeFile(
+            path.join(pdfDocOptions.dirname, 'cover_log.json'),
+            JSON.stringify(e)
+        );
     });
 }
 
