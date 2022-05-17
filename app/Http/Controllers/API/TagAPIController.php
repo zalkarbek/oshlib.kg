@@ -131,8 +131,8 @@ class TagAPIController extends AppBaseController
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
-            $this->bookRepository->pushCriteria(new OrderBooksCriteria($request));
             $this->bookRepository->pushCriteria(new TagBooksCriteria($request, $id));
+            $this->bookRepository->pushCriteria(new OrderBooksCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }

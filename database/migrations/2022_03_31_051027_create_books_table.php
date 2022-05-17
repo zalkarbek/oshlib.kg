@@ -26,6 +26,7 @@ class CreateBooksTable extends Migration
             $table->bigInteger('file_id')->unsigned();
             $table->dateTime('release_date')->nullable();
             $table->dateTime('writing_date')->nullable();
+            $table->enum('has_variants', ['all', 'electronic', 'paper'])->default('all');
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
