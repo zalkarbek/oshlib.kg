@@ -30,6 +30,7 @@ class TagBooksCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         return $model
+            ->distinct()
             ->join('book_tags', 'book_tags.book_id', '=', 'books.id')
             ->where('book_tags.tag_id', '=', $this->tagId)
             ->select('books.*')

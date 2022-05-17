@@ -7,6 +7,7 @@ use App\DataTables\SelectBookDataTable;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\Tag;
 use App\Models\User;
 use App\Repositories\AttributeRepository;
 use App\Repositories\AuthorRepository;
@@ -180,7 +181,7 @@ class BookController extends AppBaseController
         $attributes = $this->attributeRepository->all()->pluck('title', 'id');
         $tags = $this->tagRepository->all()->pluck('name', 'id');
 
-        $bookTags = $this->bookTagRepository->findByField('book_id', $book->id)->pluck('id');
+        $bookTags = Tag::join('book_tags', 'book_tags.tag_id', '=', 'tags.id')->where('book_tags.book_id', '=', $book->id)->pluck('tags.id');
 
         $releaseDate = Carbon::parse($book->release_date);
         $writingDate = Carbon::parse($book->writing_date);

@@ -17,9 +17,9 @@ $(document).ready(function () {
         });
     }
     if ($('textarea').length > 0) {
-        $('textarea').summernote({
+        /*$('textarea').summernote({
             height: 200
-        });
+        });*/
     }
     if ($('.datepicker').length > 0) {
         $('.datepicker').datepicker({
