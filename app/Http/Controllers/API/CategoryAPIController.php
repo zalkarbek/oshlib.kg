@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Book\OrderBooksCriteria;
 use App\Criteria\Category\OrderCategoryCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Category;
@@ -180,6 +181,7 @@ class CategoryAPIController extends AppBaseController
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->bookRepository->pushCriteria(new OrderBooksCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }

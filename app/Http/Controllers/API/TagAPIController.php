@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Book\OrderBooksCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Tag;
 use App\Repositories\BookRepository;
@@ -118,7 +119,7 @@ class TagAPIController extends AppBaseController
 
     /**
      * Display a listing of Category Book.
-     * GET|HEAD /categories/{id}/books
+     * GET|HEAD /tags/{id}/books
      *
      * @param int $id
      * @param Request $request
@@ -129,11 +130,12 @@ class TagAPIController extends AppBaseController
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->bookRepository->pushCriteria(new OrderBooksCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
 
-        $books = $this->bookRepository->findByField('category_id', $id);
+        $books = $this->bookRepository->findByField('tag_id', $id);
 
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
     }
