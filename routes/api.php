@@ -33,6 +33,7 @@ Route::middleware('throttle:60')->group(function () {
 
     Route::get('/googleAuthRedirect', 'UserAPIController@redirectToProvider');
     Route::post('/googleAuth', 'UserAPIController@googleAuth');
+    Route::post('/appleAuth', 'UserAPIController@appleAuth');
 
     Route::post('login', 'UserAPIController@login');
     Route::post('register', 'UserAPIController@register');

@@ -288,20 +288,7 @@ class UserAPIController extends AppBaseController
             }
         } else {
             // create a new user
-            $user                  = new User;
-            $user->name            = $input['name'];
-            $user->email           = $input['email'];
-            $user->fcm_token       = $request->input('fcm_token', '');
-            $user->uid             = $input['uid'];
-            $user->password        = Hash::make(str_random(20));
-            $user->google_account  = true;
-            $user->email_verified_at = Carbon::now();
-            $user->comment         = '';
-            $user->save();
-
-            $defaultRoles = $this->roleRepository->find(3);
-            $defaultRoles = $defaultRoles->pluck('name')->toArray();
-            $user->assignRole($defaultRoles);
+            $user = $this->createUserWithGeneratedPassword($input);
 
             auth()->login($user, true);
         }
@@ -310,6 +297,56 @@ class UserAPIController extends AppBaseController
         $data['token'] = $user->createToken(str_random(20))->plainTextToken;
 
         return $this->sendResponse($data, 'Success');
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param Request $request
+     * @return
+     */
+    function appleAuth(Request $request)
+    {
+        $data = $request->validate([
+            'uid' => 'required',
+        ]);
+
+        $input = $request->all();
+        // check if they're an existing user
+        $user = User::where('uid', $input['uid'])->first();
+        if($user) {
+            auth()->login($user, true);
+        } else {
+            // create a new user
+            $user = $this->createUserWithGeneratedPassword($input);
+
+            auth()->login($user, true);
+        }
+
+        $data = $user->toArray();
+        $data['token'] = $user->createToken(str_random(20))->plainTextToken;
+
+        return $this->sendResponse($data, 'Success');
+    }
+
+    public function createUserWithGeneratedPassword($input)
+    {
+        $user                  = new User;
+        $user->name            = $input['name'];
+        $user->email           = $input['email'];
+        $user->fcm_token       = $input['fcm_token'];
+        $user->uid             = $input['uid'];
+        $user->password        = Hash::make(str_random(20));
+        $user->google_account  = true;
+        $user->email_verified_at = Carbon::now();
+        $user->comment         = '';
+        $user->save();
+
+        $defaultRoles = $this->roleRepository->find(3);
+        $defaultRoles = $defaultRoles->pluck('name')->toArray();
+        $user->assignRole($defaultRoles);
+
+        return $user;
     }
 
     public function bookShelves(Request $request)
