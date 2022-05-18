@@ -334,7 +334,7 @@ class UserAPIController extends AppBaseController
         $user                  = new User;
         $user->name            = $input['name'];
         $user->email           = $input['email'];
-        $user->fcm_token       = $input['fcm_token'];
+        $user->fcm_token       = $input['fcm_token'] ?? '';
         $user->uid             = $input['uid'];
         $user->password        = Hash::make(str_random(20));
         $user->google_account  = true;
