@@ -1,0 +1,6 @@
+Route::get('/test/{time}', function ($time) {
+    // pclose(popen("start /b sleep 12 & mkdir E:\\dirr","r"));
+    // pclose(popen( "start /b node E:\\php\oshlib.kg\\pdfsplitter-js\\pdf-split.js --filename=E:\\php\\oshlib.kg\\storage\app\\books\\26\\w96DpA5ZGMlBERDOnZk5gAvcmyck8b0Zs31pM07m.pdf --excerpt-page-count=10", 'r' ));
+    splitPdf("E:\\php\\oshlib.kg\\storage\\app\\books\\52\\gp7tjAuf4zZFMetvdxVJqPaJRn6X5EbC5h7YjN1g.pdf");
+    return $time;
+});

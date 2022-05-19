@@ -707,8 +707,8 @@ function splitPdf($bookPath)
     $gm_command = "convert \"$bookPath\" -size 1024x1325 -quality 70 -density 330 -compress JPEG \"$coverDirname/cover.jpg\"";
 
     if (substr(php_uname(), 0, 7) == "Windows") {
-        exec("gm $gm_command > nul");
-        shell_exec("node $command > nul");
+        // pclose(popen("start /b gm $gm_command", "r"));
+        pclose(popen( "start /b node $command", "r"));
     } else {
         shell_exec("/usr/local/bin/gm $gm_command");
         shell_exec("/usr/local/bin/node $command");

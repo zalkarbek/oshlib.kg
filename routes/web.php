@@ -21,13 +21,6 @@ Route::get('/privacy-policy', function () {
     return view('settings.privacy_policy.index');
 });
 
-Route::get('/test/{time}', function ($time) {
-    // pclose(popen("start /b sleep 12 & mkdir E:\\dirr","r"));
-    pclose(popen( "start /b node E:\php\oshlib.kg\pdfsplitter-js\pdf-split.js --filename=E:\php\oshlib.kg\storage\app\books\26\w96DpA5ZGMlBERDOnZk5gAvcmyck8b0Zs31pM07m.pdf-excerpt.pdf --excerpt-page-count=10", 'r' ));
-
-    return $time;
-});
-
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Your all Cache is cleared";

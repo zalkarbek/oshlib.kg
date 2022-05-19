@@ -140,7 +140,9 @@ async function saveDocumentCover(pdfDocOptions) {
         width: 1024,
         height: 1325
     };
-    const convert = pdfpic.fromBuffer(pdfDocOptions.pdfFileBuffer, options);
+
+    const page1Buffer = await fs.readFile(`${pdfDocOptions.pdfPagesPath}/1.pdf`)
+    const convert = pdfpic.fromBuffer(page1Buffer, options);
     const pageToConvertAsImage = 1;
 
     convert(pageToConvertAsImage).then(async (resolve) => {
@@ -179,7 +181,7 @@ async function splitter(argv) {
 
         // создание мета данных
         await createJSONMetaFIle(totalPages, argv.filename)
-        // await saveDocumentCover(pdfDocOptions)
+        await saveDocumentCover(pdfDocOptions)
         return totalPages + ' pages created'
     }
     return 'file path not passed'
