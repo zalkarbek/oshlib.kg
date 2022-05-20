@@ -31,7 +31,7 @@ class RentBookAPIController extends AppBaseController
 
         if ($request->has('book_id')) {
             $rBook = RentedBooks::where('book_id', '=', $input['book_id'])->first();
-            if ($rBook->daysLeft() != 0) {
+            if ($rBook && $rBook->daysLeft() != 0) {
                 return $this->sendError('You have this book in your rent list', 400);
             }
         }
