@@ -28,6 +28,12 @@ class RentedBooks extends Model
         'reader_id',
     ];
 
+    protected $casts = [
+        'bail_received' => 'boolean',
+        'book_id' => 'integer',
+        'reader_id' => 'integer'
+    ];
+
     protected $appends = [
         'days_left',
     ];
