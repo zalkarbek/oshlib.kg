@@ -43,6 +43,10 @@ class Book extends Model implements HasMedia
         'author_id',
         'file_id',
         'page_count',
+        'writing_date',
+        'has_variants',
+        'available_for_rent',
+        'copies_num'
     ];
 
     /**

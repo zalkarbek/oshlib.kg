@@ -29,6 +29,13 @@ class RentBookAPIController extends AppBaseController
 
         $input = $request->all();
 
+        if ($request->has('book_id')) {
+            $rBook = RentedBooks::where('book_id', '=', $input['book_id'])->first();
+            if ($rBook->daysLeft() != 0) {
+                return $this->sendError('You have this book in your rent list', 400);
+            }
+        }
+
         $user = $request->user();
         $reader = $user->reader;
         if (!$reader) {
@@ -50,9 +57,7 @@ class RentBookAPIController extends AppBaseController
         $rentedBook->book_name = $input['book_name'];
         $rentedBook->author_name = $input['author_name'];
         $rentedBook->reader_id = $reader->id;
-        if ($request->has('book_id')) {
-            $rentedBook->book_id = $input['book_id'];
-        }
+        $rentedBook->book_id = $input['book_id'];
         $rentedBook->save();
 
         return $this->sendResponse([

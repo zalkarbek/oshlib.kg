@@ -4,6 +4,7 @@
 namespace App\DataTables;
 
 use App\Models\RentedBooks;
+use Carbon\Carbon;
 use DateTime;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -29,10 +30,15 @@ class RentedBookDataTable extends DataTable
                 return getDateColumn($model, 'issue_date');
             })
             ->editColumn('return_date', function ($model) {
-                $issueDate = new DateTime($model->issue_date);
-                $returnDate = new DateTime($model->return_date);
-                $interval = $issueDate->diff($returnDate);
-                return $interval->format('%a');
+                if ($model->issue_date && $model->return_date) {
+                    $issueDate = new Carbon($model->issue_date);
+                    $returnDate = new Carbon($model->return_date);
+
+                    $daysLeft = $issueDate->diff($returnDate)->days;
+                    return $daysLeft == 0 ? "0" : "$daysLeft дней осталось";
+                }
+
+                return $model->return_date;
             })
             ->addColumn('action', 'rented-books.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
