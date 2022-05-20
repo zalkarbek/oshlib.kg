@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Livewire\RentedBooks;
+use App\Models\RentedBooks;
 use App\Models\Reader;
 use App\Repositories\ReaderRepository;
 use Illuminate\Http\Request;
@@ -22,16 +22,26 @@ class RentBookAPIController extends AppBaseController
 
     public function createRent(Request $request)
     {
+        $request->validate([
+            'book_name' => 'required',
+            'author_name' => 'required',
+        ]);
+
         $input = $request->all();
 
         $user = $request->user();
         $reader = $user->reader;
         if (!$reader) {
+            $request->validate([
+                'reader_form' => 'required',
+            ]);
+
             $reader = new Reader();
             $reader->user_id = $user->id;
         }
-
-        $reader = $this->copyReader($input, $reader);
+        if ($request->has('reader_form')) {
+            $reader = $this->copyReader($input['reader_form'], $reader);
+        }
         $reader->save();
 
         $rentedBook = new RentedBooks();
@@ -40,6 +50,9 @@ class RentBookAPIController extends AppBaseController
         $rentedBook->book_name = $input['book_name'];
         $rentedBook->author_name = $input['author_name'];
         $rentedBook->reader_id = $reader->id;
+        if ($request->has('book_id')) {
+            $rentedBook->book_id = $input['book_id'];
+        }
         $rentedBook->save();
 
         return $this->sendResponse([
@@ -67,7 +80,7 @@ class RentBookAPIController extends AppBaseController
 
     public function myRentedBooks(Request $request)
     {
-        $rentedBooks = RentedBooks::where('reader_id', '=', $request->user()->readerForm()->id)->all();
+        $rentedBooks = RentedBooks::where('reader_id', '=', $request->user()->reader->id)->get();
 
         return $this->sendResponse($rentedBooks, 'Rent books retrieved successfully');
     }

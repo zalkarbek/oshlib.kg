@@ -35,4 +35,12 @@ class RentedBooks extends Model
     {
         return $this->belongsTo(User::class, 'reader_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }
