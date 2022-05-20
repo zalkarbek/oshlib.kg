@@ -51,7 +51,7 @@ class BookSelectionFields extends Component
     public function render()
     {
         return view('livewire.book-selection-fields', [
-            'books' => Book::where('name', 'like', '%'.$this->search.'%')->paginate(3),
+            'books' => Book::where('name', 'like', '%'.$this->search.'%')->paginate(10),
         ]);
     }
 

@@ -61,6 +61,8 @@ Route::middleware('throttle:60')->group(function () {
             Route::post('rate', 'BookAPIController@rate');
             Route::get('myreview', 'BookAPIController@myReview');
         });
+
+        Route::post('rent-book', 'RentBookAPIController@createRent');
     });
 
     Route::resource('books', 'BookAPIController')->except([

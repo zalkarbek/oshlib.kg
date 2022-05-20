@@ -17,6 +17,7 @@ use App\Models\UserBookShelf;
 use App\Repositories\AdvertisementRepository;
 use App\Repositories\BookRepository;
 use App\Repositories\BookShelfRepository;
+use App\Repositories\ReaderRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserBookShelfRepository;
 use App\Repositories\UserRepository;
@@ -284,7 +285,7 @@ class UserAPIController extends AppBaseController
             if ($user->uid === $input['uid']) {
                 auth()->login($user, true);
             } else {
-                return $this->sendError('uid invalid', 405);
+                return $this->sendError('uid invalid', 402);
             }
         } else {
             // create a new user
@@ -307,7 +308,7 @@ class UserAPIController extends AppBaseController
      */
     function appleAuth(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'uid' => 'required',
         ]);
 
@@ -317,6 +318,11 @@ class UserAPIController extends AppBaseController
         if($user) {
             auth()->login($user, true);
         } else {
+            $request->validate([
+                'email' => 'required|email|unique',
+                'name' => 'required|string',
+            ]);
+
             // create a new user
             $user = $this->createUserWithGeneratedPassword($input);
 
@@ -353,4 +359,5 @@ class UserAPIController extends AppBaseController
     {
         return $request->user()->bookShelves();
     }
+
 }

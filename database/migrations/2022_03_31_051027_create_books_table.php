@@ -27,6 +27,8 @@ class CreateBooksTable extends Migration
             $table->dateTime('release_date')->nullable();
             $table->dateTime('writing_date')->nullable();
             $table->enum('has_variants', ['all', 'electronic', 'paper'])->default('all');
+            $table->boolean('available_for_rent')->default(true);
+            $table->integer('copies_num')->nullable()->default(null);
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')

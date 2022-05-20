@@ -112,8 +112,22 @@
     <div class="form-group row ">
         {!! Form::label('description', trans("lang.book_description"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::textarea('description', null, ['class' => 'form-control','placeholder'=>
-             trans("lang.book_description_placeholder")  ]) !!}
+            {!! Form::textarea('description', null, ['class' => 'form-control','placeholder'=> 'Описание' ]) !!}
+        </div>
+    </div>
+
+    <!-- Category Id Field -->
+    <div class="form-group row ">
+        {!! Form::label('has_variants', ' Есть варианты', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::select('has_variants', ['all' => 'Оба', 'electronic' => 'Электронный', 'paper' => 'Бумажный'], null, ['class' => 'select2 form-control']) !!}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        {!! Form::label('available_for_rent', 'Доступен для аренды', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="checkbox">
+            {!! Form::checkbox('available_for_rent', null, null, ['style' => 'height: 18px; width: 18px; margin: 5px 0 0 8px;']) !!}
         </div>
     </div>
 </div>

@@ -111,6 +111,24 @@
     </li>
 @endcan
 
+@can('rented-books.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/rented-books*') ? 'active' : '' }}" href="{!! url('console/rented-books') !!}">
+            @if($icons)<i class="nav-icon fa fa-address-book"></i>@endif
+            <p>{{trans('lang.rented-book_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
+@can('readers.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('console/readers*') ? 'active' : '' }}" href="{!! url('console/readers') !!}">
+            @if($icons)<i class="nav-icon fa fa-bookmark"></i>@endif
+            <p>{{trans('lang.reader_plural')}}</p>
+        </a>
+    </li>
+@endcan
+
 <li class="nav-header">{{trans('lang.app_setting')}}</li>
 @can('medias')
     <li class="nav-item">

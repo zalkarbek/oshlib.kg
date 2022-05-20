@@ -84,6 +84,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
     Route::resource('articles', 'App\Http\Controllers\ArticleController');
     Route::resource('reviews', 'App\Http\Controllers\ReviewController');
     Route::resource('selections', 'App\Http\Controllers\SelectionController');
+    Route::resource('rented-books', 'App\Http\Controllers\RentedBooksController');
+    Route::resource('readers', 'App\Http\Controllers\ReaderController');
     Route::get('select-books', 'App\Http\Controllers\BookController@selectBooksTable');
 
 });

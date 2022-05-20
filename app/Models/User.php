@@ -71,6 +71,7 @@ class User extends Authenticatable implements HasMedia
      */
     protected $appends = [
         'image',
+        'reader_form',
     ];
 
     /**
@@ -121,10 +122,27 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * Add Media to api results
+     * @return string
+     */
+    public function getReaderFormAttribute()
+    {
+        return Reader::where('user_id', $this->id)->first();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function bookShelves()
     {
         return $this->hasMany(BookShelf::class, );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function reader()
+    {
+        return $this->hasOne(Reader::class, 'user_id');
     }
 }

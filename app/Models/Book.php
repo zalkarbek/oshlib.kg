@@ -106,7 +106,7 @@ class Book extends Model implements HasMedia
             }
         } else {
             $fileId = $this->fileDetails->id;
-            if (file_exists(storage_path("app/books/$fileId/cover.jpg"))) {
+            if (file_exists(storage_path("app/books/$fileId/cover.1.jpg"))) {
                 return asset("storage/cover/$fileId");
             }
         }
