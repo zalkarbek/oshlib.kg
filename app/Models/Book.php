@@ -76,6 +76,7 @@ class Book extends Model implements HasMedia
         'cover',
         'read_status',
         'rating',
+        'is_available_for_rent'
     ];
 
     /**
@@ -166,6 +167,32 @@ class Book extends Model implements HasMedia
     public function getRatingAttribute()
     {
         return $this->reviews()->average('rating') ?? 0.0;
+    }
+
+    /**
+     * @return string
+     **/
+    public function getIsAvailableForRentAttribute()
+    {
+        $guards = array_keys(config('auth.guards'));
+        foreach ($guards as $guard) {
+            if(Auth::guard($guard)->check()) {
+                $readingStatus = UserReading::where('user_id', )->where('book_id', $this->id)->first();
+                if ($readingStatus) return $readingStatus->status;
+                $reader = User::find(Auth::guard($guard)->id())->reader;
+                if ($reader) {
+                    $rBook = RentedBooks::where('book_id', '=', $this->id)->where('reader_id', '=', $reader->id)->first();
+                    if ($rBook) {
+                        return false;
+                    }
+
+                }
+
+                return true;
+            }
+        }
+
+        return null;
     }
 
     /**
