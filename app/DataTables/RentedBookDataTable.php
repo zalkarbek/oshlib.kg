@@ -29,11 +29,13 @@ class RentedBookDataTable extends DataTable
             })
             ->editColumn('return_date', function ($model) {
                 if ($model->issue_date && $model->return_date) {
-                    $issueDate = new Carbon($model->issue_date);
+                    $now = Carbon::now();
                     $returnDate = new Carbon($model->return_date);
 
-                    $daysLeft = $issueDate->diff($returnDate)->days;
-                    return $daysLeft == 0 ? "0" : "$daysLeft дней осталось";
+                    if ($now > $returnDate) return "0";
+
+                    $daysLeft = $returnDate->diff($now)->days;
+                    return $daysLeft > 0 ? "0" : "$daysLeft дней осталось";
                 }
 
                 return $model->return_date;
