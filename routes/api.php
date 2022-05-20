@@ -42,6 +42,7 @@ Route::middleware('throttle:60')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('logout', 'UserAPIController@logout');
         Route::get('user', 'UserAPIController@user');
+        Route::get('user/rented-books', 'RentBookAPIController@myRentedBooks');
         Route::post('user', 'UserAPIController@update');
         Route::patch('user/password', 'UserAPIController@changePassword');
         Route::resource('user/bookShelves', 'BookShelfAPIController');

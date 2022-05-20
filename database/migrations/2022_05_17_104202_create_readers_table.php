@@ -27,6 +27,8 @@ class CreateReadersTable extends Migration
             $table->string('passport_id');
             $table->boolean('agreed_with_rules')->default(true);
             $table->foreignId('user_id')
+                ->nullable()
+                ->default(null)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

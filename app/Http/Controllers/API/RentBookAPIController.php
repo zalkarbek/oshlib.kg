@@ -42,7 +42,10 @@ class RentBookAPIController extends AppBaseController
         $rentedBook->reader_id = $reader->id;
         $rentedBook->save();
 
-        return $this->sendResponse(['reader' => $reader, 'rent' => $rentedBook], 'created successfully');
+        return $this->sendResponse([
+            'reader' => $reader,
+            'rent' => $rentedBook,
+        ], 'created successfully');
     }
 
     private function copyReader(array $input, Reader $reader)
@@ -60,5 +63,12 @@ class RentBookAPIController extends AppBaseController
         $reader->agreed_with_rules = $input['agreed_with_rules'] ?? $reader->agreed_with_rules;
 
         return $reader;
+    }
+
+    public function myRentedBooks(Request $request)
+    {
+        $rentedBooks = RentedBooks::where('reader_id', '=', $request->user()->readerForm()->id)->all();
+
+        return $this->sendResponse($rentedBooks, 'Rent books retrieved successfully');
     }
 }

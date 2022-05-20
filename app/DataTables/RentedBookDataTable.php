@@ -4,6 +4,7 @@
 namespace App\DataTables;
 
 use App\Models\RentedBooks;
+use DateTime;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -28,7 +29,10 @@ class RentedBookDataTable extends DataTable
                 return getDateColumn($model, 'issue_date');
             })
             ->editColumn('return_date', function ($model) {
-                return getDateColumn($model, 'return_date');
+                $issueDate = new DateTime($model->issue_date);
+                $returnDate = new DateTime($model->return_date);
+                $interval = $issueDate->diff($returnDate);
+                return $interval->format('%a');
             })
             ->addColumn('action', 'rented-books.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
@@ -46,12 +50,7 @@ class RentedBookDataTable extends DataTable
         return [
             [
                 'data' => 'id',
-                'title' => 'ID',
-                'searchable' => false,
-            ],
-            [
-                'data' => 'user',
-                'title' => 'Пользователь',
+                'title' => '№',
             ],
             [
                 'data' => 'book_name',
@@ -64,12 +63,10 @@ class RentedBookDataTable extends DataTable
             [
                 'data' => 'issue_date',
                 'title' => 'Дата выдачи',
-                'searchable' => false,
             ],
             [
                 'data' => 'return_date',
                 'title' => 'Дата возврата',
-                'searchable' => false,
             ]
         ];
     }

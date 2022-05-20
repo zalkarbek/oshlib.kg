@@ -39,6 +39,7 @@ class ReaderController extends Controller
     public function create()
     {
         $users = User::all()->pluck('name', 'id');
+        $users->prepend('Нет', null);
 
         return view('readers.create', compact(['users']));
     }
@@ -83,6 +84,7 @@ class ReaderController extends Controller
     public function edit(Reader $reader)
     {
         $users = User::all()->pluck('name', 'id');
+        $users->prepend('Нет', null);
 
         return view('readers.edit', compact(['reader', 'users']));
     }

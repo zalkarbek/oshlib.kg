@@ -24,7 +24,8 @@ class RentedBooks extends Model
         'book_name',
         'author_name',
         'book_id',
-        'reader_id'
+        'reader_id',
+        'code'
     ];
 
     /**

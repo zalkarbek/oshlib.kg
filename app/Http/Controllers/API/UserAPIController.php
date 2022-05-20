@@ -31,8 +31,11 @@ use Auth;
 
 class UserAPIController extends AppBaseController
 {
+    /** @var UserRepository  */
     private $userRepository;
+    /** @var RoleRepository  */
     private $roleRepository;
+    /** @var BookRepository  */
     private $bookRepository;
     /** @var UserBookShelfRepository */
     private $userBookShelfRepository;

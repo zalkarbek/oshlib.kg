@@ -23,6 +23,7 @@ class CreateRentedBooksTable extends Migration
             $table->string('note')->nullable()->default(null);
             $table->string('book_name');
             $table->string('author_name');
+            $table->string('code');
             $table->foreignId('book_id')
                 ->nullable()
                 ->default(null)
