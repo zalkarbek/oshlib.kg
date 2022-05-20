@@ -51,9 +51,9 @@ class RentedBooks extends Model
     public function daysLeft()
     {
         if ($this->issue_date && $this->return_date) {
-            $issueDate = Carbon::now();
+            $now = Carbon::now();
             $returnDate = new Carbon($this->return_date);
-            $days = $issueDate->diff($returnDate)->days;
+            $days = $now->diff($returnDate)->format("%r%a");
             return $days > 0 ? $days : 0;
         }
 
@@ -73,9 +73,9 @@ class RentedBooks extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function user()
+    public function reader()
     {
-        return $this->belongsTo(User::class, 'reader_id');
+        return $this->belongsTo(Reader::class, 'reader_id');
     }
 
     /**

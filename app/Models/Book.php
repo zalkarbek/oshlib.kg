@@ -76,7 +76,8 @@ class Book extends Model implements HasMedia
         'cover',
         'read_status',
         'rating',
-        'is_available_for_rent'
+        'is_available_for_rent',
+        'is_rented',
     ];
 
     /**
@@ -176,25 +177,26 @@ class Book extends Model implements HasMedia
     {
         if (!$this->available_for_rent || $this->has_variants == 'electronic') return false;
 
+        return true;
+    }
+
+    public function getIsRentedAttribute()
+    {
         $guards = array_keys(config('auth.guards'));
         foreach ($guards as $guard) {
             if(Auth::guard($guard)->check()) {
-                $readingStatus = UserReading::where('user_id', )->where('book_id', $this->id)->first();
-                if ($readingStatus) return $readingStatus->status;
                 $reader = User::find(Auth::guard($guard)->id())->reader;
                 if ($reader) {
                     $rBook = RentedBooks::where('book_id', '=', $this->id)->where('reader_id', '=', $reader->id)->first();
-                    if ($rBook && $rBook->daysLeft() != 0) {
-                        return false;
+                    if (!($rBook && $rBook->daysLeft() != 0)) {
+                        return true;
                     }
 
                 }
-
-                return true;
             }
         }
 
-        return null;
+        return false;
     }
 
     /**

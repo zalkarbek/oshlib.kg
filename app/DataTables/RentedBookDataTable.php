@@ -23,7 +23,9 @@ class RentedBookDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $columns = array_column($this->getColumns(), 'data');
         $dataTable = $dataTable
-
+            ->editColumn('user_name', function ($model) {
+                return $model->reader->name;
+            })
             ->editColumn('issue_date', function ($model) {
                 return getDateColumn($model, 'issue_date');
             })
@@ -32,10 +34,8 @@ class RentedBookDataTable extends DataTable
                     $now = Carbon::now();
                     $returnDate = new Carbon($model->return_date);
 
-                    if ($now > $returnDate) return "0";
-
-                    $daysLeft = $returnDate->diff($now)->days;
-                    return $daysLeft > 0 ? "0" : "$daysLeft дней осталось";
+                    $daysLeft = $now->diff($returnDate)->format("%r%a");
+                    return $daysLeft <= 0 ? "0" : "$daysLeft дней осталось";
                 }
 
                 return $model->return_date;
@@ -57,6 +57,11 @@ class RentedBookDataTable extends DataTable
             [
                 'data' => 'id',
                 'title' => '№',
+            ],
+            [
+                'data' => 'user_name',
+                'title' => 'Читатель',
+                'searchable' => false,
             ],
             [
                 'data' => 'book_name',
