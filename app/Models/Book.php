@@ -174,6 +174,8 @@ class Book extends Model implements HasMedia
      **/
     public function getIsAvailableForRentAttribute()
     {
+        if (!$this->available_for_rent || $this->has_variants == 'electronic') return false;
+
         $guards = array_keys(config('auth.guards'));
         foreach ($guards as $guard) {
             if(Auth::guard($guard)->check()) {
