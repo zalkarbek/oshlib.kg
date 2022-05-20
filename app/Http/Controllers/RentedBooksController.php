@@ -123,12 +123,12 @@ class RentedBooksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RentedBooks  $rentedBooks
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RentedBooks $rentedBooks)
+    public function destroy($id)
     {
-        $rentedBooks->delete();
+        $this->rentedBooksRepository->delete($id);
 
         return redirect(route('rented-books.index'));
     }

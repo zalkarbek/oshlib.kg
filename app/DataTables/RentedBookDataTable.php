@@ -23,9 +23,7 @@ class RentedBookDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $columns = array_column($this->getColumns(), 'data');
         $dataTable = $dataTable
-            ->editColumn('user', function ($model) {
-                return $model->user->name;
-            })
+
             ->editColumn('issue_date', function ($model) {
                 return getDateColumn($model, 'issue_date');
             })

@@ -184,7 +184,7 @@ class Book extends Model implements HasMedia
                 $reader = User::find(Auth::guard($guard)->id())->reader;
                 if ($reader) {
                     $rBook = RentedBooks::where('book_id', '=', $this->id)->where('reader_id', '=', $reader->id)->first();
-                    if ($rBook) {
+                    if ($rBook && $rBook->daysLeft() != 0) {
                         return false;
                     }
 
