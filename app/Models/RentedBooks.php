@@ -51,10 +51,10 @@ class RentedBooks extends Model
     public function daysLeft()
     {
         if ($this->issue_date && $this->return_date) {
-            $issueDate = new Carbon($this->issue_date);
+            $issueDate = Carbon::now();
             $returnDate = new Carbon($this->return_date);
-
-            return $issueDate->diff($returnDate)->days;
+            $days = $issueDate->diff($returnDate)->days;
+            return $days > 0 ? $days : 0;
         }
 
         return null;
