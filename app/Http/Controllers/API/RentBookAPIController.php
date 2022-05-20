@@ -80,7 +80,7 @@ class RentBookAPIController extends AppBaseController
 
     public function myRentedBooks(Request $request)
     {
-        $rentedBooks = RentedBooks::where('reader_id', '=', $request->user()->reader->id)->get();
+        $rentedBooks = RentedBooks::where('reader_id', '=', $request->user()->reader->id)->with('book')->get();
 
         return $this->sendResponse($rentedBooks, 'Rent books retrieved successfully');
     }
