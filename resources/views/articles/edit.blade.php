@@ -53,9 +53,10 @@
       </ul>
     </div>
     <div class="card-body">
-      {!! Form::model($article, ['route' => ['articles.update', $article->id], 'method' => 'patch']) !!}
+      {!! Form::model($article, ['route' => ['articles.update', $article->id], 'enctype' => 'multipart/form-data']) !!}}
       <div class="row">
-        @include('articles.fields')
+          @method('PATCH')
+          @include('articles.fields')
       </div>
       {!! Form::close() !!}
       <div class="clearfix"></div>
