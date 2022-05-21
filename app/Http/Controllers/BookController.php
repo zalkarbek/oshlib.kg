@@ -141,9 +141,7 @@ class BookController extends AppBaseController
             }
 
             if ($request->has('tags')) {
-                foreach ($input['tags'] as $tag) {
-                    $this->bookTagRepository->create(["book_id" => $book->id, "tag_id" => $tag]);
-                }
+                $this->addTagsToBook($input['tags'], $book->id);
             }
 
             splitPdf(storage_path('app/' . $file->path));
@@ -226,10 +224,7 @@ class BookController extends AppBaseController
             }
 
             if ($request->has('tags')) {
-                $this->bookTagRepository->findByField('book_id', $book->id)->each->delete();
-                foreach ($input['tags'] as $tag) {
-                    $this->bookTagRepository->create(["book_id" => $book->id, "tag_id" => $tag]);
-                }
+                $this->addTagsToBook($input['tags'], $book->id);
             }
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
@@ -238,6 +233,14 @@ class BookController extends AppBaseController
         Flash::success(__('lang.updated_successfully', ['operator' => __('lang.book')]));
 
         return redirect(route('books.index'));
+    }
+
+    private function addTagsToBook($tags, $bookId)
+    {
+        $this->bookTagRepository->findByField('book_id', $bookId)->each->delete();
+        foreach ($tags as $tag) {
+            $this->bookTagRepository->create(["book_id" => $bookId, "tag_id" => $tag]);
+        }
     }
 
     private function saveBook(Request $request)

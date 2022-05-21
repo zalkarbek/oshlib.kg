@@ -54,10 +54,9 @@
     </div>
     <div class="card-body">
       {!! Form::model($article, ['route' => ['articles.update', $article->id], 'method' => 'patch']) !!}
-      <livewire:articles.fields :article="$article" />
-      {{--<div class="row">
+      <div class="row">
         @include('articles.fields')
-      </div>--}}
+      </div>
       {!! Form::close() !!}
       <div class="clearfix"></div>
     </div>
