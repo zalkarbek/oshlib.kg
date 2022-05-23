@@ -121,12 +121,15 @@ class UserAPIController extends AppBaseController
                 $defaultRoles = $defaultRoles->pluck('name')->toArray();
                 $user->assignRole($defaultRoles);
             }
+
+            // Send email to user
+            Mail::to($request->email)->send(new SendRegisteredPassword($generatedPassword));
+
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 405);
         }
 
-        // Send email to user
-        Mail::to($request->email)->send(new SendRegisteredPassword($generatedPassword));
+
 
         // $data = $user->toArray();
         ///$data['token'] = $user->createToken(str_random(20))->plainTextToken;
