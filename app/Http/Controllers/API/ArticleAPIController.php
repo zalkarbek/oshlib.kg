@@ -42,7 +42,7 @@ class ArticleAPIController extends AppBaseController
         }
         $articles = $this->articleRepository->all();
 
-        return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
+        return $this->sendResponse($articles, 'Articles retrieved successfully');
     }
 
     /**
