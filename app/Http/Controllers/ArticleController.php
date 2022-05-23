@@ -104,14 +104,17 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
+        $article = $this->articleRepository->findWithoutFail($id);
+
         $input = $request->all();
+
         try {
-            $article = $this->articleRepository->update($input, $article->id);
+            $article = $this->articleRepository->update($input, $id);
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $article->clearMediaCollection();
                 $article->addMediaFromRequest('image')
