@@ -11,6 +11,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\SendRegisteredPassword;
+use App\Mail\SendResetPassword;
 use App\Models\BookShelf;
 use App\Models\User;
 use App\Models\UserBookShelf;
@@ -24,6 +26,7 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Laravel\Socialite\Facades\Socialite;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -64,8 +67,14 @@ class UserAPIController extends AppBaseController
                 $user = auth()->user();
                 $user->fcm_token = $request->input('fcm_token', '');
                 $token = $user->createToken(str_random(20));
+
+                if (!$user->email_verified_at) {
+                    $user->email_verified_at = Carbon::now();
+                }
+
                 $user->save();
                 $user->token = $token->plainTextToken;
+
                 return $this->sendResponse($user, 'User retrieved successfully');
             }
         } catch (\Exception $e) {
@@ -84,26 +93,45 @@ class UserAPIController extends AppBaseController
     function register(RegisterRequest $request)
     {
         try {
-            $user = new User;
-            $user->name = $request->input('name');
-            $user->login = $request->input('login');
-            $user->email = $request->input('email');
-            $user->fcm_token = $request->input('fcm_token', '');
-            $user->password = Hash::make($request->input('password'));
+            $user = User::where('email', $request->email)->first();
+            if ($user && $user->email_verified_at) {
+                return $this->sendError('Пользователь с таким email уже существует', 422);
+            } else if ($user) {
+                $user->login = $request->input('login');
+                $user->fcm_token = $request->input('fcm_token', '');
+                $generatedPassword = str_random(6);
+                $user->password = Hash::make($generatedPassword);
 
-            $user->save();
+                $user->save();
 
-            $defaultRoles = $this->roleRepository->find(3);
-            $defaultRoles = $defaultRoles->pluck('name')->toArray();
-            $user->assignRole($defaultRoles);
 
+            } else {
+                $user = new User;
+                $user->name = $request->input('name');
+                $user->login = $request->input('login');
+                $user->email = $request->input('email');
+                $user->fcm_token = $request->input('fcm_token', '');
+                $generatedPassword = str_random(6);
+                $user->password = Hash::make($generatedPassword);
+                // $user->password = Hash::make($request->input('password'));
+
+                $user->save();
+
+                $defaultRoles = $this->roleRepository->find(3);
+                $defaultRoles = $defaultRoles->pluck('name')->toArray();
+                $user->assignRole($defaultRoles);
+            }
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 405);
         }
 
-        $data = $user->toArray();
-        $data['token'] = $user->createToken(str_random(20))->plainTextToken;
-        return $this->sendResponse($data, 'User retrieved successfully');
+        // Send email to user
+        Mail::to($request->email)->send(new SendRegisteredPassword($generatedPassword));
+
+        // $data = $user->toArray();
+        ///$data['token'] = $user->createToken(str_random(20))->plainTextToken;
+
+        return $this->sendResponse($user, 'User registered successfully');
     }
 
     function logout(Request $request)
