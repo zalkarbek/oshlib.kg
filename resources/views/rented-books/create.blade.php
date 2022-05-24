@@ -24,8 +24,8 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{url('console/dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
-          <li class="breadcrumb-item"><a href="{!! url('console/rented-books') !!}">{{trans('lang.rented-book_plural')}}</a>
+          <li class="breadcrumb-item"><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
+          <li class="breadcrumb-item"><a href="{!! url('rented-books') !!}">{{trans('lang.rented-book_plural')}}</a>
           </li>
           <li class="breadcrumb-item active">{{trans('lang.rented-book_create')}}</li>
         </ol>
@@ -44,7 +44,7 @@
       <ul class="nav nav-tabs align-items-end card-header-tabs w-100">
         @can('rented-books.index')
         <li class="nav-item">
-          <a class="nav-link" href="{!! url('console/rented-books') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.rented-book_table')}}</a>
+          <a class="nav-link" href="{!! url('rented-books') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.rented-book_table')}}</a>
         </li>
         @endcan
       </ul>

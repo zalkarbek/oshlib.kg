@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/privacy-policy', function () {
     return view('settings.privacy_policy.index');
 });
@@ -44,7 +40,7 @@ Route::group(['middleware' => ['permission:permissions.index', 'auth'], 'prefix'
     Route::post('revoke-permission-to-role', 'App\Http\Controllers\PermissionController@revokePermissionToRole');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\DashboardController@index');
 
     Route::post('uploads/store', 'App\Http\Controllers\UploadController@store')->name('medias.create');

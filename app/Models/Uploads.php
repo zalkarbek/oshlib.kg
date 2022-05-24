@@ -68,17 +68,5 @@ class Uploads extends Model implements HasMedia
         $this->performed = $performed;
     }
 
-    /**
-     * get media
-     * @param string $collectionName
-     * @param array $filters
-     * @return \Illuminate\Support\Collection
-     */
-    public function getMedia(string $collectionName = 'default', $filters = []): \Illuminate\Support\Collection
-    {
-        if (count($this->getMediaTrait($collectionName))) {
-            return $this->getMediaTrait($collectionName, $filters);
-        }
-        return $this->getMediaTrait('default', $filters);
-    }
+
 }

@@ -31,7 +31,7 @@
             </ul>
         </div>
         <div class="card-body">
-            {!! Form::open(['url' => ['console/settings/update'], 'method' => 'patch']) !!}
+            {!! Form::open(['url' => ['settings/update'], 'method' => 'patch']) !!}
             <div class="row">
                 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
                     <!-- app_name Field -->

@@ -19,8 +19,8 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{url('console/dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
-          <li class="breadcrumb-item"><a href="{!! url('console/publishers') !!}">{{trans('lang.publisher_plural')}}</a>
+          <li class="breadcrumb-item"><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
+          <li class="breadcrumb-item"><a href="{!! url('publishers') !!}">{{trans('lang.publisher_plural')}}</a>
           </li>
           <li class="breadcrumb-item active">{{trans('lang.publisher_create')}}</li>
         </ol>
@@ -39,7 +39,7 @@
       <ul class="nav nav-tabs align-items-end card-header-tabs w-100">
         @can('publishers.index')
         <li class="nav-item">
-          <a class="nav-link" href="{!! url('console/publishers') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.publisher_table')}}</a>
+          <a class="nav-link" href="{!! url('publishers') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.publisher_table')}}</a>
         </li>
         @endcan
         <li class="nav-item">
