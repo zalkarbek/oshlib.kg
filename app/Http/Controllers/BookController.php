@@ -122,8 +122,6 @@ class BookController extends AppBaseController
     {
         $input = $request->all();
 
-        dd($input['tags']);
-
         try {
             $file = $this->saveBook($request);
 
