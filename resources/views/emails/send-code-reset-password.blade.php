@@ -1,10 +1,10 @@
 @component('mail::message')
-<h1>We have received your request to reset your account password</h1>
-<p>You can use the following code to recover your account:</p>
+<h1>Мы получили ваш запрос на сброс пароля вашей учетной записи</h1>
+<p>Вы можете использовать следующий код для восстановления вашей учетной записи:</p>
 
 @component('mail::panel')
 {{ $code }}
 @endcomponent
 
-<p>The allowed duration of the code is one hour from the time the message was sent</p>
+<p>Допустимая продолжительность действия кода — один час с момента отправки сообщения.</p>
 @endcomponent

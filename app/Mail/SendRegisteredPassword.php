@@ -20,6 +20,7 @@ class SendRegisteredPassword extends Mailable implements ShouldQueue
 
     public function build()
     {
-        return $this->markdown('emails.send-register-password');
+        return $this->subject('Регистрация El-Kitep')
+            ->markdown('emails.send-register-password');
     }
 }

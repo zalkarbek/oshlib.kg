@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('emailtest/{text}', function ($text) {
+    Mail::to('saydakmatova.almaida@gmail.com')->send(new \App\Mail\SendCodeResetPassword('some code'));
+});
+
 Route::get('/privacy-policy', function () {
     return view('settings.privacy_policy.index');
 });

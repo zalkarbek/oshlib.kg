@@ -19,6 +19,10 @@ Route::middleware('throttle:1')->group(function() {
     Route::post('user/sendResetCode',  'ResetPasswordAPIController@sendResetCode');
 });
 
+Route::middleware('throttle:5')->group(function () {
+    Route::post('register', 'UserAPIController@register');
+});
+
 Route::middleware('throttle:60')->group(function () {
     Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
     Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
@@ -35,7 +39,7 @@ Route::middleware('throttle:60')->group(function () {
     Route::post('/appleAuth', 'UserAPIController@appleAuth');
 
     Route::post('login', 'UserAPIController@login');
-    Route::post('register', 'UserAPIController@register');
+
     Route::get('user/check', 'UserAPIController@userCheck');
 
     Route::middleware('auth:sanctum')->group(function () {
