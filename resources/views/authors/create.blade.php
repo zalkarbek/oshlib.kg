@@ -19,8 +19,8 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
-          <li class="breadcrumb-item"><a href="{!! url('authors') !!}">{{trans('lang.author_plural')}}</a>
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('lang.dashboard')}}</a></li>
+          <li class="breadcrumb-item"><a href="{!! url('/authors') !!}">{{trans('lang.author_plural')}}</a>
           </li>
           <li class="breadcrumb-item active">{{trans('lang.author_create')}}</li>
         </ol>
