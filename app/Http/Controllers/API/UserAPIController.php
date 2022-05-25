@@ -117,9 +117,9 @@ class UserAPIController extends AppBaseController
 
                 $user->save();
 
-                $defaultRoles = $this->roleRepository->find(3);
-                $defaultRoles = $defaultRoles->pluck('name')->toArray();
-                $user->assignRole($defaultRoles);
+                // $defaultRoles = $this->roleRepository->find(3);
+                // $defaultRoles = $defaultRoles->pluck('name')->toArray();
+                $user->assignRole('client');
             }
 
             // Send email to user
