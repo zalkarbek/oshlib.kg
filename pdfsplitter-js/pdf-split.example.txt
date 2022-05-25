@@ -7,12 +7,12 @@ filename - полный путь к файлу
 excerpt-page-count - кол-во страниц для отрывка
 
 
-node pdf-split.js --filename=D:\books2020.pdf --excerpt-page-count=10
+node pdf-split.js --filename=C:\\www\\oshlib.kg\\storage\\app\\books\\62\\book1.pdf --excerpt-page-count=5
 
 cover.1.jpg
 
 
-gm convert "1.pdf" -size 1024x1325 -quality 70 -density 330 -compress JPEG "1.jpg"
+gm convert "book1.pdf" -size 1024x1325 -quality 70 -density 330 -compress JPEG "1.jpg"
 
 
 в директории создает pages папку и туда сохраняет все страницы в 1-n.pdf
