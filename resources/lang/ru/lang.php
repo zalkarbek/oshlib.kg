@@ -883,4 +883,7 @@ return [
     'genre' => 'Жанр',
     'theme' => 'Тема',
 
+    "total_books" => "Всего книг",
+    "total_books_this_year" => "Всего книг в этом году"
+
 ];
