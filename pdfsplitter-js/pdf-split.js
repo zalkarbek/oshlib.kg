@@ -181,7 +181,7 @@ async function splitter(argv) {
 
         // создание мета данных
         await createJSONMetaFIle(totalPages, argv.filename)
-        // await saveDocumentCover(pdfDocOptions)
+        await saveDocumentCover(pdfDocOptions)
         return totalPages + ' pages created'
     }
     return 'file path not passed'
