@@ -125,6 +125,11 @@ class UserAPIController extends AppBaseController
             // Send email to user
             Mail::to($request->email)->send(new SendRegisteredPassword($generatedPassword));
 
+            // check for failures
+            if (Mail::failures()) {
+                return $this->sendError('Не удалось отправить email', 405);
+            }
+
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 405);
         }
