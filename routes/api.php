@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('books/{id}/pages/{page}', 'BookAPIController@byPage');
+Route::get('mobile-app/link', 'AppAPIController@redirectToAppMarket');
 
 Route::middleware('throttle:1')->group(function() {
     Route::post('user/sendResetCode',  'ResetPasswordAPIController@sendResetCode');

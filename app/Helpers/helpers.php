@@ -731,3 +731,9 @@ function deleteDirWithFiles($dir)
         rmdir($dir);
     } catch (Exception $e) {}
 }
+
+function detectOS()
+{
+    preg_match("/iPhone|Android|iPad|iPod|webOS/", $_SERVER['HTTP_USER_AGENT'], $matches);
+    return current($matches);
+}
