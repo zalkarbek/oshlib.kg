@@ -127,7 +127,7 @@ class BookController extends AppBaseController
             $file = $this->saveBook($request);
 
             $input['file_id'] = $file->id;
-            $input['available_for_rent'] = filter_var($input['available_for_rent'], FILTER_VALIDATE_BOOLEAN);
+            $input['available_for_rent'] = filter_var($input['available_for_rent'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
 
             $book = $this->bookRepository->create($input);
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -200,6 +200,7 @@ class BookController extends AppBaseController
     public function update(UpdateBookRequest $request, Book $book)
     {
         $input = $request->all();
+        $input['available_for_rent'] = filter_var($input['available_for_rent'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
         try {
             if ($request->hasFile('file') && $request->file('file')->isValid()) {
                 // unlink(storage_path($book->fileDetails->path));
