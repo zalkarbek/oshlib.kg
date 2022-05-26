@@ -56,6 +56,7 @@ class SelectionsDataTable extends DataTable
             [
                 'data' => 'books_count',
                 'title' => trans('lang.selection_books_count'),
+                'searchable' => false,
             ],
             [
                 'data' => 'updated_at',

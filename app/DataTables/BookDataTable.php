@@ -23,7 +23,6 @@ class BookDataTable extends DataTable
         $dataTable = $dataTable
             ->editColumn('image', function ($model) {
                 return "<img class='rounded' style='width:50px' src='" . $model->getFirstMediaUrl() . "' />";
-
             })
             ->editColumn('author_name', function ($model) {
                 return $model->author->name;
@@ -57,6 +56,7 @@ class BookDataTable extends DataTable
             [
                 'data' => 'author_name',
                 'title' => trans('lang.author'),
+                'searchable' => false,
             ],
             [
                 'data' => 'updated_at',

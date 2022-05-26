@@ -56,6 +56,7 @@ class CategoryDataTable extends DataTable
             [
                 'data' => 'parent_name',
                 'title' => 'Родитель',
+                'searchable' => false,
             ],
             [
                 'data' => 'updated_at',
