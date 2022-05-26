@@ -65754,7 +65754,7 @@ $S:408}
 A.v1.prototype={
 aj(){return new A.LX(A.Gj(!0,null,!0,!0,null,null,!1),B.m)}}
 A.LX.prototype={
-aw(){var s=this,r=A.Sr("http://192.168.13.247:8000/api/"+("books/"+s.a.c+"/preview"))
+aw(){var s=this,r=A.Sr("http://console.elkitep.kg/api/"+("books/"+s.a.c+"/preview"))
 r=A.ans($.ak_().el(r))
 A.cp(s.d,"pdfController")
 s.d=r
@@ -65877,11 +65877,11 @@ break}},
 $S:58}
 A.act.prototype={
 $2(a,b){var s=null,r=this.a,q=r.a.d,p=A.a(r.r,"swiperController"),o=A.kQ(8),n=t.G
-return A.lS(B.bD,A.b([new A.rR(new A.acq(r),q,new A.acr(r),B.ag,B.b7,!1,B.wj,p,0.88,0.88,s),A.qQ(30,A.a7j(A.fc(s,A.JO(A.b([B.mm,B.ur,A.lU(""+(r.e+1)+" / "+r.a.d,s,s,s,B.uK,s,s)],n),s,B.ee,B.cl),s,s,new A.fS(B.cm,s,s,o,s,s,B.bp),s,s,B.fg,s),new A.acs(r),s),s,s,s,15,s,s)],n),B.a7,B.bz)},
+return A.lS(B.bD,A.b([new A.rR(new A.acq(r),q,new A.acr(r),B.ag,B.b7,!1,B.wj,p,0.88,0.88,s),A.qQ(50,A.a7j(A.fc(s,A.JO(A.b([B.mm,B.ur,A.lU(""+(r.e+1)+" / "+r.a.d,s,s,s,B.uK,s,s)],n),s,B.ee,B.cl),s,s,new A.fS(B.cm,s,s,o,s,s,B.bp),s,s,B.fg,s),new A.acs(r),s),s,s,s,20,s,s)],n),B.a7,B.bz)},
 $S:91}
 A.acq.prototype={
 $2(a,b){var s=this.a.a
-return new A.oy("http://192.168.13.247:8000/api/"+("books/"+s.c+"/pages/"+(b+1)+"?api_token="+s.e),null)},
+return new A.oy("http://console.elkitep.kg/api/"+("books/"+s.c+"/pages/"+(b+1)+"?api_token="+s.e),null)},
 $S:413}
 A.acr.prototype={
 $1(a){return this.OC(a)},
