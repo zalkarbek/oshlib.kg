@@ -87,6 +87,8 @@ class AuthorAPIController extends AppBaseController
      */
     public function books($id, Request $request)
     {
+        removeAuthorKey($request);
+
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));

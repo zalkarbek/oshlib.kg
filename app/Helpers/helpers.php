@@ -6,6 +6,7 @@
  * Copyright (c) 2020
  */
 
+use Illuminate\Http\Request;
 use InfyOm\Generator\Common\GeneratorCuisine;
 use InfyOm\Generator\Utils\GeneratorCuisinesInputUtil;
 use InfyOm\Generator\Utils\HTMLCuisineGenerator;
@@ -736,4 +737,15 @@ function detectOS()
 {
     preg_match("/iPhone|Android|iPad|iPod|webOS/", $_SERVER['HTTP_USER_AGENT'], $matches);
     return current($matches);
+}
+
+function removeAuthorKey(Request $request)
+{
+    if (!empty($request->input( 'with' ))) {
+        $with = $request->input( 'with' );
+        $with = explode( ';', $with);
+        $with = implode(';', array_filter(str_replace( 'author', null, $with)));
+
+        $request->merge(array('with' => $with));
+    }
 }

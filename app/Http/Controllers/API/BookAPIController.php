@@ -69,15 +69,7 @@ class BookAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        if (!empty($request->input( 'with' ))) {
-            $with = $request->input( 'with' );
-            $with = explode( ';', $with);
-            $with = implode(';', array_filter(str_replace( 'author', null, $with)));
-
-            $request->merge(array('with' => $with));
-        }
-
-        // dd($request->input());
+        removeAuthorKey($request);
 
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
@@ -104,6 +96,8 @@ class BookAPIController extends AppBaseController
      */
     public function show($id, Request $request)
     {
+        removeAuthorKey($request);
+
         /** @var Book $book */
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
@@ -228,6 +222,8 @@ class BookAPIController extends AppBaseController
      */
     public function favorites(Request $request)
     {
+        $this->removeAuthorKey($request);
+
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));
