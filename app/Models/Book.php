@@ -202,6 +202,7 @@ class Book extends Model implements HasMedia
 
     public function getAuthorAttribute()
     {
+        $id = $this->firstAuthor()->id ?? 0;
         $image = $this->firstAuthor()->image ?? '';
         $description = $this->firstAuthor()->description ?? '';
         $booksCount = $this->firstAuthor()->books_count ?? '';
