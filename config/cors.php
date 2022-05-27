@@ -18,11 +18,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'https://elkitep.kg/auth',
-        'https://www.elkitep.kg',
-        'http://localhost:*'
-    ],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => ['*'],
 
@@ -33,5 +29,4 @@ return [
     'max_age' => 0,
 
     'supports_credentials' => true,
-
 ];
