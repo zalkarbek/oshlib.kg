@@ -19,7 +19,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'https://elkitep.kg',
+        'https://elkitep.kg/auth',
         'https://www.elkitep.kg',
         'http://localhost:*'
     ],
