@@ -741,11 +741,19 @@ function detectOS()
 
 function removeAuthorKey(Request $request)
 {
-    if (!empty($request->input( 'with' ))) {
-        $with = $request->input( 'with' );
-        $with = explode( ';', $with);
-        $with = implode(';', array_filter(str_replace( 'author', null, $with)));
+    function removeKey($request, $key, $s) {
+        $val = $request->input($key);
+        $val = explode( ';', $val);
+        $val = implode(';', array_filter(str_replace($s, null, $val)));
 
-        $request->merge(array('with' => $with));
+        $request->merge(array($key => $val));
+    }
+
+    if (!empty($request->input( 'with'))) {
+        removeKey($request, 'with', 'author');
+    }
+    if (!empty($request->input( 'search'))) {
+        removeKey($request, 'search', 'author.');
+        removeKey($request, 'searchFields', 'author.');
     }
 }
