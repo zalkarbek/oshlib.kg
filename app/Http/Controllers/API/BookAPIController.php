@@ -71,16 +71,13 @@ class BookAPIController extends AppBaseController
     {
         if (!empty($request->input( 'with' ))) {
             $with = $request->input( 'with' );
-            str_replace( 'author', '', $with);
-            // $with = explode( ',', $with);
+            $with = explode( ';', $with);
+            $with = implode(';', array_filter(str_replace( 'author', null, $with)));
 
-            dd($with);
-
-            // THIS IS KEY!
-            // Replacing the old input string with
-            // with an array of emails.
             $request->merge(array('with' => $with));
         }
+
+        // dd($request->input());
 
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
