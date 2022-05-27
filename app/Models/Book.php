@@ -223,13 +223,12 @@ class Book extends Model implements HasMedia
             $authors[] = $author->name;
         }
 
-        return implode(' ', $authors);
+        return implode(', ', $authors);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **
-     *
     public function author()
     {
         return $this->belongsTo(Author::class);
