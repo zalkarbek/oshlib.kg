@@ -208,7 +208,7 @@ class Book extends Model implements HasMedia
         $booksCount = $this->firstAuthor()->books_count ?? '';
 
         return [
-            'id' => $this->id,
+            'id' => $id,
             'image' => $image,
             'description' => $description,
             'name' => $this->author(),
