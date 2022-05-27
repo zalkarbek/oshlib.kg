@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
 
-    'allowed_origins' => ['api.elkitep.kg', 'elkitep.kg', 'localhost:3000', 'console.elkitep.kg'],
+    'allowed_origins' => ['https://api.elkitep.kg', 'https://elkitep.kg', 'http://localhost:3000', 'https://console.elkitep.kg'],
 
     'allowed_origins_patterns' => [],
 
