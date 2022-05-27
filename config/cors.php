@@ -19,8 +19,8 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'https://elkitep.kg/*',
-        'https://www.elkitep.kg/*',
+        'https://elkitep.kg',
+        'https://www.elkitep.kg',
         'http://localhost:*'
     ],
 
