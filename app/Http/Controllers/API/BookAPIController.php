@@ -71,8 +71,10 @@ class BookAPIController extends AppBaseController
     {
         if (!empty($request->input( 'with' ))) {
             $with = $request->input( 'with' );
-            $with = preg_replace( 'author', '', $with);
+            str_replace( 'author', '', $with);
             // $with = explode( ',', $with);
+
+            dd($with);
 
             // THIS IS KEY!
             // Replacing the old input string with
