@@ -78,6 +78,7 @@ class Book extends Model implements HasMedia
         'rating',
         'is_available_for_rent',
         'is_rented',
+        'author',
     ];
 
     /**
@@ -199,6 +200,14 @@ class Book extends Model implements HasMedia
         return false;
     }
 
+    public function getAuthorAttribute()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->author()
+        ];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
@@ -207,13 +216,24 @@ class Book extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function author()
+    {
+        $authors = [];
+        foreach ($this->authors as $author) {
+            $authors[] = $author->name;
+        }
+
+        return implode(' ', $authors);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
+     **
+     *
     public function author()
     {
         return $this->belongsTo(Author::class);
-    }
+    }*/
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -253,6 +273,14 @@ class Book extends Model implements HasMedia
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'book_tags', 'book_id', 'tag_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class, 'book_authors', 'book_id', 'author_id');
     }
 
     /**

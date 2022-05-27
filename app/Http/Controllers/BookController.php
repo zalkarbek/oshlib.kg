@@ -6,6 +6,7 @@ use App\DataTables\BookDataTable;
 use App\DataTables\SelectBookDataTable;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Tag;
 use App\Models\User;
@@ -14,6 +15,7 @@ use App\Repositories\AuthorRepository;
 use App\Repositories\BookAttributeRepository;
 use App\Repositories\BookRepository;
 use App\Repositories\BookTagRepository;
+use App\Repositories\BookAuthorRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\FileRepository;
 use App\Repositories\PublisherRepository;
@@ -46,6 +48,8 @@ class BookController extends AppBaseController
     private $tagRepository;
     /** @var BookTagRepository */
     private $bookTagRepository;
+    /** @var BookAuthorRepository */
+    private $bookAuthorRepository;
 
     public function __construct(
         BookRepository $bookRepository,
@@ -56,7 +60,8 @@ class BookController extends AppBaseController
         BookAttributeRepository $bookAttributeRepository,
         FileRepository $fileRepository,
         TagRepository $tagRepository,
-        BookTagRepository $bookTagRepository)
+        BookTagRepository $bookTagRepository,
+        BookAuthorRepository $bookAuthorRepository)
     {
         $this->bookRepository = $bookRepository;
         $this->categoryRepository = $categoryRepository;
@@ -67,6 +72,14 @@ class BookController extends AppBaseController
         $this->fileRepository = $fileRepository;
         $this->tagRepository = $tagRepository;
         $this->bookTagRepository = $bookTagRepository;
+        $this->bookAuthorRepository = $bookAuthorRepository;
+    }
+
+    public function authorTest()
+    {
+        $book = $this->bookRepository->first();
+
+        return $book->nauthor();
     }
 
     /**
@@ -105,12 +118,15 @@ class BookController extends AppBaseController
         $tags = $this->tagRepository->all()->pluck('name', 'id');
 
         $bookTags = [];
+        $bookAuthors = [];
 
         $releaseDate = null;
         $writingDate = null;
 
         return view('books.create', compact(['categories', 'authors',
-            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate']));
+            'publishers', 'attributes', 'tags',
+            'bookTags', 'releaseDate', 'writingDate', 'bookAuthors',
+            ]));
     }
 
     /**
@@ -130,6 +146,7 @@ class BookController extends AppBaseController
             $input['available_for_rent'] = filter_var($input['available_for_rent'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
 
             $book = $this->bookRepository->create($input);
+            $this->addAuthorsToBook($input['authors'], $book->id);
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $book->addMediaFromRequest('image')
                     ->toMediaCollection();
@@ -182,12 +199,14 @@ class BookController extends AppBaseController
         $tags = $this->tagRepository->all()->pluck('name', 'id');
 
         $bookTags = Tag::join('book_tags', 'book_tags.tag_id', '=', 'tags.id')->where('book_tags.book_id', '=', $book->id)->pluck('tags.id');
+        $bookAuthors = Author::join('book_authors', 'book_authors.author_id', '=', 'authors.id')
+            ->where('book_authors.book_id', '=', $book->id)->pluck('authors.id');
 
         $releaseDate = Carbon::parse($book->release_date);
         $writingDate = Carbon::parse($book->writing_date);
 
         return view('books.edit', compact(['book', 'categories', 'authors',
-            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate']));
+            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate', 'bookAuthors']));
     }
 
     /**
@@ -212,6 +231,7 @@ class BookController extends AppBaseController
             }
 
             $book = $this->bookRepository->update($input, $book->id);
+            $this->addAuthorsToBook($input['authors'], $book->id);
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $book->clearMediaCollection();
                 $book->addMediaFromRequest('image')
@@ -236,6 +256,14 @@ class BookController extends AppBaseController
         Flash::success(__('lang.updated_successfully', ['operator' => __('lang.book')]));
 
         return redirect(route('books.index'));
+    }
+
+    private function addAuthorsToBook($authors, $bookId)
+    {
+        $this->bookAuthorRepository->findByField('book_id', $bookId)->each->delete();
+        foreach ($authors as $author) {
+            $this->bookAuthorRepository->create(["book_id" => $bookId, "author_id" => $author]);
+        }
     }
 
     private function addTagsToBook($tags, $bookId)

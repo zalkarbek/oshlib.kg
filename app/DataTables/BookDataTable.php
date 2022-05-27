@@ -25,7 +25,7 @@ class BookDataTable extends DataTable
                 return "<img class='rounded' style='width:50px' src='" . $model->getFirstMediaUrl() . "' />";
             })
             ->editColumn('author_name', function ($model) {
-                return $model->author->name;
+                return $model->author(); // $model->getAuthorAttribute();
             })
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');

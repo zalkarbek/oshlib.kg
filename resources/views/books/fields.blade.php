@@ -11,10 +11,20 @@
     </div>
 
     <!-- Author Id Field -->
+    {{--
     <div class="form-group row ">
         {!! Form::label('author_id', trans('lang.author'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::select('author_id', $authors, null, ['class' => 'select2 form-control']) !!}
+        </div>
+    </div>
+    --}}
+
+    <!-- Author Id Field -->
+    <div class="form-group row ">
+        {!! Form::label('authors', trans('lang.author'),['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::select('authors', $authors, $bookAuthors, ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
         </div>
     </div>
 

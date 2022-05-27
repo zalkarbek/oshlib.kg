@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\AuthorDataTable;
 use App\Models\Author;
+use App\Models\Book;
+use App\Models\BookAuthor;
 use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -17,6 +19,19 @@ class AuthorController extends Controller
     public function __construct(AuthorRepository $authorRepository)
     {
         $this->authorRepository = $authorRepository;
+    }
+
+    public function fix()
+    {
+        $books = Book::with('author')->get();
+        foreach ($books as $book) {
+            $author = new BookAuthor();
+            $author->book_id = $book->id;
+            $author->author_id = $book->author->id;
+            $author->save();
+        }
+
+        return 'OK';
     }
 
     /**

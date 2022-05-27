@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('authors-fix', 'App\Http\Controllers\AuthorController@fix');
+Route::get('authors-test', 'App\Http\Controllers\BookController@authorTest');
+
 Route::get('terms-of-reader', function () {
     return view('settings.privacy_policy.terms_of_reader');
 });
