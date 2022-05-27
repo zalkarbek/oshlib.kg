@@ -17,9 +17,9 @@ return [
     'paths' => ['*', 'sanctum/csrf-cookie'],
 
 
-    'allowed_methods' => ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+    'allowed_methods' => ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS', 'TRACE'],
 
-    'allowed_origins' => ['https://api.elkitep.kg', 'https://elkitep.kg', 'http://localhost:3000', 'https://console.elkitep.kg'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
