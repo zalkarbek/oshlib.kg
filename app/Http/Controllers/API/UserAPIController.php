@@ -78,7 +78,7 @@ class UserAPIController extends AppBaseController
                 return $this->sendResponse($user, 'User retrieved successfully');
             }
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 405);
+            return $this->sendError($e->getMessage(), 403);
         }
 
         return $this->sendError([], 401);
