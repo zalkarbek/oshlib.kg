@@ -65754,7 +65754,7 @@ $S:408}
 A.v1.prototype={
 aj(){return new A.LX(A.Gj(!0,null,!0,!0,null,null,!1),B.m)}}
 A.LX.prototype={
-aw(){var s=this,r=A.Sr("https://console.elkitep.kg/api/"+("books/"+s.a.c+"/preview"))
+aw(){var s=this,r=A.Sr("https://api.elkitep.kg/api/"+("books/"+s.a.c+"/preview"))
 r=A.ans($.ak_().el(r))
 A.cp(s.d,"pdfController")
 s.d=r
@@ -65881,7 +65881,7 @@ return A.lS(B.bD,A.b([new A.rR(new A.acq(r),q,new A.acr(r),B.ag,B.b7,!1,B.wj,p,0
 $S:91}
 A.acq.prototype={
 $2(a,b){var s=this.a.a
-return new A.oy("https://console.elkitep.kg/api/"+("books/"+s.c+"/pages/"+(b+1)+"?api_token="+s.e),null)},
+return new A.oy("https://api.elkitep.kg/api/"+("books/"+s.c+"/pages/"+(b+1)+"?api_token="+s.e),null)},
 $S:413}
 A.acr.prototype={
 $1(a){return this.OC(a)},
