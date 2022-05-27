@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Author\OrderAuthorsCriteria;
 use App\Criteria\Book\OrderBooksCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Author;
@@ -43,6 +44,7 @@ class AuthorAPIController extends AppBaseController
         try {
             $this->authorRepository->pushCriteria(new RequestCriteria($request));
             $this->authorRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->authorRepository->pushCriteria(new OrderAuthorsCriteria($request));
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
