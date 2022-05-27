@@ -18,6 +18,7 @@ use App\Repositories\FileRepository;
 use App\Repositories\ReviewRepository;
 use App\Repositories\UserReadingRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Laravel\Sanctum\PersonalAccessToken;
 use Prettus\Repository\Criteria\RequestCriteria;

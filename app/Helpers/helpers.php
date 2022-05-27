@@ -739,21 +739,30 @@ function detectOS()
     return current($matches);
 }
 
-function removeAuthorKey(Request $request)
+function removeAuthorKey(Request &$request)
 {
-    function removeKey($request, $key, $s) {
-        $val = $request->input($key);
-        $val = explode( ';', $val);
-        $val = implode(';', array_filter(str_replace($s, null, $val)));
-
-        $request->merge(array($key => $val));
-    }
-
     if (!empty($request->input( 'with'))) {
-        removeKey($request, 'with', 'author');
+        removeRequestKey($request, 'with', 'author');
+        // removeRequestKey($request, 'with', 'tags');
     }
+
     if (!empty($request->input( 'search'))) {
-        removeKey($request, 'search', 'author.');
-        removeKey($request, 'searchFields', 'author.');
+        removeRequestKey($request, 'search', 'author.');
+        removeRequestKey($request, 'searchFields', 'author.');
     }
+}
+
+function removeRequestKey(&$request, $key, $s) {
+    $val = $request->input($key);
+    $val = explode( ';', $val);
+    $val = implode(';', array_filter(str_replace($s, null, $val)));
+
+    $request->merge(array($key => $val));
+}
+
+function debugLog($log, $fileName = 'debug.txt')
+{
+    $path = storage_path("logs/");
+
+    file_put_contents($path . $fileName, $log);
 }

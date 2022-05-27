@@ -205,13 +205,13 @@ class Book extends Model implements HasMedia
         $id = $this->firstAuthor()->id ?? 0;
         $image = $this->firstAuthor()->image ?? '';
         $description = $this->firstAuthor()->description ?? '';
-        $booksCount = $this->firstAuthor()->books_count ?? '';
+        $booksCount = $this->firstAuthor()->books_count ?? 0;
 
         return [
             'id' => $id,
             'image' => $image,
             'description' => $description,
-            'name' => $this->author(),
+            'name' => $this->authorsName(),
             'books_count' => $booksCount,
         ];
     }
@@ -229,7 +229,7 @@ class Book extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
-    public function author()
+    public function authorsName()
     {
         $authors = [];
         foreach ($this->authors as $author) {
@@ -241,11 +241,11 @@ class Book extends Model implements HasMedia
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **
+     **/
     public function author()
     {
         return $this->belongsTo(Author::class);
-    }*/
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
