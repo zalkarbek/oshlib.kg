@@ -90,7 +90,7 @@ class BookAPIController extends AppBaseController
 
         $books = $this->bookRepository->all();
 
-        return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
+        return $this->sendResponse($books, 'Books retrieved successfully');
     }
 
     /**
