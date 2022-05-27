@@ -23,7 +23,7 @@ class Book extends Model implements HasMedia
      */
     public static $rules = [
         'name' => 'required',
-        'category_id' => 'required',
+        // 'category_id' => 'required',
         'author_id' => 'required',
         'publisher_id' => 'required',
         'file_id' => 'required',
@@ -40,7 +40,7 @@ class Book extends Model implements HasMedia
         'release_date',
         'category_id',
         'publisher_id',
-        'author_id',
+        // 'author_id',
         'file_id',
         'page_count',
         'writing_date',

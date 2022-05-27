@@ -140,6 +140,8 @@ class BookController extends AppBaseController
         $input = $request->all();
 
         try {
+            // dd($input);
+
             $file = $this->saveBook($request);
 
             $input['file_id'] = $file->id;

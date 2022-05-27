@@ -69,6 +69,17 @@ class BookAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+        if (!empty($request->input( 'with' ))) {
+            $with = $request->input( 'with' );
+            $with = preg_replace( 'author', '', $with);
+            // $with = explode( ',', $with);
+
+            // THIS IS KEY!
+            // Replacing the old input string with
+            // with an array of emails.
+            $request->merge(array('with' => $with));
+        }
+
         try {
             $this->bookRepository->pushCriteria(new RequestCriteria($request));
             $this->bookRepository->pushCriteria(new LimitOffsetCriteria($request));

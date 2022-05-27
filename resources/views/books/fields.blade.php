@@ -22,9 +22,9 @@
 
     <!-- Author Id Field -->
     <div class="form-group row ">
-        {!! Form::label('authors', trans('lang.author'),['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('authors[]', trans('lang.author'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::select('authors', $authors, $bookAuthors, ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
+            {!! Form::select('authors[]', $authors, $bookAuthors, ['class' => 'select2 form-control', 'multiple' => 'multiple']) !!}
         </div>
     </div>
 
