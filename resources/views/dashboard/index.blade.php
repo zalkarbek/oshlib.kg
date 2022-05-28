@@ -138,7 +138,7 @@
                                     </td>
                                     <td>{!! $book->name !!}</td>
                                     <td>
-                                        {!! $book->author() !!}
+                                        {!! $book->authorsName() !!}
                                     </td>
                                     <td class="text-center">
                                         <a href="" class="text-muted"> <i class="fa fa-edit"></i> </a>
