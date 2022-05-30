@@ -131,7 +131,6 @@
                             </thead>
                             <tbody>
                             @foreach($books as $book)
-
                                 <tr>
                                     <td>
                                         {!! getMediaColumn($book, 'default', 'img-circle img-size-32 mr-2') !!}

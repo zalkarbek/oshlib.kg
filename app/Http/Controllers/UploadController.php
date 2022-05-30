@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UploadRequest;
 use App\Repositories\UploadRepository;
+use Illuminate\Support\Facades\Storage;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class UploadController extends Controller
@@ -53,7 +54,8 @@ class UploadController extends Controller
 
     public function bookCover($id)
     {
-        return response()->file(storage_path('app/books/' . $id . '/cover.1.jpg'));
+        $path = Storage::disk('diskD')->path("elkitep/books/$id/cover.1.jpg");
+        return response()->file($path);
     }
 
     public function all(UploadRequest $request, $collection = null)
