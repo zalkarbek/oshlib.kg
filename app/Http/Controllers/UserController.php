@@ -207,19 +207,12 @@ class UserController extends AppBaseController
      */
     public function update($id, UpdateUserRequest $request)
     {
-        if (env('APP_DEMO', false)) {
-            Flash::warning('This is only demo app you can\'t change this section ');
-            return redirect(route('users.profile'));
-        }
-        if (!(auth()->user()->hasRole('admin')
-                || auth()->user()->hasRole('sadmin'))
-            && $id != auth()->id()) {
+        if (!(auth()->user()->hasRole('dev'))) {
             Flash::error('Нет разрешений');
             return redirect(route('users.profile'));
         }
 
         $user = $this->userRepository->findWithoutFail($id);
-
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -252,7 +245,7 @@ class UserController extends AppBaseController
                 $user->syncRoles($input['roles']);
             }
 
-            event(new UserRoleChangedEvent($user));
+            // event(new UserRoleChangedEvent($user));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }

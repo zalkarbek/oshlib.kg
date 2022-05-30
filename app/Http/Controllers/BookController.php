@@ -22,8 +22,6 @@ use App\Repositories\PublisherRepository;
 use App\Repositories\TagRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Laravel\Sanctum\PersonalAccessToken;
-use phpDocumentor\Reflection\Types\Boolean;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Flash;
 use Response;

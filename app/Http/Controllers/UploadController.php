@@ -56,6 +56,13 @@ class UploadController extends Controller
         return response()->file(storage_path('app/books/' . $id . '/cover.1.jpg'));
     }
 
+    public function directorImage()
+    {
+        $path = setting('director_image');
+        // dd($path);
+        return response()->file(storage_path("app/others/$path"));
+    }
+
     public function all(UploadRequest $request, $collection = null)
     {
         $allMedias = $this->uploadRepository->allMedia($collection);

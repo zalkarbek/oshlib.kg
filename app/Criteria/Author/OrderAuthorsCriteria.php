@@ -31,7 +31,7 @@ class OrderAuthorsCriteria implements CriteriaInterface
             $order = $this->request->get('order');
             switch ($order) {
                 case 'popular':
-                    $rawSql = "(SELECT (select sum((select (SELECT sum(reviews.rating) FROM reviews WHERE book_id = books.id) from books where books.id = book_authors.book_id))) FROM `book_authors` WHERE book_authors.author_id = authors.id) rating_sum";
+                    $rawSql = "(SELECT (select sum((select (SELECT sum(reviews.rating) FROM reviews WHERE book_id = books.id) from books where books.id = book_authors.book_id))) FROM `book_authors` WHERE book_authors.author_id = authors.id) as rating_sum";
                     return $model
                         ->select('authors.*', \DB::raw($rawSql))
                         ->orderBy('rating_sum', 'desc');

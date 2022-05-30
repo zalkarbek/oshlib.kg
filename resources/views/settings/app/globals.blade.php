@@ -161,12 +161,12 @@
                         var dzAppLogo = '';
                         @if(isset($upload) && $upload->hasMedia('app_logo'))
                             dzAppLogo = {
-                            name: "{!! $upload->getFirstMedia('app_logo')->name !!}",
-                            size: "{!! $upload->getFirstMedia('app_logo')->size !!}",
-                            type: "{!! $upload->getFirstMedia('app_logo')->mime_type !!}",
-                            collection_name: "{!! $upload->getFirstMedia('app_logo')->collection_name !!}"
-                        };
-                                @endif
+                                name: "{!! $upload->getFirstMedia('app_logo')->name !!}",
+                                size: "{!! $upload->getFirstMedia('app_logo')->size !!}",
+                                type: "{!! $upload->getFirstMedia('app_logo')->mime_type !!}",
+                                collection_name: "{!! $upload->getFirstMedia('app_logo')->collection_name !!}"
+                            };
+                        @endif
                         var dz_dzAppLogo = $(".dropzone.app_logo").dropzone({
                                 url: "{!!url('uploads/store')!!}",
                                 addRemoveLinks: true,
@@ -200,6 +200,34 @@
                         dz_dzAppLogo[0].mockFile = dzAppLogo;
                         dropzoneFields['app_logo'] = dz_dzAppLogo;
                     </script>
+                    @endprepend
+
+                    <!-- Image Field -->
+                    <div class="form-group row">
+                        {!! Form::label('imgInp', 'Директор', ['class' => 'col-3 control-label text-right']) !!}
+                        <div class="col-9">
+                            <div onclick="uploadFile()" id="imgCont" style="width: 100%; display: flex; align-items: center; text-align: center; background-size: contain; background-position: center; background-repeat: no-repeat;" class="dropzone image">
+                                <p style="width: 100%;" id="uploadText"><i class="fa fa-cloud-upload"></i> Загрузить</p>
+                            </div>
+                            <input type="file" id="imgInp" class="d-none" name="director_image">
+                        </div>
+                    </div>
+                    @prepend('scripts')
+                        <script type="text/javascript">
+                            imgInp.onchange = evt => {
+                                const [file] = imgInp.files
+                                if (file) {
+                                    const url = URL.createObjectURL(file)
+                                    console.log(url)
+                                    imgCont.style.backgroundImage = 'url("' + url + '")'
+                                    uploadText.style.display = 'none'
+                                }
+                            }
+
+                            function uploadFile() {
+                                imgInp.click();
+                            }
+                        </script>
                     @endprepend
 
                 <!-- fixed_header Field -->

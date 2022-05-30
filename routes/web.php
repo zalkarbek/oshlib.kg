@@ -20,6 +20,10 @@ Route::get('terms-of-reader', function () {
     return view('settings.privacy_policy.terms_of_reader');
 });
 
+Route::get('test', function() {
+    \Illuminate\Support\Facades\Storage::disk('');
+});
+
 Route::get('/privacy-policy', function () {
     return view('settings.privacy_policy.index');
 });
@@ -34,6 +38,7 @@ Route::get('/googlecallback', 'App\Http\Controllers\UserController@handleProvide
 Auth::routes();
 
 Route::get('storage/cover/{id}', 'App\Http\Controllers\UploadController@bookCover');
+Route::get('storage/director', 'App\Http\Controllers\UploadController@directorImage');
 Route::get('storage/app/public/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 Route::get('storage/{id}/{conversion}/{filename?}', 'App\Http\Controllers\UploadController@storage');
 

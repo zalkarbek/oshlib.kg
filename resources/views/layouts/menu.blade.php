@@ -173,7 +173,8 @@
         (Request::is('settings*') ||
          Request::is('users*')) && !Request::is('settings/mobile*')
           ? 'active' : '' }}"> @if($icons)<i class="nav-icon fa fa-cogs"></i>@endif
-            <p>{{trans('lang.app_setting')}} <i class="right fa fa-angle-left"></i>
+            <p>
+                {{trans('lang.app_setting')}} <i class="right fa fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
@@ -234,20 +235,22 @@
 
                 </li>
             @endcan
-
-            <li class="nav-item">
-                <a href="{!! url('settings/app/notifications') !!}" class="nav-link {{  Request::is('settings/app/notifications*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fa fa-bell"></i> @endif
-                    <p>{{trans('lang.app_setting_notifications')}}</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{!! url('settings/mail/smtp') !!}" class="nav-link {{ Request::is('settings/mail*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fa fa-envelope"></i> @endif
-                    <p>{{trans('lang.app_setting_mail')}}</p>
-                </a>
-            </li>
+            @can('notifications.index')
+                <li class="nav-item">
+                    <a href="{!! url('settings/app/notifications') !!}" class="nav-link {{  Request::is('settings/app/notifications*') ? 'active' : '' }}">
+                        @if($icons)<i class="nav-icon fa fa-bell"></i> @endif
+                        <p>{{trans('lang.app_setting_notifications')}}</p>
+                    </a>
+                </li>
+            @endcan
+            @can('mails.index')
+                <li class="nav-item">
+                    <a href="{!! url('settings/mail/smtp') !!}" class="nav-link {{ Request::is('settings/mail*') ? 'active' : '' }}">
+                        @if($icons)<i class="nav-icon fa fa-envelope"></i> @endif
+                        <p>{{trans('lang.app_setting_mail')}}</p>
+                    </a>
+                </li>
+            @endcan
 
         </ul>
     </li>

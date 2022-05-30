@@ -15,6 +15,7 @@ use Flash;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 // use Themsaid\Langman\Manager;
 
@@ -41,48 +42,49 @@ class AppSettingController extends Controller
 
     public function update(Request $request)
     {
-        if(!env('APP_DEMO',false)){
-            $input = $request->except(['_method', '_token']);
-            if (Str::endsWith(url()->previous(), "app/globals")) {
-                if (empty($input['app_logo'])) {
-                    unset($input['app_logo']);
-                }
-                if (empty($input['custom_field_models'])) {
-                    setting()->forget('custom_field_models');
-                }
-                if (!isset($input['blocked_ips'])) {
-                    unset($input['blocked_ips']);
-                    setting()->forget('blocked_ips');
-                }
-            } else if (Str::contains(url()->previous(), "payment")) {
-                if (isset($input['default_currency'])) {
-                    $currency = $this->currencyRepository->findWithoutFail($input['default_currency']);
-                    if (!empty($currency)) {
-                        $input['default_currency_id'] = $input['default_currency'];
-                        $input['default_currency'] = $currency->symbol;
-                        $input['default_currency_code'] = $currency->code;
-                        $input['default_currency_decimal_digits'] = $currency->decimal_digits;
-                        $input['default_currency_rounding'] = $currency->rounding;
-                    }
-                }
-//                if(isset($input['enable_stripe']) && $input['enable_stripe'] == 1){
-//                    $input['enable_razorpay'] = 0;
-//                }
-//                if(isset($input['enable_razorpay']) && $input['enable_razorpay'] == 1){
-//                    $input['enable_stripe'] = 0;
-//                }
-            }
-            if (empty($input['mail_password'])) {
-                unset($input['mail_password']);
-            }
-            $input = array_map(function ($value) { return is_null($value)? false : $value; }, $input);
 
-            setting($input)->save();
-            Flash::success(trans('lang.app_setting_global').' updated successfully.');
-            Artisan::call("config:clear");
-        }else{
-            Flash::warning('This is only demo app you can\'t change this section ');
+        $input = $request->except(['_method', '_token']);
+        if (Str::endsWith(url()->previous(), "app/globals")) {
+            if (empty($input['app_logo'])) {
+                unset($input['app_logo']);
+            }
+            if (empty($input['custom_field_models'])) {
+                setting()->forget('custom_field_models');
+            }
+            if (!isset($input['blocked_ips'])) {
+                unset($input['blocked_ips']);
+                setting()->forget('blocked_ips');
+            }
+        } else if (Str::contains(url()->previous(), "payment")) {
+            if (isset($input['default_currency'])) {
+                $currency = $this->currencyRepository->findWithoutFail($input['default_currency']);
+                if (!empty($currency)) {
+                    $input['default_currency_id'] = $input['default_currency'];
+                    $input['default_currency'] = $currency->symbol;
+                    $input['default_currency_code'] = $currency->code;
+                    $input['default_currency_decimal_digits'] = $currency->decimal_digits;
+                    $input['default_currency_rounding'] = $currency->rounding;
+                }
+            }
+//              if(isset($input['enable_stripe']) && $input['enable_stripe'] == 1){
+//                   $input['enable_razorpay'] = 0;
+//               }
+//               if(isset($input['enable_razorpay']) && $input['enable_razorpay'] == 1){
+//                   $input['enable_stripe'] = 0;
+//               }
         }
+        if ($request->hasFile('director_image') && $request->file('director_image')->isValid()) {
+            $path = $request->file('director_image')->store('others');
+            $input['director_image'] = $path;
+        }
+        if (empty($input['mail_password'])) {
+            unset($input['mail_password']);
+        }
+        $input = array_map(function ($value) { return is_null($value)? false : $value; }, $input);
+
+        setting($input)->save();
+        Flash::success(trans('lang.app_setting_global').' updated successfully.');
+        Artisan::call("config:clear");
 
         return redirect()->back();
     }

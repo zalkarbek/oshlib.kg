@@ -1,3 +1,4 @@
+{{--
 <div class="card {{ Request::is('console/users*') || Request::is('console/settings/permissions*') || Request::is('console/settings/roles*') ? '' : 'collapsed-card' }}">
     <div class="card-header">
         <h3 class="card-title">{{trans('lang.permission_menu')}}</h3>
@@ -141,3 +142,4 @@
         </ul>
     </div>
 </div>
+--}}
