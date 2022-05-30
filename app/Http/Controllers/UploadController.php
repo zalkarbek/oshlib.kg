@@ -62,7 +62,7 @@ class UploadController extends Controller
     {
         $path = setting('director_image');
         // dd($path);
-        return response()->file(storage_path("app/others/$path"));
+        return response()->file(storage_path("app/$path"));
     }
 
     public function all(UploadRequest $request, $collection = null)

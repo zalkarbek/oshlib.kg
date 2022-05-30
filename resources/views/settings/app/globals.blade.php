@@ -31,7 +31,8 @@
             </ul>
         </div>
         <div class="card-body">
-            {!! Form::open(['url' => ['settings/update'], 'method' => 'patch']) !!}
+            {!! Form::open(['url' => ['settings/update'], 'enctype' => 'multipart/form-data']) !!}
+            @method('PATCH')
             <div class="row">
                 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
                     <!-- app_name Field -->
@@ -209,7 +210,7 @@
                             <div onclick="uploadFile()" id="imgCont" style="width: 100%; display: flex; align-items: center; text-align: center; background-size: contain; background-position: center; background-repeat: no-repeat;" class="dropzone image">
                                 <p style="width: 100%;" id="uploadText"><i class="fa fa-cloud-upload"></i> Загрузить</p>
                             </div>
-                            <input type="file" id="imgInp" class="d-none" name="director_image">
+                            <input type="file" id="imgInp" class="d-none" name="director_image" accept="image/png, image/jpeg, image/svg">
                         </div>
                     </div>
                     @prepend('scripts')

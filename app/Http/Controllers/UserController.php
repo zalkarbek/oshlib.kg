@@ -103,16 +103,11 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
-        if (env('APP_DEMO', false)) {
-            Flash::warning('This is only demo app you can\'t change this section ');
-            return redirect(route('users.index'));
-        }
-
         $input = $request->all();
 
         $input['roles'] = isset($input['roles']) ? $input['roles'] : [];
         $input['password'] = Hash::make($input['password']);
-        $input['api_token'] = str_random(60);
+        // $input['api_token'] = str_random(60);
 
         try {
             $user = $this->userRepository->create($input);
@@ -123,7 +118,7 @@ class UserController extends AppBaseController
                 $mediaItem = $cacheUpload->getMedia('avatar')->first();
                 $mediaItem->copy($user, 'avatar');
             }
-            event(new UserRoleChangedEvent($user));
+            // event(new UserRoleChangedEvent($user));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
