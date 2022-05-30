@@ -22,6 +22,12 @@ use App\Repositories\PublisherRepository;
 use App\Repositories\TagRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Storage;
+use Laravel\Sanctum\PersonalAccessToken;
+use phpDocumentor\Reflection\Types\Boolean;
+>>>>>>> 4298e6ed3caef2e831cdb7cd37ff4802dc710780
 use Prettus\Validator\Exceptions\ValidatorException;
 use Flash;
 use Response;
@@ -138,7 +144,6 @@ class BookController extends AppBaseController
         $input = $request->all();
 
         try {
-            // dd($input);
 
             $file = $this->saveBook($request);
 
@@ -163,7 +168,7 @@ class BookController extends AppBaseController
                 $this->addTagsToBook($input['tags'], $book->id);
             }
 
-            splitPdf(storage_path('app/' . $file->path));
+            splitPdf(Storage::disk('diskD')->path($file->path));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -283,7 +288,10 @@ class BookController extends AppBaseController
 
             $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'file_size' => $fileSize, 'path' => '']);
 
-            $path = $request->file('file')->store('books/' . $file->id);
+            $fileName = $request->file->getClientOriginalName();
+            $ext = $request->file->getClientOriginalExtension();
+            $path = Storage::disk('diskD')->put('elkitep/books/' . $file->id, $request->file('file'));
+            // $path = $request->file('file')->store('books/' . $file->id);
 
             $file->path = $path;
             $file->save();
