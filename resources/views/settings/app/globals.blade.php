@@ -203,9 +203,40 @@
                     </script>
                     @endprepend
 
-                    <!-- Image Field -->
+                    <!-- fixed_header Field -->
+                    <div class="form-group row ">
+                        {!! Form::label('fixed_header', trans("lang.app_setting_fixed_header"),['class' => 'col-4 control-label text-right']) !!}
+                        <div class="checkbox icheck">
+                            <label class="w-100 ml-2 form-check-inline">
+                                {!! Form::hidden('fixed_header', null) !!}
+                                {!! Form::checkbox('fixed_header', 'fixed-top', setting('fixed_header')) !!}
+                                <span class="ml-2">{!! trans("lang.app_setting_fixed_header_help") !!}</span> </label>
+                        </div>
+                    </div>
+
+                    <!-- fixed_footer Field -->
+                    <div class="form-group row ">
+                        {!! Form::label('fixed_footer', trans("lang.app_setting_fixed_footer"),['class' => 'col-4 control-label text-right']) !!}
+                        <div class="checkbox icheck">
+                            <label class="w-100 ml-2 form-check-inline">
+                                {!! Form::hidden('fixed_footer', null) !!}
+                                {!! Form::checkbox('fixed_footer', 'fixed-bottom', setting('fixed_footer')) !!}
+                                <span class="ml-2">{!! trans("lang.app_setting_fixed_footer_help") !!}</span> </label>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group mt-2 col-12 text-right"></div>
+                <div style="flex: 100%;max-width: 100%;padding: 0 4px;" class="column">
                     <div class="form-group row">
-                        {!! Form::label('imgInp', 'Директор', ['class' => 'col-3 control-label text-right']) !!}
+                        <div class="col-4 control-label text-right">
+                            <h4>Директор</h4>
+                        </div>
+                    </div>
+                    <!-- Image Field -->
+                    <div class="form-group row mt-5">
+                        {!! Form::label('imgInp', 'Изображение', ['class' => 'col-3 control-label text-right']) !!}
                         <div class="col-9">
                             <div onclick="uploadFile()" id="imgCont" style="width: 100%; display: flex; align-items: center; text-align: center; background-size: contain; background-position: center; background-repeat: no-repeat;" class="dropzone image">
                                 <p style="width: 100%;" id="uploadText"><i class="fa fa-cloud-upload"></i> Загрузить</p>
@@ -231,29 +262,19 @@
                         </script>
                     @endprepend
 
-                <!-- fixed_header Field -->
-                    <div class="form-group row ">
-                        {!! Form::label('fixed_header', trans("lang.app_setting_fixed_header"),['class' => 'col-4 control-label text-right']) !!}
-                        <div class="checkbox icheck">
-                            <label class="w-100 ml-2 form-check-inline">
-                                {!! Form::hidden('fixed_header', null) !!}
-                                {!! Form::checkbox('fixed_header', 'fixed-top', setting('fixed_header')) !!}
-                                <span class="ml-2">{!! trans("lang.app_setting_fixed_header_help") !!}</span> </label>
+                    <div class="form-group row">
+                        {!! Form::label('director_name', 'Имя', ['class' => 'col-4 control-label text-right']) !!}
+                        <div class="col-8">
+                            {!! Form::text('director_name', setting('director_name'),  ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
-                    <!-- fixed_footer Field -->
-                    <div class="form-group row ">
-                        {!! Form::label('fixed_footer', trans("lang.app_setting_fixed_footer"),['class' => 'col-4 control-label text-right']) !!}
-                        <div class="checkbox icheck">
-                            <label class="w-100 ml-2 form-check-inline">
-                                {!! Form::hidden('fixed_footer', null) !!}
-                                {!! Form::checkbox('fixed_footer', 'fixed-bottom', setting('fixed_footer')) !!}
-                                <span class="ml-2">{!! trans("lang.app_setting_fixed_footer_help") !!}</span> </label>
+                    <div class="form-group row">
+                        {!! Form::label('director_job_title', 'Имя должности', ['class' => 'col-4 control-label text-right']) !!}
+                        <div class="col-8">
+                            {!! Form::text('director_job_title', setting('director_job_title'),  ['class' => 'form-control']) !!}
                         </div>
                     </div>
-
-
                 </div>
                 <!-- Submit Field -->
                 <div class="form-group mt-4 col-12 text-right">

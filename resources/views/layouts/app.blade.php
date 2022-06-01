@@ -11,23 +11,23 @@
     <link rel="stylesheet" href="{{asset('plugins/font-awesome/css/font-awesome.min.css')}}">
 
     <!-- Ionicons -->
-{{--<link href="https://unpkg.com/ionicons@4.1.2/dist/css/ionicons.min.css" rel="stylesheet">--}}
-{{--<!-- iCheck -->--}}
-{{--<link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">--}}
-{{--<!-- select2 -->--}}
-{{--<link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">--}}
-<!-- Morris chart -->
-{{--<link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">--}}
-<!-- jvectormap -->
-{{--<link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">--}}
-<!-- Date Picker -->
-<link rel="stylesheet" href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
-<!-- Daterange picker -->
-{{--<link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">--}}
-{{--<!-- bootstrap wysihtml5 - text editor -->--}}
-{{--<link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">--}}
+    {{--<link href="https://unpkg.com/ionicons@4.1.2/dist/css/ionicons.min.css" rel="stylesheet">--}}
+    {{--<!-- iCheck -->--}}
+    {{--<link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">--}}
+    {{--<!-- select2 -->--}}
+    {{--<link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">--}}
+    <!-- Morris chart -->
+    {{--<link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">--}}
+    <!-- jvectormap -->
+    {{--<link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">--}}
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
+    <!-- Daterange picker -->
+    {{--<link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">--}}
+    {{--<!-- bootstrap wysihtml5 - text editor -->--}}
+    {{--<link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">--}}
 
-@stack('css_lib')
+    @stack('css_lib')
     <style>
         [x-cloak] {
             display: none;

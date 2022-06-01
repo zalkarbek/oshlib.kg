@@ -180,6 +180,12 @@ class UserAPIController extends AppBaseController
             ]
         );
 
+        $settings['director'] = [
+            'name' => setting('director_name'),
+            'title' => setting('director_job_title'),
+            'image' => asset("storage/director"),
+        ];
+
         if (!$settings) {
             return $this->sendError('Settings not found', 401);
         }
@@ -189,7 +195,7 @@ class UserAPIController extends AppBaseController
 
     function sendResetPassword(Request $request)
     {
-        Password::sendResetLink();
+        // Password::sendResetLink();
     }
 
     /**

@@ -61,7 +61,6 @@ class UploadController extends Controller
     public function directorImage()
     {
         $path = setting('director_image');
-        // dd($path);
         return response()->file(storage_path("app/$path"));
     }
 

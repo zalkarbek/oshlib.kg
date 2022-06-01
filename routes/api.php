@@ -25,6 +25,7 @@ Route::middleware('throttle:5')->group(function () {
 });
 
 Route::middleware('throttle:60')->group(function () {
+    Route::get('settings', 'UserAPIController@settings');
     Route::post('user/code/check', 'ResetPasswordAPIController@checkResetCode');
     Route::post('user/password/reset', 'ResetPasswordAPIController@resetPasswordWithCode');
     Route::post('user/reset-password', 'ResetPasswordAPIController@resetPassword');
