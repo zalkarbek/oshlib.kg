@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Tag;
-use App\Models\User;
 use App\Repositories\AttributeRepository;
 use App\Repositories\AuthorRepository;
 use App\Repositories\BookAttributeRepository;

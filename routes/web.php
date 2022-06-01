@@ -28,9 +28,9 @@ Route::get('/privacy-policy', function () {
     return view('settings.privacy_policy.index');
 });
 
-Route::get('teststorage', function() {
-    return \Illuminate\Support\Facades\Storage::get('dirr/test.txt');
-});
+//Route::get('teststorage', function() {
+//    return \Illuminate\Support\Facades\Storage::get('dirr/test.txt');
+//});
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
