@@ -19,6 +19,7 @@ use App\Repositories\ReviewRepository;
 use App\Repositories\UserReadingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Laravel\Sanctum\PersonalAccessToken;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -361,7 +362,8 @@ class BookAPIController extends AppBaseController
             return $this->sendError(404);
         }
 
-        $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
+        $path = Storage::disk('diskD')->path("/books/" . $book->fileDetails->id . "/pages/$page.pdf");
+        // $path = storage_path("app/books/" . $book->fileDetails->id . "/pages/$page.pdf");
 
         return Response::make(file_get_contents($path), 200, [
             'Content-Type' => 'application/pdf',
@@ -386,7 +388,8 @@ class BookAPIController extends AppBaseController
         }
 
         [$name, $ext] = explode('.', $book->fileDetails->path, 2);
-        $path = storage_path("app/" . $book->fileDetails->path . "-excerpt." . $ext);
+        $path = Storage::disk('diskD')->path("/books/" . $book->fileDetails->path . "-excerpt." . $ext);
+        // $path = storage_path("app/" . $book->fileDetails->path . "-excerpt." . $ext);
 
         return Response::make(file_get_contents($path), 200, [
             'Content-Type' => 'application/pdf',
