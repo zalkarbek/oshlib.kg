@@ -4,6 +4,7 @@
 namespace App\DataTables;
 
 use App\Models\Book;
+use App\Models\UserReading;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -28,7 +29,18 @@ class BookDataTable extends DataTable
                 return $model->authorsName(); // $model->getAuthorAttribute();
             })
             ->editColumn('readers_count', function ($model) {
-                return '0'; // $model->getAuthorAttribute();
+                $readingCount = UserReading::where('book_id', '=', $model->id)
+                    ->where('status', '=', 'reading')
+                    ->count();
+
+                return $readingCount;
+            })
+            ->editColumn('read_count', function ($model) {
+                $readCount = UserReading::where('book_id', '=', $model->id)
+                    ->where('status', '=', 'read')
+                    ->count();
+
+                return $readCount;
             })
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');
@@ -60,11 +72,18 @@ class BookDataTable extends DataTable
                 'data' => 'author_name',
                 'title' => trans('lang.author'),
                 'searchable' => false,
+                'orderable' => false
             ],
             [
                 'data' => 'readers_count',
                 'title' => 'Читают',
+                'searchable' => false, 'orderable' => false
+            ],
+            [
+                'data' => 'read_count',
+                'title' => 'Прочитали',
                 'searchable' => false,
+                'orderable' => false
             ],
             [
                 'data' => 'updated_at',
@@ -82,7 +101,7 @@ class BookDataTable extends DataTable
      */
     public function query(Book $model)
     {
-        return $model->newQuery();
+        return $model->orderBy('created_at', 'desc')->newQuery();
     }
 
     /**
