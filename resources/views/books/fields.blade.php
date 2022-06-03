@@ -4,9 +4,6 @@
         {!! Form::label('name', trans("lang.book_name"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::text('name', null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder")]) !!}
-            <div class="form-text text-muted">
-                {{ trans("lang.category_name_help") }}
-            </div>
         </div>
     </div>
 
@@ -41,6 +38,11 @@
         {!! Form::label('category_id', trans('lang.category'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::select('category_id', $categories, null, ['class' => 'select2 form-control']) !!}
+            {{--
+            <div class="form-text text-muted">
+                <div class="btn btn-white" onclick="showDialog()"><i class="fa fa-plus"></i></div>
+            </div>
+            --}}
         </div>
     </div>
 
@@ -149,6 +151,21 @@
         <livewire:books.attributes />
     @endif
 @endif
+
+<x-add-dialog id="categoryDialog" title="title">
+    <x-slot name="title">
+        Добавление категории
+    </x-slot>
+    <x-slot name="content">
+        @include('categories.forms')
+    </x-slot>
+</x-add-dialog>
+
+<script type="text/javascript">
+    function showDialog() {
+        window.categoryDialog.show();
+    }
+</script>
 
 <!-- Submit Field -->
 <div class="form-group col-12 text-right">

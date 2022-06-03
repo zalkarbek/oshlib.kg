@@ -69,6 +69,33 @@ class RentBookAPIController extends AppBaseController
         ], 'created successfully');
     }
 
+    public function readerForm(Request $request)
+    {
+        $input = $request->all();
+        $user = $request->user();
+        $reader = $user->reader;
+
+        if (!$reader) {
+            $request->validate([
+                'name' => 'required',
+                'birth_date' => 'required',
+                'passport_id' => 'required',
+                'nationality' => 'required',
+                'agreed_with_rules' => 'required',
+                'phone' => 'required'
+            ]);
+
+            $reader = new Reader();
+            $reader->user_id = $user->id;
+        }
+
+        $reader = $this->copyReader($input, $reader);
+
+        $reader->save();
+
+        return $this->sendResponse($reader, 'success');
+    }
+
     private function copyReader(array $input, Reader $reader)
     {
         $reader->name = $input['name'] ?? $reader->name;
