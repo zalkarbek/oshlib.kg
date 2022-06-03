@@ -49,7 +49,7 @@ class CategoryAPIController extends AppBaseController
         }
         $categories = $this->categoryRepository->all();
 
-        return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
+        return $this->sendResponse($categories->toArray(), 'Categories a retrieved successfully');
     }
 
     public function tree(Request $request)

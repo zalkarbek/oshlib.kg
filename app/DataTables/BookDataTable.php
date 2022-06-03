@@ -27,6 +27,9 @@ class BookDataTable extends DataTable
             ->editColumn('author_name', function ($model) {
                 return $model->authorsName(); // $model->getAuthorAttribute();
             })
+            ->editColumn('readers_count', function ($model) {
+                return '0'; // $model->getAuthorAttribute();
+            })
             ->editColumn('updated_at', function ($model) {
                 return getDateColumn($model, 'updated_at');
             })
@@ -56,6 +59,11 @@ class BookDataTable extends DataTable
             [
                 'data' => 'author_name',
                 'title' => trans('lang.author'),
+                'searchable' => false,
+            ],
+            [
+                'data' => 'readers_count',
+                'title' => 'Читают',
                 'searchable' => false,
             ],
             [

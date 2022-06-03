@@ -69,6 +69,7 @@ Route::middleware('throttle:60')->group(function () {
         });
 
         Route::post('rent-book', 'RentBookAPIController@createRent');
+        Route::post('reader-form', 'RentBookAPIController@readerForm');
     });
 
     Route::resource('books', 'BookAPIController')->except([
