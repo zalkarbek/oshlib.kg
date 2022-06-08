@@ -388,11 +388,7 @@ class BookAPIController extends AppBaseController
         }
 
         [$name, $ext] = explode('.', $book->fileDetails->path, 2);
-<<<<<<< HEAD
-        $path = Storage::disk('diskD')->path("elkitep/books/" . $book->fileDetails->path . "-excerpt." . $ext);
-=======
         $path = Storage::disk('diskD')->path("elkitep/" . $book->fileDetails->path . "-excerpt." . $ext);
->>>>>>> 28056879255b963f083b2842d75fc481cfbf85d8
         // $path = storage_path("app/" . $book->fileDetails->path . "-excerpt." . $ext);
 
         return Response::make(file_get_contents($path), 200, [
