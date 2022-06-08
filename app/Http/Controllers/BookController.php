@@ -142,6 +142,7 @@ class BookController extends AppBaseController
             $file = $this->saveBook($request);
 
             $input['file_id'] = $file->id;
+            $input['name'] = $input['book_name'];
             $input['available_for_rent'] = filter_var($input['available_for_rent'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
 
             $book = $this->bookRepository->create($input);
@@ -275,15 +276,13 @@ class BookController extends AppBaseController
 
     private function saveBook(Request $request)
     {
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $name = $request->file('file')->getClientOriginalName();
-            $mimeType = $request->file('file')->getClientMimeType();
-            $fileSize = $request->file('file')->getSize();
+        if ($request->hasFile('book_file') && $request->file('book_file')->isValid()) {
+            $name = $request->file('book_file')->getClientOriginalName();
+            $mimeType = $request->file('book_file')->getClientMimeType();
+            $fileSize = $request->file('book_file')->getSize();
 
             $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'file_size' => $fileSize, 'path' => '']);
 
-            $fileName = $request->file->getClientOriginalName();
-            $ext = $request->file->getClientOriginalExtension();
             $path = Storage::disk('diskD')->put('elkitep/books/' . $file->id, $request->file('file'));
             // $path = $request->file('file')->store('books/' . $file->id);
 

@@ -25,8 +25,8 @@ class CreateBookRequest extends FormRequest
     {
         return [
             // 'image' => 'required|mimes:png,jpg,svg,bmp',
-            'file' => 'required|mimes:pdf',
-            'name' => 'required|max:200',
+            'book_file' => 'required|mimes:pdf',
+            'book_name' => 'required|max:200',
             // 'description' => 'required',
             'category_id' => 'required',
             'authors' => 'required',

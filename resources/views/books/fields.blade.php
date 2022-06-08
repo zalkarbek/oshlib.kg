@@ -1,9 +1,9 @@
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
     <!-- Name Field -->
     <div class="form-group row ">
-        {!! Form::label('name', trans("lang.book_name"), ['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('book_name', trans("lang.book_name"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('name', null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder")]) !!}
+            {!! Form::text('book_name', null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder"), 'required' => 'required']) !!}
         </div>
     </div>
 
@@ -64,9 +64,9 @@
 
     <!-- Category Id Field -->
     <div class="form-group row ">
-        {!! Form::label('file', trans('lang.book'),['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('book_file', trans('lang.book'),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::file('file', ['class' => 'select2 form-control', 'accept' => 'application/pdf']) !!}
+            {!! Form::file('book_file', ['class' => 'select2 form-control', 'accept' => 'application/pdf']) !!}
         </div>
     </div>
 
