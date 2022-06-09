@@ -220,12 +220,13 @@ class BookController extends AppBaseController
     {
         $input = $request->all();
         $input['available_for_rent'] = filter_var($input['available_for_rent'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
+        $input['name'] = $input['book_name'];
         try {
-            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            if ($request->hasFile('book_file') && $request->file('book_file')->isValid()) {
                 // unlink(storage_path($book->fileDetails->path));
-                deleteDirWithFiles($book->fileDetails->id);
+                deleteDirWithFiles(Storage::disk('diskD')->path($book->fileDetails->path));
                 $file = $this->saveBook($request);
-                splitPdf(storage_path('app/' . $file->path));
+                splitPdf(Storage::disk('diskD')->path($file->path));
 
                 $input['file_id'] = $file->id;
             }
@@ -283,7 +284,7 @@ class BookController extends AppBaseController
 
             $file = $this->fileRepository->create(['name' => $name, 'mime_type' => $mimeType, 'file_size' => $fileSize, 'path' => '']);
 
-            $path = Storage::disk('diskD')->put('elkitep/books/' . $file->id, $request->file('file'));
+            $path = Storage::disk('diskD')->putFile('elkitep/books/' . $file->id, $request->file('book_file'));
             // $path = $request->file('file')->store('books/' . $file->id);
 
             $file->path = $path;

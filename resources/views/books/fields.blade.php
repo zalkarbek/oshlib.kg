@@ -3,7 +3,7 @@
     <div class="form-group row ">
         {!! Form::label('book_name', trans("lang.book_name"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('book_name', null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder"), 'required' => 'required']) !!}
+            {!! Form::text('book_name', isset($book) ? $book->name : null,  ['class' => 'form-control','placeholder'=>  trans("lang.category_name_placeholder")]) !!}
         </div>
     </div>
 

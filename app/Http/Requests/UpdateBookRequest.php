@@ -25,9 +25,9 @@ class UpdateBookRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required',
+            // 'description' => 'required',
             'category_id' => 'required',
-            'author_id' => 'required',
+            // 'author_id' => 'required',
             'release_date' => 'required',
             'page_count' => 'required|min:0'
         ];

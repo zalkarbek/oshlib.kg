@@ -80,7 +80,7 @@ class UserAPIController extends AppBaseController
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 403);
         }
-
+        throw \Exception("error");
         return $this->sendError([], 401);
     }
 
