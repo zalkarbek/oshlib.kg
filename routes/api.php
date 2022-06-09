@@ -22,6 +22,7 @@ Route::middleware('throttle:1')->group(function() {
 
 Route::middleware('throttle:5')->group(function () {
     Route::post('register', 'UserAPIController@register');
+    Route::post('register-v2', 'UserAPIController@registerV2');
 });
 
 Route::middleware('throttle:60')->group(function () {

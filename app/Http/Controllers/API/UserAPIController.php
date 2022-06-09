@@ -80,7 +80,7 @@ class UserAPIController extends AppBaseController
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 403);
         }
-        throw \Exception("error");
+
         return $this->sendError([], 401);
     }
 
@@ -103,23 +103,9 @@ class UserAPIController extends AppBaseController
                 $user->password = Hash::make($generatedPassword);
 
                 $user->save();
-
-
             } else {
-                $user = new User;
-                $user->name = $request->input('name');
-                $user->login = $request->input('login');
-                $user->email = $request->input('email');
-                $user->fcm_token = $request->input('fcm_token', '');
                 $generatedPassword = str_random(6);
-                $user->password = Hash::make($generatedPassword);
-                // $user->password = Hash::make($request->input('password'));
-
-                $user->save();
-
-                // $defaultRoles = $this->roleRepository->find(3);
-                // $defaultRoles = $defaultRoles->pluck('name')->toArray();
-                $user->assignRole('client');
+                $user = $this->createUser($request, $generatedPassword);
             }
 
             // Send email to user
@@ -134,12 +120,49 @@ class UserAPIController extends AppBaseController
             return $this->sendError($e->getMessage(), 405);
         }
 
-
-
         // $data = $user->toArray();
         ///$data['token'] = $user->createToken(str_random(20))->plainTextToken;
 
         return $this->sendResponse($user, 'User registered successfully');
+    }
+
+    function registerV2(RegisterRequest $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                return $this->sendError('Пользователь с таким email уже существует', 422);
+            } else {
+                $user = $this->createUser($request);
+            }
+
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), 405);
+        }
+
+        $data = $user->toArray();
+        $data['token'] = $user->createToken(str_random(20))->plainTextToken;
+
+        return $this->sendResponse($data, 'User registered successfully');
+    }
+
+    private function createUser(Request $request, $generatedPassword = null)
+    {
+        $user = new User;
+        $user->name = $request->input('name');
+        $user->login = $request->input('login');
+        $user->email = $request->input('email');
+        $user->fcm_token = $request->input('fcm_token', '');
+        $user->password = Hash::make($generatedPassword ?? $request->input('password'));
+        // $user->password = Hash::make($request->input('password'));
+
+        $user->save();
+
+        // $defaultRoles = $this->roleRepository->find(3);
+        // $defaultRoles = $defaultRoles->pluck('name')->toArray();
+        $user->assignRole('client');
+
+        return $user;
     }
 
     function logout(Request $request)
