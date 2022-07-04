@@ -766,3 +766,9 @@ function debugLog($log, $fileName = 'debug.txt')
 
     file_put_contents($path . $fileName, $log);
 }
+
+function debugConsole($message, $type = 'info')
+{
+    $output = new \Symfony\Component\Console\Output\ConsoleOutput();
+    $output->writeln("<$type>$message</$type>");
+}

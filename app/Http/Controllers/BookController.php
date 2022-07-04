@@ -138,7 +138,6 @@ class BookController extends AppBaseController
         $input = $request->all();
 
         try {
-
             $file = $this->saveBook($request);
 
             $input['file_id'] = $file->id;
@@ -173,6 +172,84 @@ class BookController extends AppBaseController
         return redirect(route('books.index'));
     }
 
+    public function storeFromJson(Request $request)
+    {
+        $items = json_decode($request->input('json'));
+        foreach ($items as $item) {
+            // --------------------------------------------------
+            $f = new \Illuminate\Http\File($item->book_file);
+            $file = $this->fileRepository->create([
+                'name' => $f->getBasename(),
+                'mime_type' => $f->getMimeType(),
+                'file_size' => $f->getSize(),
+                'path' => ''
+            ]);
+            $path = Storage::disk('diskD')->putFile('elkitep/books/' . $file->id, $f);
+            $file->path = $path;
+            $file->save();
+            // --------------------------------------------------
+
+            $tags = [];
+            $this->fillWith($item->tags, function($item) {
+                return $this->tagRepository->findByField('name', $item)->first();
+            }, function($item) {
+                return $this->tagRepository->create(['name' => $item, 'type' => 'genre', 'description' => '']);
+            }, $tags);
+
+            $authors = [];
+            $this->fillWith($item->authors, function($item) {
+                return $this->authorRepository->findByField('name', $item)->first();
+            }, function($item) {
+                return $this->authorRepository->create(['name' => $item, 'description' => '']);
+            }, $authors);
+
+            $category = $this->categoryRepository->findByField('name', $item->category)->first();
+            if (!$category) {
+                $category = $this->categoryRepository->create(['name' => $item->category]);
+            }
+
+            $publisher = $this->publisherRepository->findByField('name', $item->publisher)->first();
+            if (!$publisher) {
+                $publisher = $this->publisherRepository->create(['name' => $item->publisher, 'description' => '']);
+            }
+
+            $input = [
+                'file_id' => $file->id,
+                'name' => $item->book_name,
+                'description' => $item->description ?? '',
+                'category_id' => $category->id,
+                'publisher_id' => $publisher->id,
+                'page_count' => $item->page_count,
+                'release_date' => $item->release_date ?? null,
+                'writing_date' => $item->writing_date ?? null,
+                'has_variants' => $item->has_variants ?? 'all',
+                'available_for_rent' => filter_var($item->available_for_rent ?? 'true', FILTER_VALIDATE_BOOLEAN)
+            ];
+
+            $book = $this->bookRepository->create($input);
+            $this->addAuthorsToBook($authors, $book->id);
+            $this->addTagsToBook($tags, $book->id);
+
+            splitPdf(Storage::disk('diskD')->path($file->path));
+        }
+
+        Flash::success(__('lang.saved_successfully', ['operator' => __('lang.book')]));
+
+        return redirect(route('books.index'));
+    }
+
+    private function fillWith($items, $hasItem, $create, &$fillArr)
+    {
+        foreach ($items as $item) {
+            $ii = $hasItem($item);
+            if ($ii) {
+                $fillArr[] = $ii->id;
+            } else {
+                $fillArr[] = $create($item)->id;
+            }
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -205,8 +282,8 @@ class BookController extends AppBaseController
         $releaseDate = Carbon::parse($book->release_date);
         $writingDate = Carbon::parse($book->writing_date);
 
-        return view('books.edit', compact(['book', 'categories', 'authors',
-            'publishers', 'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate', 'bookAuthors']));
+        return view('books.edit', compact(['book', 'categories', 'authors', 'publishers',
+            'attributes', 'tags', 'bookTags', 'releaseDate', 'writingDate', 'bookAuthors']));
     }
 
     /**

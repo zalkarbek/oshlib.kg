@@ -1,0 +1,22 @@
+[
+    {
+        "tags": ["фентези", "a"],
+        "authors": ["Уилям Шекспир", "Author"],
+        "category": "Фантастика",
+        "publisher": "Издатель 1",
+        "book_file": "/Users/admin/Downloads/pixel_logic.pdf",
+        "book_name": "Pixel Logic",
+        "description": "",
+        "page_count": 242
+    },
+    {
+        "tags": ["фентези", "a"],
+        "authors": ["Уилям Шекспир", "Author"],
+        "category": "Фантастика",
+        "publisher": "Издатель 1",
+        "book_file": "/Users/admin/Downloads/pixel_logic.pdf",
+        "book_name": "Pixel Logic 1",
+        "description": "",
+        "page_count": 242
+    }
+]

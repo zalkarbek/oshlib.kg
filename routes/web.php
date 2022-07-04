@@ -91,6 +91,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('authors', 'App\Http\Controllers\AuthorController');
     Route::resource('publishers', 'App\Http\Controllers\PublisherController');
     Route::resource('attributes', 'App\Http\Controllers\AttributeController');
+
+    // -----------------------------------------------------------------------------------------------------------------
+    Route::get('books/createdev', function () {
+        return view('books.createfromjson');
+    });
+    Route::post('books/create-from-json', 'App\Http\Controllers\BookController@storeFromJson');
+    // -----------------------------------------------------------------------------------------------------------------
+
     Route::resource('books', 'App\Http\Controllers\BookController');
     Route::resource('articles/categories', 'App\Http\Controllers\ArticleCategoryController')->names('articles.categories');
     Route::resource('articles', 'App\Http\Controllers\ArticleController');
