@@ -49,7 +49,6 @@ class UploadController extends Controller
             $filename = $conversion;
             return response()->file(storage_path('app/public/' . $id . '/' . $filename));
         }
-
     }
 
     public function bookCover($id)

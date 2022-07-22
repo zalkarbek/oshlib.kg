@@ -56,7 +56,7 @@
       </ul>
     </div>
     <div class="card-body">
-        {!! Form::model($rentedBook, ['route' => ['readers.update', $rentedBook->id], 'method' => 'patch']) !!}
+        {!! Form::model($reader, ['route' => ['readers.update', $reader->id], 'method' => 'patch']) !!}
         <div class="row">
             @include('readers.fields')
         </div>

@@ -1,17 +1,17 @@
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
     <!-- Name Field -->
     <div class="form-group row ">
-      {!! Form::label('name', 'Имя', ['class' => 'col-3 control-label text-right']) !!}
-      <div class="col-9">
-        {!! Form::text('name', null,  ['class' => 'form-control','placeholder' => 'Введите имя']) !!}
-      </div>
+        {!! Form::label('sur_name', 'Фамиля', ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('sur_name', null,  ['class' => 'form-control','placeholder' => 'Введите фамилю']) !!}
+        </div>
     </div>
 
     <!-- Name Field -->
     <div class="form-group row ">
-        {!! Form::label('sur_name', 'Фамиля', ['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('name', 'Имя', ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('sur_name', null,  ['class' => 'form-control','placeholder' => 'Введите фамилю']) !!}
+            {!! Form::text('name', null,  ['class' => 'form-control','placeholder' => 'Введите имя']) !!}
         </div>
     </div>
 

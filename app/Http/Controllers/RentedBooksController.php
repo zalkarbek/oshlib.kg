@@ -46,7 +46,7 @@ class RentedBooksController extends Controller
      */
     public function create()
     {
-        $users = Reader::join('users', 'users.id', '=', 'readers.user_id')->pluck('users.name', 'readers.id');
+        $users = Reader::all()->pluck('users.name', 'readers.id');
 
         return view('rented-books.create', compact(['users']));
     }
