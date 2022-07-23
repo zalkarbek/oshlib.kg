@@ -46,7 +46,7 @@ class RentedBooksController extends Controller
      */
     public function create()
     {
-        $users = Reader::all()->pluck('users.name', 'readers.id');
+        $users = Reader::all()->pluck('name', 'readers.id');
 
         return view('rented-books.create', compact(['users']));
     }
@@ -90,7 +90,8 @@ class RentedBooksController extends Controller
      */
     public function edit(RentedBooks $rentedBook)
     {
-        $users = Reader::join('users', 'users.id', '=', 'readers.user_id')->pluck('users.name', 'readers.id');
+        $users = Reader::all()->pluck('name', 'readers.id');
+
         $issueDate = Carbon::parse($rentedBook->issue_date);
         $returnDate = Carbon::parse($rentedBook->return_date);
 
