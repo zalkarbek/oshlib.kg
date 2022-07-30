@@ -66,7 +66,7 @@
 
     <div class="form-group row">
         {!! Form::label('reader_id', 'Читатель', ['class' => 'col-3 control-label text-right']) !!}
-        <div class="checkbox">
+        <div class="checkbox col-9">
             {!! Form::select('reader_id', $users, null, ['class' => 'select2 form-control']) !!}
         </div>
     </div>
